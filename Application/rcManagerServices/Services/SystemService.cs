@@ -1,7 +1,6 @@
 ﻿using rcManagerDatas.Interfaces;
 using rcManagerServices.Interfaces;
-using rcManagerTransfer.Interfaces;
-using rcManagerTransfer.Transfers;
+using rcManagerTransfers.Transfers;
 
 namespace rcManagerServices.Services
 {
@@ -14,7 +13,7 @@ namespace rcManagerServices.Services
             this.systemData = systemData;
         }
 
-        public SystemTransfer list(ISystemTransfer systemTransfer)
+        public SystemTransfer list(SystemTransfer systemTransfer)
         {
             SystemTransfer systemTransferRet = systemData.list(systemTransfer);
 

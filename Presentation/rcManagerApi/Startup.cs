@@ -3,10 +3,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using di = rcManagerApi.DI.Configure;
-using diServices = rcManagerServices.DI.Configure;
 using diDatas = rcManagerDatas.DI.Configure;
-using diTransfers = rcManagerTransfers.DI.Configure;
+using diServices = rcManagerServices.DI.Configure;
 
 namespace rcManagerApi
 {
@@ -23,10 +21,8 @@ namespace rcManagerApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            di.ConfigureServices(services);
             diServices.ConfigureServices(services);
             diDatas.ConfigureServices(services);
-            diTransfers.ConfigureServices(services);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

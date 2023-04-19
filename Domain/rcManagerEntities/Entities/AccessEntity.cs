@@ -1,8 +1,6 @@
-﻿using rcManagerEntities.Interfaces;
-
-namespace rcManagerEntities.Entities
+﻿namespace rcManagerEntities.Entities
 {
-    public class AccessEntity : IAccessEntity
+    public class AccessEntity
     {
         
     }

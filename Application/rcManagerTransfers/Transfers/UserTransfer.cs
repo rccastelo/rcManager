@@ -1,8 +1,9 @@
-﻿using rcManagerTransfer.Interfaces;
+﻿using System;
 
-namespace rcManagerTransfer.Transfers
+namespace rcManagerTransfers.Transfers
 {
-    public class UserTransfer : IUserTransfer
+    [Serializable]
+    public class UserTransfer
     {
         
     }

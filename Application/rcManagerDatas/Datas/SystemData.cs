@@ -1,16 +1,19 @@
 ﻿using rcManagerDatas.Interfaces;
-using rcManagerTransfer.Interfaces;
-using rcManagerTransfer.Transfers;
+using rcManagerEntities.Entities;
+using rcManagerTransfers.Transfers;
 
 namespace rcManagerDatas.Datas
 {
     public class SystemData : ISystemData
     {
-        public SystemTransfer list(ISystemTransfer systemTransfer)
+        public SystemTransfer list(SystemTransfer systemTransfer)
         {
             SystemTransfer st = new SystemTransfer();
 
-            st.name = "teste";
+            st.entity = new SystemEntity();
+            st.entity.id = 1;
+            st.entity.name = "name um";
+            st.entity.description = "description um";
 
             return st;
         }

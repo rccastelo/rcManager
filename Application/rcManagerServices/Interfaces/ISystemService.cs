@@ -1,10 +1,9 @@
-﻿using rcManagerTransfer.Interfaces;
-using rcManagerTransfer.Transfers;
+﻿using rcManagerTransfers.Transfers;
 
 namespace rcManagerServices.Interfaces
 {
     public interface ISystemService
     {
-        public SystemTransfer list(ISystemTransfer systemTransfer);
+        public SystemTransfer list(SystemTransfer systemTransfer);
     }
 }

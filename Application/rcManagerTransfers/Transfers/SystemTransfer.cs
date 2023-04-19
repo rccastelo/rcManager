@@ -1,11 +1,13 @@
 ﻿using rcManagerEntities.Entities;
-using rcManagerEntities.Interfaces;
-using rcManagerTransfer.Interfaces;
+using System;
 
-namespace rcManagerTransfer.Transfers
+namespace rcManagerTransfers.Transfers
 {
-    public class SystemTransfer : SystemEntity, ISystemTransfer
+    [Serializable]
+    public class SystemTransfer : TransferBase<SystemEntity>       
     {
-        
+        public SystemTransfer() : base() { }
+
+        public SystemTransfer(SystemTransfer transfer) : base(transfer) { }
     }
 }

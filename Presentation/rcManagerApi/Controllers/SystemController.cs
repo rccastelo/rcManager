@@ -1,8 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using rcManagerServices.Interfaces;
-using rcManagerTransfer.Interfaces;
-using rcManagerTransfer.Transfers;
+using rcManagerTransfers.Transfers;
 
 namespace rcManagerApi.Controllers
 {
@@ -11,18 +10,18 @@ namespace rcManagerApi.Controllers
     public class SystemController : ControllerBase
     {
         private readonly ISystemService systemService;
-        private ISystemTransfer systemTransfer;
+        private SystemTransfer systemTransfer;
 
-        public SystemController(ISystemService systemService,
-                ISystemTransfer systemTransfer)
+        public SystemController(ISystemService systemService)
         {
             this.systemService = systemService;
-            this.systemTransfer = systemTransfer;
         }
 
         [HttpGet]
         public string list()
         {
+            this.systemTransfer = new SystemTransfer();
+
             SystemTransfer systemTransferRet = systemService.list(systemTransfer);
 
             return JsonConvert.SerializeObject(systemTransferRet);
