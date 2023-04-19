@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Application\rcManagerDatas\rcManagerDatas.csproj" />
+    <ProjectReference Include="..\..\Application\rcManagerServices\rcManagerServices.csproj" />
+    <ProjectReference Include="..\..\Application\rcManagerTransfers\rcManagerTransfers.csproj" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+
+</Project>

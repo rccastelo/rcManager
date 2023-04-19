@@ -1,0 +1,31 @@
+
+
+Presentation
+  rcManagerWeb
+  
+Application
+  rcManagerTransfers (1)
+  rcManagerWebServices
+
+
+Presentation
+  rcManagerApi
+  rcManagerSystemApi
+  rcManagerUserApi
+  rcManagerAccessApi
+
+Application
+  rcManagerTransfers (1)
+  rcManagerServices
+  rcManagerDatas
+
+Domain
+  rcManagerEntities
+  rcManagerBusiness 
+  rcManagerModels
+
+Infrastructure
+  rcManagerDatabase
+  rcManagerUtils
+  rcManagerCrypto
+
