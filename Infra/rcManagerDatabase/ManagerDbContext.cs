@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using rcManagerEntities.Entities;
 
 namespace rcManagerDatabase
 {
@@ -8,5 +9,7 @@ namespace rcManagerDatabase
         {
             optionsBuilder.UseSqlServer(Settings.GetConnectionString());
         }
+
+        public DbSet<SystemEntity> Systems { get; set; }
     }
 }

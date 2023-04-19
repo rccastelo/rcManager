@@ -1,0 +1,3 @@
+﻿dotnet ef dbcontext list
+dotnet ef migrations add "Configuracao inicial"
+dotnet ef database update

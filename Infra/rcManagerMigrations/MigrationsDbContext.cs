@@ -1,4 +1,4 @@
-﻿using rcManagerDatabase;
+using rcManagerDatabase;
 
 namespace rcManagerMigrations
 {
