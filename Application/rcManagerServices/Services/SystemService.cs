@@ -1,6 +1,8 @@
 ﻿using rcManagerDatas.Interfaces;
+using rcManagerEntities.Entities;
 using rcManagerServices.Interfaces;
 using rcManagerTransfers.Transfers;
+using System.Collections.Generic;
 
 namespace rcManagerServices.Services
 {
@@ -15,7 +17,11 @@ namespace rcManagerServices.Services
 
         public SystemTransfer list(SystemTransfer systemTransfer)
         {
-            SystemTransfer systemTransferRet = systemData.list(systemTransfer);
+            IList<SystemEntity> lista = systemData.list();
+
+            SystemTransfer systemTransferRet = new SystemTransfer();
+
+            systemTransferRet.list = lista;
 
             return systemTransferRet;
         }

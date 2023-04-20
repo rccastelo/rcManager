@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace rcManagerTransfers.Transfers
 {
     [Serializable]
-    public abstract class TransferBase<T> where T : new()
+    public abstract class TransferBase<T>
     {
         public bool valid { get; set; }
         public bool error { get; set; }

@@ -1,9 +1,8 @@
-﻿using rcManagerTransfers.Transfers;
+﻿using rcManagerEntities.Entities;
 
 namespace rcManagerDatas.Interfaces
 {
-    public interface ISystemData
+    public interface ISystemData : IDatasBase<SystemEntity>
     {
-        SystemTransfer list(SystemTransfer systemTransfer);
     }
 }

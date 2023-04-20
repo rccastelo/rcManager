@@ -6,13 +6,8 @@ namespace rcManagerEntities.Entities
 {
     [Serializable]
     [Table("Systems")]
-    public class SystemEntity
+    public class SystemEntity : EntityBase
     {
-        [Column("id", Order = 1)]
-        [Required]
-        [Key]
-        public long id { get; set; }
-
         [Column("name", Order = 2)]
         [Required]
         [StringLength(50)]

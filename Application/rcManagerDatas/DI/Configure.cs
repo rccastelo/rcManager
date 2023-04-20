@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using rcManagerDatas.Interfaces;
 using rcManagerDatas.Datas;
+using rcManagerDatas.Interfaces;
+using diDatabase = rcManagerDatabase.DI.Configure;
 
 namespace rcManagerDatas.DI
 {
@@ -8,6 +9,7 @@ namespace rcManagerDatas.DI
     {
         public static void ConfigureServices(IServiceCollection services)
         {
+            diDatabase.ConfigureServices(services);
             services.AddScoped<ISystemData, SystemData>();
             services.AddScoped<IUserData, UserData>();
             services.AddScoped<IAccessData, AccessData>();
