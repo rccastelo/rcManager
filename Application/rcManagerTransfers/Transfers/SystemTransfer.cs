@@ -1,10 +1,10 @@
-﻿using rcManagerEntities.Entities;
+﻿using rcManagerModels.Models;
 using System;
 
 namespace rcManagerTransfers.Transfers
 {
     [Serializable]
-    public class SystemTransfer : TransferBase<SystemEntity>       
+    public class SystemTransfer : TransferBase<SystemModel>       
     {
         public SystemTransfer() : base() { }
 

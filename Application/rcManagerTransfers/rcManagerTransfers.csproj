@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Domain\rcManagerEntities\rcManagerEntities.csproj" />
+    <ProjectReference Include="..\..\Domain\rcManagerModels\rcManagerModels.csproj" />
   </ItemGroup>
 
 </Project>

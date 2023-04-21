@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace rcManagerEntities.Entities
+namespace rcManagerEntities
 {
     [Serializable]
     public abstract class EntityBase

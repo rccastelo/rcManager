@@ -9,7 +9,7 @@ namespace rcManagerTransfers.Transfers
         public bool valid { get; set; }
         public bool error { get; set; }
         public IList<string> messages { get; set; }
-        public T entity { get; set; }
+        public T item { get; set; }
         public IList<T> list { get; set; }
 
         public TransferBase()
@@ -35,9 +35,9 @@ namespace rcManagerTransfers.Transfers
                     this.list = new List<T>(transfer.list);
                 }
 
-                if (transfer.entity != null)
+                if (transfer.item != null)
                 {
-                    this.entity = (T)Activator.CreateInstance(typeof(T), transfer.entity);
+                    this.item = (T)Activator.CreateInstance(typeof(T), transfer.item);
                 }
             }
         }
@@ -55,16 +55,16 @@ namespace rcManagerTransfers.Transfers
             }
         }
 
-        public void addEntity(T entity)
+        public void addModel(T model)
         {
-            if (entity != null)
+            if (model != null)
             {
                 if (this.list == null)
                 {
                     this.list = new List<T>();
                 }
 
-                this.list.Add(entity);
+                this.list.Add(model);
             }
         }
     }

@@ -8,6 +8,7 @@ namespace rcManagerDatas.Datas
     {
         public SystemData(ManagerDbContext context) : base(context)
         {
+
         }
     }
 }

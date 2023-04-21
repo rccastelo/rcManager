@@ -1,6 +1,6 @@
 ﻿using rcManagerDatabase;
 using rcManagerDatas.Interfaces;
-using rcManagerEntities.Entities;
+using rcManagerEntities;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -25,19 +25,24 @@ namespace rcManagerDatas.Datas
             return _context.Set<Entity>().ToList();
         }
 
-        public void insert(Entity entity)
+        public Entity insert(Entity entity)
         {
-            _context.Set<Entity>().Add(entity);
+            return _context.Set<Entity>().Add(entity).Entity;
         }
 
-        public void update(Entity entity)
+        public Entity update(Entity entity)
         {
-            _context.Set<Entity>().Update(entity);
+            return _context.Set<Entity>().Update(entity).Entity;
         }
 
-        public void delete(Entity entity)
+        public Entity delete(Entity entity)
         {
-            _context.Set<Entity>().Remove(entity);
+            return _context.Set<Entity>().Remove(entity).Entity;
+        }
+
+        public void save()
+        {
+            this._context.SaveChanges();
         }
     }
 }

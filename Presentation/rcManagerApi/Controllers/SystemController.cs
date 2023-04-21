@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 using rcManagerServices.Interfaces;
 using rcManagerTransfers.Transfers;
+using System;
 
 namespace rcManagerApi.Controllers
 {
@@ -9,46 +9,92 @@ namespace rcManagerApi.Controllers
     [Route("[controller]")]
     public class SystemController : ControllerBase
     {
-        private readonly ISystemService systemService;
+        private readonly ISystemService _systemService;
 
-        public SystemController(ISystemService systemService)
+        public SystemController(ISystemService systemService) 
         {
-            this.systemService = systemService;
+            this._systemService = systemService;
         }
 
         [HttpGet]
-        public string list()
+        public IActionResult list(SystemTransfer systemTransfer) 
         {
-            SystemTransfer systemTransfer = new SystemTransfer();
+            SystemTransfer systemTransferRet;
 
-            SystemTransfer systemTransferRet = systemService.list(systemTransfer);
+            try {
+                systemTransferRet = _systemService.list(systemTransfer);
+            } catch (Exception ex) {
+                systemTransferRet = new SystemTransfer();
+                systemTransferRet.valid = false;
+                systemTransferRet.error = true;
+                systemTransferRet.addMessage("Erro ao listar Sistemas");
+            }
 
-            return JsonConvert.SerializeObject(systemTransferRet);
+            if (systemTransferRet.error || !systemTransferRet.valid) {
+                return BadRequest(systemTransferRet);
+            } else {
+                return Ok(systemTransferRet);
+            }
         }
 
         [HttpGet("{id}")]
-        public string get()
+        public IActionResult get(long id) 
         {
-            SystemTransfer systemTransfer = new SystemTransfer();
+            SystemTransfer systemTransferRet;
 
-            SystemTransfer systemTransferRet = systemService.get(systemTransfer);
+            try
+            {
+                systemTransferRet = _systemService.get(id);
+            }
+            catch (Exception ex) {
+                systemTransferRet = new SystemTransfer();
+                systemTransferRet.valid = false;
+                systemTransferRet.error = true;
+                systemTransferRet.addMessage("Erro ao consultar Sistema");
+            }
 
-            return "JsonConvert.SerializeObject(systemTransferRet)";
+            if (systemTransferRet.error || !systemTransferRet.valid) {
+                return BadRequest(systemTransferRet);
+            } else {
+                return Ok(systemTransferRet);
+            }
         }
 
         [HttpPost]
-        public void insert() {
-            
+        public IActionResult insert(SystemTransfer systemTransfer) 
+        {
+            SystemTransfer systemTransferRet;
+
+            try
+            {
+                systemTransferRet = _systemService.insert(systemTransfer);
+            }
+            catch (Exception ex)
+            {
+                systemTransferRet = new SystemTransfer();
+                systemTransferRet.valid = false;
+                systemTransferRet.error = true;
+                systemTransferRet.addMessage("Erro ao incluir Sistema");
+            }
+
+            if (systemTransferRet.error || !systemTransferRet.valid)
+            {
+                return BadRequest(systemTransferRet);
+            }
+            else
+            {
+                return Ok(systemTransferRet);
+            }
         }
 
         [HttpPut]
-        public void update()
+        public void update() 
         {
 
         }
 
         [HttpDelete]
-        public void delete()
+        public void delete() 
         {
 
         }

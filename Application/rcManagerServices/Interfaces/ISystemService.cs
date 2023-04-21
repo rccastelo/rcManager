@@ -4,7 +4,10 @@ namespace rcManagerServices.Interfaces
 {
     public interface ISystemService
     {
-        public SystemTransfer list(SystemTransfer systemTransfer);
-        public SystemTransfer get(SystemTransfer systemTransfer);
+        SystemTransfer list(SystemTransfer systemTransfer);
+        SystemTransfer get(long id);
+        SystemTransfer insert(SystemTransfer systemTransfer);
+        SystemTransfer update(SystemTransfer systemTransfer);
+        SystemTransfer delete(long id);
     }
 }
