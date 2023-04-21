@@ -4,7 +4,7 @@ namespace rcManagerDatas.Interfaces
 {
     public interface IDatasBase<Entity>
     {
-        Entity get(int id);
+        Entity get(long id);
 
         void insert(Entity entity);
 

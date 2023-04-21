@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace rcManagerEntities.Entities
 {
     [Serializable]
-    public class EntityBase
+    public abstract class EntityBase
     {
         [Column("id", Order = 1)]
         [Required]

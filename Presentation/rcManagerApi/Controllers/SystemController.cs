@@ -10,7 +10,6 @@ namespace rcManagerApi.Controllers
     public class SystemController : ControllerBase
     {
         private readonly ISystemService systemService;
-        private SystemTransfer systemTransfer;
 
         public SystemController(ISystemService systemService)
         {
@@ -20,17 +19,21 @@ namespace rcManagerApi.Controllers
         [HttpGet]
         public string list()
         {
-            this.systemTransfer = new SystemTransfer();
+            SystemTransfer systemTransfer = new SystemTransfer();
 
             SystemTransfer systemTransferRet = systemService.list(systemTransfer);
 
             return JsonConvert.SerializeObject(systemTransferRet);
         }
 
-        [HttpGet("/{id}")]
-        public void get()
+        [HttpGet("{id}")]
+        public string get()
         {
+            SystemTransfer systemTransfer = new SystemTransfer();
 
+            SystemTransfer systemTransferRet = systemService.get(systemTransfer);
+
+            return "JsonConvert.SerializeObject(systemTransferRet)";
         }
 
         [HttpPost]

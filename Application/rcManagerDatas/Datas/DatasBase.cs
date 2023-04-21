@@ -15,7 +15,7 @@ namespace rcManagerDatas.Datas
             this._context = context;
         }
 
-        public Entity get(int id)
+        public Entity get(long id)
         {
             return _context.Set<Entity>().SingleOrDefault(et => et.id == id);
         }

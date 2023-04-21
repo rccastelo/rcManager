@@ -9,6 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Domain\rcManagerModels\rcManagerModels.csproj" />
     <ProjectReference Include="..\rcManagerDatas\rcManagerDatas.csproj" />
     <ProjectReference Include="..\rcManagerTransfers\rcManagerTransfers.csproj" />
   </ItemGroup>
