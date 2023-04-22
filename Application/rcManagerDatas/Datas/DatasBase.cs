@@ -34,9 +34,6 @@ namespace rcManagerDatas.Datas
 
         public virtual Entity update(Entity entity)
         {
-            //_context.Entry<Entity>(entity).State = EntityState.Modified;
-            //return entity;
-
             return _context.Set<Entity>().Update(entity).Entity;
         }
 

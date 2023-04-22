@@ -5,7 +5,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Application\rcManagerDatas\rcManagerDatas.csproj" />
     <ProjectReference Include="..\..\Application\rcManagerServices\rcManagerServices.csproj" />
     <ProjectReference Include="..\..\Application\rcManagerTransfers\rcManagerTransfers.csproj" />
   </ItemGroup>
