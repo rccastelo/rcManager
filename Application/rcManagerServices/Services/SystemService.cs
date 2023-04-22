@@ -11,9 +11,10 @@ namespace rcManagerServices.Services
 {
     public class SystemService : ISystemService
     {
+        
         private readonly ISystemData _systemData;
 
-        public SystemService(ISystemData systemData) : base()
+        public SystemService(ISystemData systemData)
         {
             this._systemData = systemData;
         }
@@ -51,7 +52,7 @@ namespace rcManagerServices.Services
                 SystemEntity systemEntityRet = _systemData.get(id);
 
                 if (systemEntityRet == null) {
-                    systemTransferRet.addMessage("Nenhum registro encontrado");
+                    systemTransferRet.addMessage("Registro não encontrado");
                 } else {
                     systemTransferRet.item = new SystemModel(systemEntityRet);
                 }

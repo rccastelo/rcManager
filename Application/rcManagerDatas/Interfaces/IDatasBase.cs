@@ -10,5 +10,6 @@ namespace rcManagerDatas.Interfaces
         Entity update(Entity entity);
         Entity delete(Entity entity);
         void save();
+        void cancel();
     }
 }

@@ -1,4 +1,6 @@
-﻿using rcManagerDatabase;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
+using rcManagerDatabase;
 using rcManagerDatas.Interfaces;
 using rcManagerEntities;
 using System.Collections.Generic;
@@ -8,21 +10,21 @@ namespace rcManagerDatas.Datas
 {
     public abstract class DatasBase<Entity> : IDatasBase<Entity> where Entity : EntityBase
     {
-        public readonly ManagerDbContext _context;
+        private readonly ManagerDbContext _context;
 
-        public DatasBase(ManagerDbContext context)
+        protected DatasBase(ManagerDbContext context)
         {
             this._context = context;
         }
 
         public Entity get(long id)
         {
-            return _context.Set<Entity>().SingleOrDefault(et => et.id == id);
+            return _context.Set<Entity>().AsNoTracking().SingleOrDefault(et => et.id == id);
         }
 
         public IList<Entity> list()
         {
-            return _context.Set<Entity>().ToList();
+            return _context.Set<Entity>().AsNoTracking().ToList();
         }
 
         public Entity insert(Entity entity)
@@ -30,8 +32,11 @@ namespace rcManagerDatas.Datas
             return _context.Set<Entity>().Add(entity).Entity;
         }
 
-        public Entity update(Entity entity)
+        public virtual Entity update(Entity entity)
         {
+            //_context.Entry<Entity>(entity).State = EntityState.Modified;
+            //return entity;
+
             return _context.Set<Entity>().Update(entity).Entity;
         }
 
@@ -40,9 +45,26 @@ namespace rcManagerDatas.Datas
             return _context.Set<Entity>().Remove(entity).Entity;
         }
 
+        public void detach(Entity entity) 
+        {
+            _context.Entry<Entity>(entity).State = EntityState.Detached;
+        }
+
         public void save()
         {
             this._context.SaveChanges();
+
+            foreach(EntityEntry entry in this._context.ChangeTracker.Entries()) {
+                entry.State = EntityState.Detached;
+            }
+        }
+
+        public void cancel()
+        {
+            foreach (EntityEntry entry in this._context.ChangeTracker.Entries())
+            {
+                entry.State = EntityState.Detached;
+            }
         }
     }
 }
