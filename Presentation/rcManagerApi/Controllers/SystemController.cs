@@ -65,16 +65,37 @@ namespace rcManagerApi.Controllers
         {
             SystemTransfer systemTransferRet;
 
+            try {
+                systemTransferRet = _systemService.insert(systemTransfer);
+            } catch (Exception ex) {
+                systemTransferRet = new SystemTransfer();
+                systemTransferRet.valid = false;
+                systemTransferRet.error = true;
+                systemTransferRet.addMessage("Erro ao incluir Sistema");
+            }
+
+            if (systemTransferRet.error || !systemTransferRet.valid) {
+                return BadRequest(systemTransferRet);
+            } else {
+                return Ok(systemTransferRet);
+            }
+        }
+
+        [HttpPut]
+        public IActionResult update(SystemTransfer systemTransfer) 
+        {
+            SystemTransfer systemTransferRet;
+
             try
             {
-                systemTransferRet = _systemService.insert(systemTransfer);
+                systemTransferRet = _systemService.update(systemTransfer);
             }
             catch (Exception ex)
             {
                 systemTransferRet = new SystemTransfer();
                 systemTransferRet.valid = false;
                 systemTransferRet.error = true;
-                systemTransferRet.addMessage("Erro ao incluir Sistema");
+                systemTransferRet.addMessage("Erro ao alterar Sistema");
             }
 
             if (systemTransferRet.error || !systemTransferRet.valid)
@@ -87,16 +108,31 @@ namespace rcManagerApi.Controllers
             }
         }
 
-        [HttpPut]
-        public void update() 
+        [HttpDelete("{id}")]
+        public IActionResult delete(long id) 
         {
+            SystemTransfer systemTransferRet;
 
-        }
+            try
+            {
+                systemTransferRet = _systemService.delete(id);
+            }
+            catch (Exception ex)
+            {
+                systemTransferRet = new SystemTransfer();
+                systemTransferRet.valid = false;
+                systemTransferRet.error = true;
+                systemTransferRet.addMessage("Erro ao excluir Sistema");
+            }
 
-        [HttpDelete]
-        public void delete() 
-        {
-
+            if (systemTransferRet.error || !systemTransferRet.valid)
+            {
+                return BadRequest(systemTransferRet);
+            }
+            else
+            {
+                return Ok(systemTransferRet);
+            }
         }
     }
 }

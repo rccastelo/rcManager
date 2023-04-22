@@ -26,11 +26,14 @@ namespace rcManagerServices.Services
             {
                 IList<SystemEntity> listRet = _systemData.list();
 
-                systemTransferRet.list = listRet.Select(et => new SystemModel(et)).ToList();
+                if ((listRet != null)  && (listRet.Count > 0)) {
+                    systemTransferRet.list = listRet.Select(et => new SystemModel(et)).ToList(); 
+                } else {
+                    systemTransferRet.addMessage("Nenhum registro encontrado");
+                }
             }
             catch (ArgumentException ex)
             {
-                systemTransferRet = new SystemTransfer();
                 systemTransferRet.valid = false;
                 systemTransferRet.error = true;
                 systemTransferRet.addMessage(ex.Message);
@@ -55,7 +58,6 @@ namespace rcManagerServices.Services
             }
             catch (ArgumentException ex)
             {
-                systemTransferRet = new SystemTransfer();
                 systemTransferRet.valid = false;
                 systemTransferRet.error = true;
                 systemTransferRet.addMessage(ex.Message);
@@ -66,7 +68,7 @@ namespace rcManagerServices.Services
 
         public SystemTransfer insert(SystemTransfer systemTransfer)
         {
-            SystemTransfer systemTransferRet;
+            SystemTransfer systemTransferRet = new SystemTransfer();
 
             try
             {
@@ -74,12 +76,10 @@ namespace rcManagerServices.Services
 
                 _systemData.save();
 
-                systemTransferRet = new SystemTransfer();
                 systemTransferRet.item = new SystemModel(entity);
             }
             catch (ArgumentException ex)
             {
-                systemTransferRet = new SystemTransfer();
                 systemTransferRet.valid = false;
                 systemTransferRet.error = true;
                 systemTransferRet.addMessage(ex.Message);
@@ -90,12 +90,52 @@ namespace rcManagerServices.Services
 
         public SystemTransfer update(SystemTransfer systemTransfer)
         {
-            throw new System.NotImplementedException();
+            SystemTransfer systemTransferRet = new SystemTransfer();
+
+            try
+            {
+                SystemEntity entity = _systemData.update(systemTransfer.item.toEntity());
+
+                _systemData.save();
+
+                systemTransferRet.item = new SystemModel(entity);
+            }
+            catch (ArgumentException ex)
+            {
+                systemTransferRet.valid = false;
+                systemTransferRet.error = true;
+                systemTransferRet.addMessage(ex.Message);
+            }
+
+            return systemTransferRet;
         }
 
         public SystemTransfer delete(long id)
         {
-            throw new System.NotImplementedException();
+            SystemTransfer systemTransferRet = new SystemTransfer();
+
+            try
+            {
+                SystemEntity entityExist = _systemData.get(id);
+
+                if (entityExist != null) {
+                    SystemEntity entity = _systemData.delete(entityExist);
+
+                    _systemData.save();
+
+                    systemTransferRet.item = new SystemModel(entity);
+                } else {
+                    systemTransferRet.addMessage("Registro não encontrado");
+                }
+            }
+            catch (ArgumentException ex)
+            {
+                systemTransferRet.valid = false;
+                systemTransferRet.error = true;
+                systemTransferRet.addMessage(ex.Message);
+            }
+
+            return systemTransferRet;
         }
     }
 }
