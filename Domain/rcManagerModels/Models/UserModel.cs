@@ -24,9 +24,7 @@ namespace rcManagerModels.Models
 
         public UserModel(UserEntity entity)
         {
-            if (entity != null) {
-                this.create(entity);
-            }
+            this.create(entity);
         }
 
         private void create(UserEntity entity)

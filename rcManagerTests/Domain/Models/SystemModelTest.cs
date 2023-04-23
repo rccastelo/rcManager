@@ -25,7 +25,6 @@ namespace rcManagerTests.Domain.Models
             }
 
             Assert.Null(systemEntity);
-
             Assert.Null(systemModel);
         }
 
