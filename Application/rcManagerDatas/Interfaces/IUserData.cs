@@ -1,6 +1,8 @@
-﻿namespace rcManagerDatas.Interfaces
+﻿using rcManagerEntities.Entities;
+
+namespace rcManagerDatas.Interfaces
 {
-    public interface IUserData
+    public interface IUserData : IDatasBase<UserEntity>
     {
         
     }
