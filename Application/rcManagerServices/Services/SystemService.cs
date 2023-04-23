@@ -23,8 +23,7 @@ namespace rcManagerServices.Services
         {
             SystemTransfer systemTransferRet = new SystemTransfer();
 
-            try
-            {
+            try {
                 IList<SystemEntity> listRet = _systemData.list();
 
                 if ((listRet != null)  && (listRet.Count > 0)) {
@@ -32,9 +31,7 @@ namespace rcManagerServices.Services
                 } else {
                     systemTransferRet.addMessage("Nenhum registro encontrado");
                 }
-            }
-            catch (ArgumentException ex)
-            {
+            } catch (ArgumentException ex) {
                 systemTransferRet.valid = false;
                 systemTransferRet.error = true;
                 systemTransferRet.addMessage(ex.Message);
@@ -47,8 +44,7 @@ namespace rcManagerServices.Services
         {
             SystemTransfer systemTransferRet = new SystemTransfer();
 
-            try
-            {
+            try {
                 SystemEntity systemEntityRet = _systemData.get(id);
 
                 if (systemEntityRet == null) {
@@ -56,9 +52,7 @@ namespace rcManagerServices.Services
                 } else {
                     systemTransferRet.item = new SystemModel(systemEntityRet);
                 }
-            }
-            catch (ArgumentException ex)
-            {
+            } catch (ArgumentException ex) {
                 systemTransferRet.valid = false;
                 systemTransferRet.error = true;
                 systemTransferRet.addMessage(ex.Message);
@@ -71,16 +65,13 @@ namespace rcManagerServices.Services
         {
             SystemTransfer systemTransferRet = new SystemTransfer();
 
-            try
-            {
+            try {
                 SystemEntity entity = _systemData.insert(systemTransfer.item.toEntity());
 
                 _systemData.save();
 
                 systemTransferRet.item = new SystemModel(entity);
-            }
-            catch (ArgumentException ex)
-            {
+            } catch (ArgumentException ex) {
                 systemTransferRet.valid = false;
                 systemTransferRet.error = true;
                 systemTransferRet.addMessage(ex.Message);
@@ -93,16 +84,13 @@ namespace rcManagerServices.Services
         {
             SystemTransfer systemTransferRet = new SystemTransfer();
 
-            try
-            {
+            try {
                 SystemEntity entity = _systemData.update(systemTransfer.item.toEntity());
 
                 _systemData.save();
 
                 systemTransferRet.item = new SystemModel(entity);
-            }
-            catch (ArgumentException ex)
-            {
+            } catch (ArgumentException ex) {
                 systemTransferRet.valid = false;
                 systemTransferRet.error = true;
                 systemTransferRet.addMessage(ex.Message);
@@ -115,8 +103,7 @@ namespace rcManagerServices.Services
         {
             SystemTransfer systemTransferRet = new SystemTransfer();
 
-            try
-            {
+            try {
                 SystemEntity entityExist = _systemData.get(id);
 
                 if (entityExist != null) {
@@ -128,9 +115,7 @@ namespace rcManagerServices.Services
                 } else {
                     systemTransferRet.addMessage("Registro não encontrado");
                 }
-            }
-            catch (ArgumentException ex)
-            {
+            } catch (ArgumentException ex) {
                 systemTransferRet.valid = false;
                 systemTransferRet.error = true;
                 systemTransferRet.addMessage(ex.Message);

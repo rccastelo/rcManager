@@ -42,11 +42,9 @@ namespace rcManagerApi.Controllers
         {
             SystemTransfer systemTransferRet;
 
-            try
-            {
+            try {
                 systemTransferRet = _systemService.get(id);
-            }
-            catch (Exception ex) {
+            } catch (Exception ex) {
                 systemTransferRet = new SystemTransfer();
                 systemTransferRet.valid = false;
                 systemTransferRet.error = true;
@@ -86,24 +84,18 @@ namespace rcManagerApi.Controllers
         {
             SystemTransfer systemTransferRet;
 
-            try
-            {
+            try {
                 systemTransferRet = _systemService.update(systemTransfer);
-            }
-            catch (Exception ex)
-            {
+            } catch (Exception ex) {
                 systemTransferRet = new SystemTransfer();
                 systemTransferRet.valid = false;
                 systemTransferRet.error = true;
                 systemTransferRet.addMessage("Erro ao alterar Sistema");
             }
 
-            if (systemTransferRet.error || !systemTransferRet.valid)
-            {
+            if (systemTransferRet.error || !systemTransferRet.valid) {
                 return BadRequest(systemTransferRet);
-            }
-            else
-            {
+            } else {
                 return Ok(systemTransferRet);
             }
         }
@@ -113,24 +105,18 @@ namespace rcManagerApi.Controllers
         {
             SystemTransfer systemTransferRet;
 
-            try
-            {
+            try {
                 systemTransferRet = _systemService.delete(id);
-            }
-            catch (Exception ex)
-            {
+            } catch (Exception ex) {
                 systemTransferRet = new SystemTransfer();
                 systemTransferRet.valid = false;
                 systemTransferRet.error = true;
                 systemTransferRet.addMessage("Erro ao excluir Sistema");
             }
 
-            if (systemTransferRet.error || !systemTransferRet.valid)
-            {
+            if (systemTransferRet.error || !systemTransferRet.valid) {
                 return BadRequest(systemTransferRet);
-            }
-            else
-            {
+            } else {
                 return Ok(systemTransferRet);
             }
         }
