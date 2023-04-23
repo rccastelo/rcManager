@@ -5,9 +5,7 @@ namespace rcManagerModels.Models
 {
     public class SystemModel : SystemEntity
     {
-        public SystemModel()
-        {
-        }
+        public SystemModel() { }
 
         public SystemModel(SystemModel model)
         {
@@ -26,28 +24,50 @@ namespace rcManagerModels.Models
 
         public SystemModel(SystemEntity entity)
         {
-            if (entity != null)
+            if (entity != null) {
                 this.create(entity);
+            }
         }
 
         private void create(SystemEntity entity) 
         {
-            if (entity == null) 
-                throw new ArgumentException("System não pode ser nulo", "System");
+            if (entity == null) {
+                throw new ArgumentException("[System] não pode ser nulo", "System");
+            }
 
             this.create(entity.id, entity.name, entity.description, entity.status);
         }
 
         private void create(long id, string name, string description, bool status)
         {
-            if (id < 0)
-                throw new ArgumentException("Campo id deve ser maior ou igual a zero", "id");
+            if (id < 0) {
+                throw new ArgumentException("Campo [id] deve ser maior ou igual a zero", "id");
+            }
 
-            if (String.IsNullOrWhiteSpace(name))
-                throw new ArgumentException("Campo name deve estar preenchido", "name");
+            if (name == null) {
+                throw new ArgumentException("Campo [name] deve estar preenchido", "name");
+            } else {
+                name = name.Trim();
 
-            if (String.IsNullOrWhiteSpace(description))
-                throw new ArgumentException("Campo description deve estar preenchido", "description");
+                if (String.IsNullOrWhiteSpace(name)) {
+                    throw new ArgumentException("Campo [name] deve estar preenchido", "name");
+                }
+
+                if (name.Length < 3)
+                {
+                    throw new ArgumentException("Campo [name] deve possuir no mínimo 3 caracteres", "name");
+                }
+            }
+
+            if (description != null) {
+                description = description.Trim();
+
+                if (String.IsNullOrWhiteSpace(description)) {
+                    description = null;
+                } else if (description.Length < 3) {
+                    throw new ArgumentException("Campo [description] deve possuir no mínimo 3 caracteres", "description");
+                }
+            }
 
             this.id = id;
             this.name = name;
@@ -57,8 +77,7 @@ namespace rcManagerModels.Models
 
         public SystemEntity toEntity() 
         {
-            return new SystemEntity()
-            {
+            return new SystemEntity() {
                 id = this.id,
                 name = this.name,
                 description = this.description,

@@ -5,14 +5,11 @@ namespace rcManagerModels.Models
 {
     public class UserModel : UserEntity
     {
-        public UserModel()
-        {
-        }
+        public UserModel() { }
 
         public UserModel(UserModel model)
         {
-            if (model != null)
-            {
+            if (model != null) {
                 this.id = model.id;
                 this.name = model.name;
                 this.description = model.description;
@@ -27,28 +24,49 @@ namespace rcManagerModels.Models
 
         public UserModel(UserEntity entity)
         {
-            if (entity != null)
+            if (entity != null) {
                 this.create(entity);
+            }
         }
 
         private void create(UserEntity entity)
         {
-            if (entity == null)
-                throw new ArgumentException("User não pode ser nulo", "User");
+            if (entity == null) {
+                throw new ArgumentException("[User] não pode ser nulo", "User");
+            }
 
             this.create(entity.id, entity.name, entity.description, entity.status);
         }
 
         private void create(long id, string name, string description, bool status)
         {
-            if (id < 0)
-                throw new ArgumentException("Campo id deve ser maior ou igual a zero", "id");
+            if (id < 0) {
+                throw new ArgumentException("Campo [id] deve ser maior ou igual a zero", "id");
+            }
 
-            if (String.IsNullOrWhiteSpace(name))
-                throw new ArgumentException("Campo name deve estar preenchido", "name");
+            if (name == null) {
+                throw new ArgumentException("Campo [name] deve estar preenchido", "name");
+            } else {
+                name = name.Trim();
 
-            if (String.IsNullOrWhiteSpace(description))
-                throw new ArgumentException("Campo description deve estar preenchido", "description");
+                if (String.IsNullOrWhiteSpace(name)) {
+                    throw new ArgumentException("Campo [name] deve estar preenchido", "name");
+                }
+
+                if (name.Length < 3) {
+                    throw new ArgumentException("Campo [name] deve possuir no mínimo 3 caracteres", "name");
+                }
+            }
+
+            if (description != null) {
+                description = description.Trim();
+
+                if (String.IsNullOrWhiteSpace(description)) {
+                    description = null;
+                } else if (description.Length < 3) {
+                    throw new ArgumentException("Campo [description] deve possuir no mínimo 3 caracteres", "description");
+                }
+            }
 
             this.id = id;
             this.name = name;
@@ -58,8 +76,7 @@ namespace rcManagerModels.Models
 
         public UserEntity toEntity()
         {
-            return new UserEntity()
-            {
+            return new UserEntity() {
                 id = this.id,
                 name = this.name,
                 description = this.description,
