@@ -8,6 +8,28 @@ namespace rcManagerTests.Domain.Models
     public class SystemModelTest
     {
         [Fact]
+        public void convertNullSystemEntityToModel()
+        {
+            SystemEntity systemEntity = null;
+            SystemModel systemModel = null;
+
+            try
+            {
+                systemModel = new SystemModel(systemEntity);
+            }
+            catch (Exception ex)
+            {
+                Assert.NotNull(ex);
+                Assert.IsType<ArgumentException>(ex);
+                Assert.Equal("[System] não pode ser nulo (Parameter 'System')", ex.Message);
+            }
+
+            Assert.Null(systemEntity);
+
+            Assert.Null(systemModel);
+        }
+
+        [Fact]
         public void convertEmptySystemEntityToModel()
         {
             SystemEntity systemEntity = null;
@@ -22,15 +44,15 @@ namespace rcManagerTests.Domain.Models
             {
                 Assert.NotNull(ex);
                 Assert.IsType<ArgumentException>(ex);
-                Assert.Equal("Campo name deve estar preenchido (Parameter 'name')", ex.Message);
+                Assert.Equal("Campo [name] deve estar preenchido (Parameter 'name')", ex.Message);
             }
 
             Assert.NotNull(systemEntity);
-            Assert.Null(systemModel);
             Assert.Equal(0, systemEntity.id);
             Assert.Null(systemEntity.name);
             Assert.Null(systemEntity.description);
             Assert.False(systemEntity.status);
+            Assert.Null(systemModel);
         }
 
         [Fact]
@@ -49,11 +71,39 @@ namespace rcManagerTests.Domain.Models
             {
                 Assert.NotNull(ex);
                 Assert.IsType<ArgumentException>(ex);
-                Assert.Equal("Campo id deve ser maior ou igual a zero (Parameter 'id')", ex.Message);
+                Assert.Equal("Campo [id] deve ser maior ou igual a zero (Parameter 'id')", ex.Message);
             }
 
             Assert.NotNull(systemEntity);
             Assert.Equal(-1, systemEntity.id);
+            Assert.Null(systemEntity.name);
+            Assert.Null(systemEntity.description);
+            Assert.False(systemEntity.status);
+            Assert.Null(systemModel);
+        }
+
+        [Fact]
+        public void convertSystemEntityWithNullNameToModel()
+        {
+            SystemEntity systemEntity = null;
+            SystemModel systemModel = null;
+
+            try
+            {
+                systemEntity = new SystemEntity();
+                systemEntity.id = 1;
+                systemEntity.name = null;
+                systemModel = new SystemModel(systemEntity);
+            }
+            catch (Exception ex)
+            {
+                Assert.NotNull(ex);
+                Assert.IsType<ArgumentException>(ex);
+                Assert.Equal("Campo [name] deve estar preenchido (Parameter 'name')", ex.Message);
+            }
+
+            Assert.NotNull(systemEntity);
+            Assert.Equal(1, systemEntity.id);
             Assert.Null(systemEntity.name);
             Assert.Null(systemEntity.description);
             Assert.False(systemEntity.status);
@@ -70,27 +120,56 @@ namespace rcManagerTests.Domain.Models
             {
                 systemEntity = new SystemEntity();
                 systemEntity.id = 1;
-                systemEntity.name = "";
+                systemEntity.name = "    ";
                 systemModel = new SystemModel(systemEntity);
             }
             catch (Exception ex)
             {
                 Assert.NotNull(ex);
                 Assert.IsType<ArgumentException>(ex);
-                Assert.Equal("Campo name deve estar preenchido (Parameter 'name')", ex.Message);
+                Assert.Equal("Campo [name] deve estar preenchido (Parameter 'name')", ex.Message);
             }
 
             Assert.NotNull(systemEntity);
             Assert.Equal(1, systemEntity.id);
             Assert.NotNull(systemEntity.name);
-            Assert.Equal(String.Empty, systemEntity.name);
+            Assert.Equal("    ", systemEntity.name);
             Assert.Null(systemEntity.description);
             Assert.False(systemEntity.status);
             Assert.Null(systemModel);
         }
 
         [Fact]
-        public void convertSystemEntityWithInvalidDescriptionToModel()
+        public void convertSystemEntityWithShortNameToModel()
+        {
+            SystemEntity systemEntity = null;
+            SystemModel systemModel = null;
+
+            try
+            {
+                systemEntity = new SystemEntity();
+                systemEntity.id = 1;
+                systemEntity.name = "xx";
+                systemModel = new SystemModel(systemEntity);
+            }
+            catch (Exception ex)
+            {
+                Assert.NotNull(ex);
+                Assert.IsType<ArgumentException>(ex);
+                Assert.Equal("Campo [name] deve possuir no mínimo 3 caracteres (Parameter 'name')", ex.Message);
+            }
+
+            Assert.NotNull(systemEntity);
+            Assert.Equal(1, systemEntity.id);
+            Assert.NotNull(systemEntity.name);
+            Assert.Equal("xx", systemEntity.name);
+            Assert.Null(systemEntity.description);
+            Assert.False(systemEntity.status);
+            Assert.Null(systemModel);
+        }
+
+        [Fact]
+        public void convertSystemEntityWithShortDescriptionToModel()
         {
             SystemEntity systemEntity = null;
             SystemModel systemModel = null;
@@ -100,14 +179,14 @@ namespace rcManagerTests.Domain.Models
                 systemEntity = new SystemEntity();
                 systemEntity.id = 2345;
                 systemEntity.name = "name";
-                systemEntity.description = "";
+                systemEntity.description = "xx";
                 systemModel = new SystemModel(systemEntity);
             }
             catch (Exception ex)
             {
                 Assert.NotNull(ex);
                 Assert.IsType<ArgumentException>(ex);
-                Assert.Equal("Campo description deve estar preenchido (Parameter 'description')", ex.Message);
+                Assert.Equal("Campo [description] deve possuir no mínimo 3 caracteres (Parameter 'description')", ex.Message);
             }
 
             Assert.NotNull(systemEntity);
@@ -115,9 +194,42 @@ namespace rcManagerTests.Domain.Models
             Assert.NotNull(systemEntity.name);
             Assert.Equal("name", systemEntity.name);
             Assert.NotNull(systemEntity.description);
-            Assert.Equal(String.Empty, systemEntity.description);
+            Assert.Equal("xx", systemEntity.description);
             Assert.False(systemEntity.status);
             Assert.Null(systemModel);
+        }
+
+        [Fact]
+        public void convertSystemEntityWithNullDescriptionToModel()
+        {
+            SystemEntity systemEntity = null;
+            SystemModel systemModel = null;
+
+            try
+            {
+                systemEntity = new SystemEntity();
+                systemEntity.id = 23456;
+                systemEntity.name = "name";
+                systemEntity.description = null;
+                systemModel = new SystemModel(systemEntity);
+            }
+            catch (Exception ex)
+            {
+                Assert.Null(ex);
+            }
+
+            Assert.NotNull(systemEntity);
+            Assert.Equal(23456, systemEntity.id);
+            Assert.NotNull(systemEntity.name);
+            Assert.Equal("name", systemEntity.name);
+            Assert.Null(systemEntity.description);
+            Assert.False(systemEntity.status);
+            Assert.NotNull(systemModel);
+            Assert.Equal(23456, systemModel.id);
+            Assert.NotNull(systemModel.name);
+            Assert.Equal("name", systemModel.name);
+            Assert.Null(systemModel.description);
+            Assert.False(systemModel.status);
         }
 
         [Fact]
@@ -147,7 +259,6 @@ namespace rcManagerTests.Domain.Models
             Assert.NotNull(systemEntity.description);
             Assert.Equal("description", systemEntity.description);
             Assert.True(systemEntity.status);
-
             Assert.NotNull(systemModel);
             Assert.Equal(long.MaxValue, systemModel.id);
             Assert.NotNull(systemModel.name);

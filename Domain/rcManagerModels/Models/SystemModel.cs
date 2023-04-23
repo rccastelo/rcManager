@@ -24,9 +24,7 @@ namespace rcManagerModels.Models
 
         public SystemModel(SystemEntity entity)
         {
-            if (entity != null) {
-                this.create(entity);
-            }
+            this.create(entity);
         }
 
         private void create(SystemEntity entity) 
@@ -63,7 +61,7 @@ namespace rcManagerModels.Models
                 description = description.Trim();
 
                 if (String.IsNullOrWhiteSpace(description)) {
-                    description = null;
+                    this.description = null;
                 } else if (description.Length < 3) {
                     throw new ArgumentException("Campo [description] deve possuir no mínimo 3 caracteres", "description");
                 }
