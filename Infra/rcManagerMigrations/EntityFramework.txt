@@ -1,4 +1,12 @@
-﻿dotnet ef dbcontext list
-dotnet ef migrations add "Configuracao inicial"
+﻿
+dotnet ef dbcontext list
 dotnet ef migrations list
+
+dotnet ef migrations add "Configuracao inicial"
 dotnet ef database update
+
+dotnet ef migrations add "Ajustes no relacionamento da tabela de Permissoes"
+
+dotnet ef database update "20230424012102_Criacao da tabela de Permissoes"
+dotnet ef migrations remove
+

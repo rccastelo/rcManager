@@ -23,9 +23,9 @@ namespace rcManagerModels.Models
             }
         }
 
-        public PermissionModel(long user_id, long system_id, DateTime date_from, DateTime date_to, bool status, bool weekday,bool weekend, TimeSpan start_time, TimeSpan end_time)
+        public PermissionModel(long id, long user_id, long system_id, DateTime date_from, DateTime date_to, bool status, bool weekday,bool weekend, TimeSpan start_time, TimeSpan end_time)
         {
-            this.create(user_id, system_id, date_from, date_to, status, weekday, weekend, start_time, end_time);
+            this.create(id, user_id, system_id, date_from, date_to, status, weekday, weekend, start_time, end_time);
         }
 
         public PermissionModel(PermissionEntity entity)
@@ -39,10 +39,10 @@ namespace rcManagerModels.Models
                 throw new ArgumentException("[Permission] não pode ser nulo", "Permission");
             }
 
-            this.create(entity.user_id, entity.system_id, entity.date_from, entity.date_to, entity.status, entity.weekday, entity.weekend, entity.start_time, entity.end_time);
+            this.create(entity.id, entity.user_id, entity.system_id, entity.date_from, entity.date_to, entity.status, entity.weekday, entity.weekend, entity.start_time, entity.end_time);
         }
 
-        private void create(long user_id, long system_id, DateTime date_from, DateTime date_to, bool status, bool weekday, bool weekend, TimeSpan start_time, TimeSpan end_time)
+        private void create(long id, long user_id, long system_id, DateTime date_from, DateTime date_to, bool status, bool weekday, bool weekend, TimeSpan start_time, TimeSpan end_time)
         {
             if (id < 0) {
                 throw new ArgumentException("Campo [id] deve ser maior ou igual a zero", "id");

@@ -8,12 +8,10 @@ namespace rcManagerEntities.Entities
     [Table("Permissions")]
     public class PermissionEntity : EntityBase
     {
-        [ForeignKey("Users")]
         [Column("user_id", Order = 2)]
         [Required]
         public long user_id { get; set; }
 
-        [ForeignKey("Systems")]
         [Column("system_id", Order = 3)]
         [Required]
         public long system_id { get; set; }
@@ -45,6 +43,12 @@ namespace rcManagerEntities.Entities
         [Column("end_time", Order = 10)]
         [Required]
         public TimeSpan end_time { get; set; }
+
+        [ForeignKey("user_id")]
+        public UserEntity UserEntity { get; set; }
+
+        [ForeignKey("system_id")]
+        public SystemEntity SystemEntity { get; set; }
 
         public PermissionEntity() { }
 

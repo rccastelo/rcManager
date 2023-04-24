@@ -5,7 +5,7 @@ using System;
 
 namespace rcManagerApi.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class PermissionController : ControllerBase
     {
