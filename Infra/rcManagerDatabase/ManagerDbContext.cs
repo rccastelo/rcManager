@@ -12,5 +12,6 @@ namespace rcManagerDatabase
 
         public DbSet<SystemEntity> Systems { get; set; }
         public DbSet<UserEntity> Users { get; set; }
+        public DbSet<PermissionEntity> Permissions { get; set; }
     }
 }

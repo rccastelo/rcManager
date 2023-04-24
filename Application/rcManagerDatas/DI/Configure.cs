@@ -12,7 +12,7 @@ namespace rcManagerDatas.DI
             diDatabase.ConfigureServices(services);
             services.AddScoped<ISystemData, SystemData>();
             services.AddScoped<IUserData, UserData>();
-            services.AddScoped<IAccessData, AccessData>();
+            services.AddScoped<IPermissionData, PermissionData>();
         }
     }
 }

@@ -11,7 +11,6 @@ namespace rcManagerServices.Services
 {
     public class SystemService : ISystemService
     {
-        
         private readonly ISystemData _systemData;
 
         public SystemService(ISystemData systemData)

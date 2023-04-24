@@ -10,7 +10,7 @@ namespace rcManagerServices.DI
         {
             services.AddScoped<ISystemService, SystemService>();
             services.AddScoped<IUserService, UserService>();
-            services.AddScoped<IAccessService, AccessService>();
+            services.AddScoped<IPermissionService, PermissionService>();
         }
     }
 }

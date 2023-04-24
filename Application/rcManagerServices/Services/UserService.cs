@@ -11,7 +11,6 @@ namespace rcManagerServices.Services
 {
     public class UserService : IUserService
     {
-
         private readonly IUserData _userData;
 
         public UserService(IUserData userData)
