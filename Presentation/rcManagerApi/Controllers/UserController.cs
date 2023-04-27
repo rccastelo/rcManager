@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using rcManagerServices.Interfaces;
 using rcManagerTransfers.Transfers;
+using Swashbuckle.AspNetCore.Annotations;
 using System;
 
 namespace rcManagerApi.Controllers
@@ -17,6 +18,15 @@ namespace rcManagerApi.Controllers
         }
 
         [HttpGet]
+        [SwaggerOperation(
+            Summary = "Listar todos os Usuários",
+            Description = "[pt-BR] Listar todos os Usuários. \n\n " +
+                "[en-US] List all Users. ",
+            Tags = new[] { "Users" }
+        )]
+        [ProducesResponseType(typeof(UserTransfer), 200)]
+        [ProducesResponseType(typeof(UserTransfer), 400)]
+        [ProducesResponseType(500)]
         public IActionResult list(UserTransfer userTransfer)
         {
             UserTransfer userTransferRet;
@@ -44,6 +54,15 @@ namespace rcManagerApi.Controllers
         }
 
         [HttpGet("{id}")]
+        [SwaggerOperation(
+            Summary = "Obter um Usuário pelo id",
+            Description = "[pt-BR] Obter um Usuário pelo id. \n\n " +
+                "[en-US] Get a User by id. ",
+            Tags = new[] { "Users" }
+        )]
+        [ProducesResponseType(typeof(UserTransfer), 200)]
+        [ProducesResponseType(typeof(UserTransfer), 400)]
+        [ProducesResponseType(500)]
         public IActionResult get(long id)
         {
             UserTransfer userTransferRet;
@@ -71,6 +90,15 @@ namespace rcManagerApi.Controllers
         }
 
         [HttpPost]
+        [SwaggerOperation(
+            Summary = "Incluir um Usuário",
+            Description = "[pt-BR] Incluir um Usuário. \n\n " +
+                "[en-US] Add a User. ",
+            Tags = new[] { "Users" }
+        )]
+        [ProducesResponseType(typeof(UserTransfer), 200)]
+        [ProducesResponseType(typeof(UserTransfer), 400)]
+        [ProducesResponseType(500)]
         public IActionResult insert(UserTransfer userTransfer)
         {
             UserTransfer userTransferRet;
@@ -98,6 +126,15 @@ namespace rcManagerApi.Controllers
         }
 
         [HttpPut]
+        [SwaggerOperation(
+            Summary = "Atualizar um Usuário",
+            Description = "[pt-BR] Atualizar um Usuário. \n\n " +
+                "[en-US] Update a User. ",
+            Tags = new[] { "Users" }
+        )]
+        [ProducesResponseType(typeof(UserTransfer), 200)]
+        [ProducesResponseType(typeof(UserTransfer), 400)]
+        [ProducesResponseType(500)]
         public IActionResult update(UserTransfer userTransfer)
         {
             UserTransfer userTransferRet;
@@ -125,6 +162,15 @@ namespace rcManagerApi.Controllers
         }
 
         [HttpDelete("{id}")]
+        [SwaggerOperation(
+            Summary = "Excluir um Usuário",
+            Description = "[pt-BR] Excluir um Usuário. \n\n " +
+                "[en-US] Delete a User. ",
+            Tags = new[] { "Users" }
+        )]
+        [ProducesResponseType(typeof(UserTransfer), 200)]
+        [ProducesResponseType(typeof(UserTransfer), 400)]
+        [ProducesResponseType(500)]
         public IActionResult delete(long id)
         {
             UserTransfer userTransferRet;

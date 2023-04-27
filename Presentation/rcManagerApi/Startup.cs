@@ -36,6 +36,8 @@ namespace rcManagerApi
                     Description = "API para gerenciamento de Usuários, Sistemas e Permissões.",
                     Version = "1.0"
                 });
+
+                options.EnableAnnotations();
             });
         }
 

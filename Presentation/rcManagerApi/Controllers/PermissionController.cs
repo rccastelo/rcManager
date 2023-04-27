@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using rcManagerServices.Interfaces;
 using rcManagerTransfers.Transfers;
+using Swashbuckle.AspNetCore.Annotations;
 using System;
 
 namespace rcManagerApi.Controllers
@@ -17,6 +18,15 @@ namespace rcManagerApi.Controllers
         }
 
         [HttpGet]
+        [SwaggerOperation(
+            Summary = "Listar todas as Permissões",
+            Description = "[pt-BR] Listar todos os Permissões. \n\n " +
+                "[en-US] List all Permissions. ",
+            Tags = new[] { "Permissions" }
+        )]
+        [ProducesResponseType(typeof(PermissionTransfer), 200)]
+        [ProducesResponseType(typeof(PermissionTransfer), 400)]
+        [ProducesResponseType(500)]
         public IActionResult list(PermissionTransfer permissionTransfer)
         {
             PermissionTransfer permissionTransferRet;
@@ -38,6 +48,15 @@ namespace rcManagerApi.Controllers
         }
 
         [HttpGet("{id}")]
+        [SwaggerOperation(
+            Summary = "Obter uma Permissão pelo id",
+            Description = "[pt-BR] Obter um Permissão pelo id. \n\n " +
+                "[en-US] Get a Permission by id. ",
+            Tags = new[] { "Permissions" }
+        )]
+        [ProducesResponseType(typeof(PermissionTransfer), 200)]
+        [ProducesResponseType(typeof(PermissionTransfer), 400)]
+        [ProducesResponseType(500)]
         public IActionResult get(long id)
         {
             PermissionTransfer permissionTransferRet;
@@ -59,6 +78,15 @@ namespace rcManagerApi.Controllers
         }
 
         [HttpPost]
+        [SwaggerOperation(
+            Summary = "Incluir uma Permissão",
+            Description = "[pt-BR] Incluir um Permissão. \n\n " +
+                "[en-US] Add a Permission. ",
+            Tags = new[] { "Permissions" }
+        )]
+        [ProducesResponseType(typeof(PermissionTransfer), 200)]
+        [ProducesResponseType(typeof(PermissionTransfer), 400)]
+        [ProducesResponseType(500)]
         public IActionResult insert(PermissionTransfer permissionTransfer)
         {
             PermissionTransfer permissionTransferRet;
@@ -80,6 +108,15 @@ namespace rcManagerApi.Controllers
         }
 
         [HttpPut]
+        [SwaggerOperation(
+            Summary = "Atualizar uma Permissão",
+            Description = "[pt-BR] Atualizar um Permissão. \n\n " +
+                "[en-US] Update a Permission. ",
+            Tags = new[] { "Permissions" }
+        )]
+        [ProducesResponseType(typeof(PermissionTransfer), 200)]
+        [ProducesResponseType(typeof(PermissionTransfer), 400)]
+        [ProducesResponseType(500)]
         public IActionResult update(PermissionTransfer permissionTransfer)
         {
             PermissionTransfer permissionTransferRet;
@@ -101,6 +138,15 @@ namespace rcManagerApi.Controllers
         }
 
         [HttpDelete("{id}")]
+        [SwaggerOperation(
+            Summary = "Excluir uma Permissão",
+            Description = "[pt-BR] Excluir uma Permissão. \n\n " +
+                "[en-US] Delete a Permission. ",
+            Tags = new[] { "Permissions" }
+        )]
+        [ProducesResponseType(typeof(PermissionTransfer), 200)]
+        [ProducesResponseType(typeof(PermissionTransfer), 400)]
+        [ProducesResponseType(500)]
         public IActionResult delete(long id)
         {
             PermissionTransfer permissionTransferRet;
