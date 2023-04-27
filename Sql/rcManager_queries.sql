@@ -12,10 +12,11 @@ delete from Permissions;
 delete from Systems;
 delete from Users;
 
-insert into Users(name, description, status) values ('username', 'user description', true);
+insert into Users(name, description, status) values ('username', 'user description', 1);
+insert into Systems(name, description, status) values ('systemname', 'system description', 1);
 
 insert into Permissions (user_id, system_id, status, date_from, date_to, weekday, weekend, start_time, end_time)
-values (1, 7, 1, DATEFROMPARTS(1,1,1), DATEFROMPARTS(9,9,9), 1, 0, TIMEFROMPARTS(0,0,0,0,0), TIMEFROMPARTS(23,59,59,0,0));
+values (3, 10, 1, DATEFROMPARTS(1,1,1), DATEFROMPARTS(9,9,9), 1, 0, TIMEFROMPARTS(0,0,0,0,0), TIMEFROMPARTS(23,59,59,0,0));
 
 select DATEFROMPARTS(1,1,1);
 select DATEFROMPARTS(9,9,9);
