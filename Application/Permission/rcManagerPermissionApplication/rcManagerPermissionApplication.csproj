@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.1</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\..\Domain\Permission\rcManagerPermissionDomain\rcManagerPermissionDomain.csproj" />
+      <ProjectReference Include="..\..\Base\rcManagerApplicationBase\rcManagerApplicationBase.csproj" />
+    </ItemGroup>
+
+</Project>
