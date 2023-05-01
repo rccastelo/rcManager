@@ -9,16 +9,21 @@ namespace rcManagerUserDomain
         public UserModel(UserModel model)
         {
             if (model != null) {
-                this.id = model.id;
-                this.name = model.name;
-                this.description = model.description;
-                this.status = model.status;
+                this.id = id;
+                this.login = login;
+                this.password = password;
+                this.name = name;
+                this.description = description;
+                this.status = status;
+                this.createdAt = createdAt;
+                this.updatedAt = updatedAt;
             }
         }
 
-        public UserModel(long id, string name, string description, bool status)
+        public UserModel(long id, string login, string password, string name, string description, 
+            bool status, DateTime createdAt, DateTime updatedAt)
         {
-            this.create(id, name, description, status);
+            this.create(id, login, password, name, description, status, createdAt, updatedAt);
         }
 
         public UserModel(UserEntity entity)
@@ -32,10 +37,12 @@ namespace rcManagerUserDomain
                 throw new ArgumentException("[User] não pode ser nulo", "User");
             }
 
-            this.create(entity.id, entity.name, entity.description, entity.status);
+            this.create(entity.id, entity.login, entity.password, entity.name, entity.description, 
+                entity.status, entity.createdAt, entity.updatedAt);
         }
 
-        private void create(long id, string name, string description, bool status)
+        private void create(long id, string login, string password, string name, string description,
+            bool status, DateTime createdAt, DateTime updatedAt)
         {
             if (id < 0) {
                 throw new ArgumentException("Campo [id] deve ser maior ou igual a zero", "id");
@@ -66,18 +73,26 @@ namespace rcManagerUserDomain
             }
 
             this.id = id;
+            this.login = login;
+            this.password = password;
             this.name = name;
             this.description = description;
             this.status = status;
+            this.createdAt = createdAt;
+            this.updatedAt = updatedAt;
         }
 
         public UserEntity toEntity()
         {
             return new UserEntity() {
                 id = this.id,
+                login = this.login,
+                password = this.password,
                 name = this.name,
                 description = this.description,
-                status = this.status
+                status = this.status,
+                createdAt = this.createdAt,
+                updatedAt = this.updatedAt
             };
         }
     }
