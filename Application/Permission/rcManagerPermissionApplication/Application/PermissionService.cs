@@ -15,106 +15,106 @@ namespace rcManagerPermissionApplication.Application
             this._permissionData = permissionData;
         }
 
-        public PermissionTransfer list(PermissionTransfer permissionTransfer)
+        public PermissionTransfer List(PermissionTransfer permissionTransfer)
         {
             PermissionTransfer permissionTransferRet = new PermissionTransfer();
 
             try {
-                IList<PermissionEntity> listRet = _permissionData.list();
+                IList<PermissionEntity> listRet = _permissionData.List();
 
                 if ((listRet != null) && (listRet.Count > 0)) {
-                    permissionTransferRet.list = listRet.Select(et => new PermissionModel(et)).ToList();
+                    permissionTransferRet.List = listRet.Select(et => new PermissionModel(et)).ToList();
                 } else {
-                    permissionTransferRet.addMessage("Nenhum registro encontrado");
+                    permissionTransferRet.AddMessage("Nenhum registro encontrado");
                 }
             } catch (ArgumentException ex) {
-                permissionTransferRet.valid = false;
-                permissionTransferRet.error = true;
-                permissionTransferRet.addMessage(ex.Message);
+                permissionTransferRet.Valid = false;
+                permissionTransferRet.Error = true;
+                permissionTransferRet.AddMessage(ex.Message);
             }
 
             return permissionTransferRet;
         }
 
-        public PermissionTransfer get(long id)
+        public PermissionTransfer Get(long id)
         {
             PermissionTransfer permissionTransferRet = new PermissionTransfer();
 
             try {
-                PermissionEntity permissionEntityRet = _permissionData.get(id);
+                PermissionEntity permissionEntityRet = _permissionData.Get(id);
 
                 if (permissionEntityRet == null) {
-                    permissionTransferRet.addMessage("Registro não encontrado");
+                    permissionTransferRet.AddMessage("Registro não encontrado");
                 } else {
-                    permissionTransferRet.item = new PermissionModel(permissionEntityRet);
+                    permissionTransferRet.Item = new PermissionModel(permissionEntityRet);
                 }
             } catch (ArgumentException ex) {
-                permissionTransferRet.valid = false;
-                permissionTransferRet.error = true;
-                permissionTransferRet.addMessage(ex.Message);
+                permissionTransferRet.Valid = false;
+                permissionTransferRet.Error = true;
+                permissionTransferRet.AddMessage(ex.Message);
             }
 
             return permissionTransferRet;
         }
 
-        public PermissionTransfer insert(PermissionTransfer permissionTransfer)
+        public PermissionTransfer Insert(PermissionTransfer permissionTransfer)
         {
             PermissionTransfer permissionTransferRet = new PermissionTransfer();
 
             try {
-                PermissionEntity entity = _permissionData.insert(permissionTransfer.item.toEntity());
+                PermissionEntity entity = _permissionData.Insert(permissionTransfer.Item.toEntity());
 
-                _permissionData.save();
+                _permissionData.Save();
 
-                permissionTransferRet.item = new PermissionModel(entity);
+                permissionTransferRet.Item = new PermissionModel(entity);
             } catch (ArgumentException ex) {
-                permissionTransferRet.valid = false;
-                permissionTransferRet.error = true;
-                permissionTransferRet.addMessage(ex.Message);
+                permissionTransferRet.Valid = false;
+                permissionTransferRet.Error = true;
+                permissionTransferRet.AddMessage(ex.Message);
             }
 
             return permissionTransferRet;
         }
 
-        public PermissionTransfer update(PermissionTransfer permissionTransfer)
+        public PermissionTransfer Update(PermissionTransfer permissionTransfer)
         {
             PermissionTransfer permissionTransferRet = new PermissionTransfer();
 
             try {
-                PermissionEntity entity = _permissionData.update(permissionTransfer.item.toEntity());
+                PermissionEntity entity = _permissionData.Update(permissionTransfer.Item.toEntity());
 
-                _permissionData.save();
+                _permissionData.Save();
 
-                permissionTransferRet.item = new PermissionModel(entity);
+                permissionTransferRet.Item = new PermissionModel(entity);
             } catch (ArgumentException ex) {
-                permissionTransferRet.valid = false;
-                permissionTransferRet.error = true;
-                permissionTransferRet.addMessage(ex.Message);
+                permissionTransferRet.Valid = false;
+                permissionTransferRet.Error = true;
+                permissionTransferRet.AddMessage(ex.Message);
             }
 
             return permissionTransferRet;
         }
 
-        public PermissionTransfer delete(long id)
+        public PermissionTransfer Delete(long id)
         {
             PermissionTransfer permissionTransferRet = new PermissionTransfer();
 
             try {
-                PermissionEntity entityExist = _permissionData.get(id);
+                PermissionEntity entityExist = _permissionData.Get(id);
 
                 if (entityExist != null) {
-                    PermissionEntity entity = _permissionData.delete(entityExist);
+                    PermissionEntity entity = _permissionData.Delete(entityExist);
 
-                    _permissionData.save();
+                    _permissionData.Save();
 
-                    permissionTransferRet.item = new PermissionModel(entity);
+                    permissionTransferRet.Item = new PermissionModel(entity);
                 } else {
-                    permissionTransferRet.addMessage("Registro não encontrado");
+                    permissionTransferRet.AddMessage("Registro não encontrado");
                 }
             } catch (ArgumentException ex) {
-                permissionTransferRet.valid = false;
-                permissionTransferRet.error = true;
-                permissionTransferRet.addMessage(ex.Message);
+                permissionTransferRet.Valid = false;
+                permissionTransferRet.Error = true;
+                permissionTransferRet.AddMessage(ex.Message);
             }
 
             return permissionTransferRet;

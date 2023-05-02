@@ -31,20 +31,20 @@ namespace rcManagerApi.Controllers
         [ProducesResponseType(typeof(SystemTransfer), 400)]
         //[ProducesResponseType(401)]
         [ProducesResponseType(500)]
-        public IActionResult list(SystemTransfer systemTransfer) 
+        public IActionResult List(SystemTransfer systemTransfer) 
         {
             SystemTransfer systemTransferRet;
 
             try {
-                systemTransferRet = _systemService.list(systemTransfer);
+                systemTransferRet = _systemService.List(systemTransfer);
             } catch (Exception ex) {
                 systemTransferRet = new SystemTransfer();
-                systemTransferRet.valid = false;
-                systemTransferRet.error = true;
-                systemTransferRet.addMessage("Erro ao listar Sistemas");
+                systemTransferRet.Valid = false;
+                systemTransferRet.Error = true;
+                systemTransferRet.AddMessage("Erro ao listar Sistemas");
             }
 
-            if (systemTransferRet.error || !systemTransferRet.valid) {
+            if (systemTransferRet.Error || !systemTransferRet.Valid) {
                 return BadRequest(systemTransferRet);
             } else {
                 return Ok(systemTransferRet);
@@ -64,20 +64,20 @@ namespace rcManagerApi.Controllers
         [ProducesResponseType(typeof(SystemTransfer), 400)]
         //[ProducesResponseType(401)]
         [ProducesResponseType(500)]
-        public IActionResult get(long id) 
+        public IActionResult Get(long id) 
         {
             SystemTransfer systemTransferRet;
 
             try {
-                systemTransferRet = _systemService.get(id);
+                systemTransferRet = _systemService.Get(id);
             } catch (Exception ex) {
                 systemTransferRet = new SystemTransfer();
-                systemTransferRet.valid = false;
-                systemTransferRet.error = true;
-                systemTransferRet.addMessage("Erro ao consultar Sistema");
+                systemTransferRet.Valid = false;
+                systemTransferRet.Error = true;
+                systemTransferRet.AddMessage("Erro ao consultar Sistema");
             }
 
-            if (systemTransferRet.error || !systemTransferRet.valid) {
+            if (systemTransferRet.Error || !systemTransferRet.Valid) {
                 return BadRequest(systemTransferRet);
             } else {
                 return Ok(systemTransferRet);
@@ -97,20 +97,20 @@ namespace rcManagerApi.Controllers
         [ProducesResponseType(typeof(SystemTransfer), 400)]
         //[ProducesResponseType(401)]
         [ProducesResponseType(500)]
-        public IActionResult insert(SystemTransfer systemTransfer) 
+        public IActionResult Insert(SystemTransfer systemTransfer) 
         {
             SystemTransfer systemTransferRet;
 
             try {
-                systemTransferRet = _systemService.insert(systemTransfer);
+                systemTransferRet = _systemService.Insert(systemTransfer);
             } catch (Exception ex) {
                 systemTransferRet = new SystemTransfer();
-                systemTransferRet.valid = false;
-                systemTransferRet.error = true;
-                systemTransferRet.addMessage("Erro ao incluir Sistema");
+                systemTransferRet.Valid = false;
+                systemTransferRet.Error = true;
+                systemTransferRet.AddMessage("Erro ao incluir Sistema");
             }
 
-            if (systemTransferRet.error || !systemTransferRet.valid) {
+            if (systemTransferRet.Error || !systemTransferRet.Valid) {
                 return BadRequest(systemTransferRet);
             } else {
                 return Ok(systemTransferRet);
@@ -130,20 +130,20 @@ namespace rcManagerApi.Controllers
         [ProducesResponseType(typeof(SystemTransfer), 400)]
         //[ProducesResponseType(401)]
         [ProducesResponseType(500)]
-        public IActionResult update(SystemTransfer systemTransfer) 
+        public IActionResult Update(SystemTransfer systemTransfer) 
         {
             SystemTransfer systemTransferRet;
 
             try {
-                systemTransferRet = _systemService.update(systemTransfer);
+                systemTransferRet = _systemService.Update(systemTransfer);
             } catch (Exception ex) {
                 systemTransferRet = new SystemTransfer();
-                systemTransferRet.valid = false;
-                systemTransferRet.error = true;
-                systemTransferRet.addMessage("Erro ao alterar Sistema");
+                systemTransferRet.Valid = false;
+                systemTransferRet.Error = true;
+                systemTransferRet.AddMessage("Erro ao alterar Sistema");
             }
 
-            if (systemTransferRet.error || !systemTransferRet.valid) {
+            if (systemTransferRet.Error || !systemTransferRet.Valid) {
                 return BadRequest(systemTransferRet);
             } else {
                 return Ok(systemTransferRet);
@@ -163,20 +163,20 @@ namespace rcManagerApi.Controllers
         [ProducesResponseType(typeof(SystemTransfer), 400)]
         //[ProducesResponseType(401)]
         [ProducesResponseType(500)]
-        public IActionResult delete(long id) 
+        public IActionResult Delete(long id) 
         {
             SystemTransfer systemTransferRet;
 
             try {
-                systemTransferRet = _systemService.delete(id);
+                systemTransferRet = _systemService.Delete(id);
             } catch (Exception ex) {
                 systemTransferRet = new SystemTransfer();
-                systemTransferRet.valid = false;
-                systemTransferRet.error = true;
-                systemTransferRet.addMessage("Erro ao excluir Sistema");
+                systemTransferRet.Valid = false;
+                systemTransferRet.Error = true;
+                systemTransferRet.AddMessage("Erro ao excluir Sistema");
             }
 
-            if (systemTransferRet.error || !systemTransferRet.valid) {
+            if (systemTransferRet.Error || !systemTransferRet.Valid) {
                 return BadRequest(systemTransferRet);
             } else {
                 return Ok(systemTransferRet);

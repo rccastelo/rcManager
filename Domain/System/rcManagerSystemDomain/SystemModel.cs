@@ -9,10 +9,10 @@ namespace rcManagerSystemDomain
         public SystemModel(SystemModel model)
         {
             if (model != null) {
-                this.id = model.id;
-                this.name = model.name;
-                this.description = model.description;
-                this.status = model.status;
+                this.Id = model.Id;
+                this.Name = model.Name;
+                this.Description = model.Description;
+                this.Status = model.Status;
             }
         }
 
@@ -32,7 +32,7 @@ namespace rcManagerSystemDomain
                 throw new ArgumentException("[System] não pode ser nulo", "System");
             }
 
-            this.create(entity.id, entity.name, entity.description, entity.status);
+            this.create(entity.Id, entity.Name, entity.Description, entity.Status);
         }
 
         private void create(long id, string name, string description, bool status)
@@ -60,25 +60,25 @@ namespace rcManagerSystemDomain
                 description = description.Trim();
 
                 if (String.IsNullOrWhiteSpace(description)) {
-                    this.description = null;
+                    this.Description = null;
                 } else if (description.Length < 3) {
                     throw new ArgumentException("Campo [description] deve possuir no mínimo 3 caracteres", "description");
                 }
             }
 
-            this.id = id;
-            this.name = name;
-            this.description = description;
-            this.status = status;
+            this.Id = id;
+            this.Name = name;
+            this.Description = description;
+            this.Status = status;
         }
 
         public SystemEntity toEntity() 
         {
             return new SystemEntity() {
-                id = this.id,
-                name = this.name,
-                description = this.description,
-                status = this.status
+                Id = this.Id,
+                Name = this.Name,
+                Description = this.Description,
+                Status = this.Status
             };
         }
     }

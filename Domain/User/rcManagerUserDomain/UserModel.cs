@@ -9,14 +9,14 @@ namespace rcManagerUserDomain
         public UserModel(UserModel model)
         {
             if (model != null) {
-                this.id = id;
-                this.login = login;
-                this.password = password;
-                this.name = name;
-                this.description = description;
-                this.status = status;
-                this.createdAt = createdAt;
-                this.updatedAt = updatedAt;
+                this.Id = Id;
+                this.Login = Login;
+                this.Password = Password;
+                this.Name = Name;
+                this.Description = Description;
+                this.Status = Status;
+                this.CreatedAt = CreatedAt;
+                this.UpdatedAt = UpdatedAt;
             }
         }
 
@@ -37,8 +37,8 @@ namespace rcManagerUserDomain
                 throw new ArgumentException("[User] não pode ser nulo", "User");
             }
 
-            this.create(entity.id, entity.login, entity.password, entity.name, entity.description, 
-                entity.status, entity.createdAt, entity.updatedAt);
+            this.create(entity.Id, entity.Login, entity.Password, entity.Name, entity.Description, 
+                entity.Status, entity.CreatedAt, entity.UpdatedAt);
         }
 
         private void create(long id, string login, string password, string name, string description,
@@ -66,33 +66,33 @@ namespace rcManagerUserDomain
                 description = description.Trim();
 
                 if (String.IsNullOrWhiteSpace(description)) {
-                    this.description = null;
+                    this.Description = null;
                 } else if (description.Length < 3) {
                     throw new ArgumentException("Campo [description] deve possuir no mínimo 3 caracteres", "description");
                 }
             }
 
-            this.id = id;
-            this.login = login;
-            this.password = password;
-            this.name = name;
-            this.description = description;
-            this.status = status;
-            this.createdAt = createdAt;
-            this.updatedAt = updatedAt;
+            this.Id = id;
+            this.Login = login;
+            this.Password = password;
+            this.Name = name;
+            this.Description = description;
+            this.Status = status;
+            this.CreatedAt = createdAt;
+            this.UpdatedAt = updatedAt;
         }
 
         public UserEntity toEntity()
         {
             return new UserEntity() {
-                id = this.id,
-                login = this.login,
-                password = this.password,
-                name = this.name,
-                description = this.description,
-                status = this.status,
-                createdAt = this.createdAt,
-                updatedAt = this.updatedAt
+                Id = this.Id,
+                Login = this.Login,
+                Password = this.Password,
+                Name = this.Name,
+                Description = this.Description,
+                Status = this.Status,
+                CreatedAt = this.CreatedAt,
+                UpdatedAt = this.UpdatedAt
             };
         }
     }

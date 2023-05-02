@@ -15,106 +15,106 @@ namespace rcManagerUserApplication.Application
             this._userData = userData;
         }
 
-        public UserTransfer list(UserTransfer userTransfer)
+        public UserTransfer List(UserTransfer userTransfer)
         {
             UserTransfer userTransferRet = new UserTransfer();
 
             try {
-                IList<UserEntity> listRet = _userData.list();
+                IList<UserEntity> listRet = _userData.List();
 
                 if ((listRet != null) && (listRet.Count > 0)) {
-                    userTransferRet.list = listRet.Select(et => new UserModel(et)).ToList();
+                    userTransferRet.List = listRet.Select(et => new UserModel(et)).ToList();
                 } else {
-                    userTransferRet.addMessage("Nenhum registro encontrado");
+                    userTransferRet.AddMessage("Nenhum registro encontrado");
                 }
             } catch (ArgumentException ex) {
-                userTransferRet.valid = false;
-                userTransferRet.error = true;
-                userTransferRet.addMessage(ex.Message);
+                userTransferRet.Valid = false;
+                userTransferRet.Error = true;
+                userTransferRet.AddMessage(ex.Message);
             }
 
             return userTransferRet;
         }
 
-        public UserTransfer get(long id)
+        public UserTransfer Get(long id)
         {
             UserTransfer userTransferRet = new UserTransfer();
 
             try {
-                UserEntity userEntityRet = _userData.get(id);
+                UserEntity userEntityRet = _userData.Get(id);
 
                 if (userEntityRet == null) {
-                    userTransferRet.addMessage("Registro não encontrado");
+                    userTransferRet.AddMessage("Registro não encontrado");
                 } else {
-                    userTransferRet.item = new UserModel(userEntityRet);
+                    userTransferRet.Item = new UserModel(userEntityRet);
                 }
             } catch (ArgumentException ex) {
-                userTransferRet.valid = false;
-                userTransferRet.error = true;
-                userTransferRet.addMessage(ex.Message);
+                userTransferRet.Valid = false;
+                userTransferRet.Error = true;
+                userTransferRet.AddMessage(ex.Message);
             }
 
             return userTransferRet;
         }
 
-        public UserTransfer insert(UserTransfer userTransfer)
+        public UserTransfer Insert(UserTransfer userTransfer)
         {
             UserTransfer userTransferRet = new UserTransfer();
 
             try {
-                UserEntity entity = _userData.insert(userTransfer.item.toEntity());
+                UserEntity entity = _userData.Insert(userTransfer.Item.toEntity());
 
-                _userData.save();
+                _userData.Save();
 
-                userTransferRet.item = new UserModel(entity);
+                userTransferRet.Item = new UserModel(entity);
             } catch (ArgumentException ex) {
-                userTransferRet.valid = false;
-                userTransferRet.error = true;
-                userTransferRet.addMessage(ex.Message);
+                userTransferRet.Valid = false;
+                userTransferRet.Error = true;
+                userTransferRet.AddMessage(ex.Message);
             }
 
             return userTransferRet;
         }
 
-        public UserTransfer update(UserTransfer userTransfer)
+        public UserTransfer Update(UserTransfer userTransfer)
         {
             UserTransfer userTransferRet = new UserTransfer();
 
             try {
-                UserEntity entity = _userData.update(userTransfer.item.toEntity());
+                UserEntity entity = _userData.Update(userTransfer.Item.toEntity());
 
-                _userData.save();
+                _userData.Save();
 
-                userTransferRet.item = new UserModel(entity);
+                userTransferRet.Item = new UserModel(entity);
             } catch (ArgumentException ex) {
-                userTransferRet.valid = false;
-                userTransferRet.error = true;
-                userTransferRet.addMessage(ex.Message);
+                userTransferRet.Valid = false;
+                userTransferRet.Error = true;
+                userTransferRet.AddMessage(ex.Message);
             }
 
             return userTransferRet;
         }
 
-        public UserTransfer delete(long id)
+        public UserTransfer Delete(long id)
         {
             UserTransfer userTransferRet = new UserTransfer();
 
             try {
-                UserEntity entityExist = _userData.get(id);
+                UserEntity entityExist = _userData.Get(id);
 
                 if (entityExist != null) {
-                    UserEntity entity = _userData.delete(entityExist);
+                    UserEntity entity = _userData.Delete(entityExist);
 
-                    _userData.save();
+                    _userData.Save();
 
-                    userTransferRet.item = new UserModel(entity);
+                    userTransferRet.Item = new UserModel(entity);
                 } else {
-                    userTransferRet.addMessage("Registro não encontrado");
+                    userTransferRet.AddMessage("Registro não encontrado");
                 }
             } catch (ArgumentException ex) {
-                userTransferRet.valid = false;
-                userTransferRet.error = true;
-                userTransferRet.addMessage(ex.Message);
+                userTransferRet.Valid = false;
+                userTransferRet.Error = true;
+                userTransferRet.AddMessage(ex.Message);
             }
 
             return userTransferRet;

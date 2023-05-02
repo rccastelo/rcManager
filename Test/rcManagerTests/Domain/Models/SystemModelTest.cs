@@ -46,10 +46,10 @@ namespace rcManagerTests.Domain.Models
             }
 
             Assert.NotNull(systemEntity);
-            Assert.Equal(0, systemEntity.id);
-            Assert.Null(systemEntity.name);
-            Assert.Null(systemEntity.description);
-            Assert.False(systemEntity.status);
+            Assert.Equal(0, systemEntity.Id);
+            Assert.Null(systemEntity.Name);
+            Assert.Null(systemEntity.Description);
+            Assert.False(systemEntity.Status);
             Assert.Null(systemModel);
         }
 
@@ -62,7 +62,7 @@ namespace rcManagerTests.Domain.Models
             try
             {
                 systemEntity = new SystemEntity();
-                systemEntity.id = -1;
+                systemEntity.Id = -1;
                 systemModel = new SystemModel(systemEntity);
             }
             catch (Exception ex)
@@ -73,10 +73,10 @@ namespace rcManagerTests.Domain.Models
             }
 
             Assert.NotNull(systemEntity);
-            Assert.Equal(-1, systemEntity.id);
-            Assert.Null(systemEntity.name);
-            Assert.Null(systemEntity.description);
-            Assert.False(systemEntity.status);
+            Assert.Equal(-1, systemEntity.Id);
+            Assert.Null(systemEntity.Name);
+            Assert.Null(systemEntity.Description);
+            Assert.False(systemEntity.Status);
             Assert.Null(systemModel);
         }
 
@@ -89,8 +89,8 @@ namespace rcManagerTests.Domain.Models
             try
             {
                 systemEntity = new SystemEntity();
-                systemEntity.id = 1;
-                systemEntity.name = null;
+                systemEntity.Id = 1;
+                systemEntity.Name = null;
                 systemModel = new SystemModel(systemEntity);
             }
             catch (Exception ex)
@@ -101,10 +101,10 @@ namespace rcManagerTests.Domain.Models
             }
 
             Assert.NotNull(systemEntity);
-            Assert.Equal(1, systemEntity.id);
-            Assert.Null(systemEntity.name);
-            Assert.Null(systemEntity.description);
-            Assert.False(systemEntity.status);
+            Assert.Equal(1, systemEntity.Id);
+            Assert.Null(systemEntity.Name);
+            Assert.Null(systemEntity.Description);
+            Assert.False(systemEntity.Status);
             Assert.Null(systemModel);
         }
 
@@ -117,8 +117,8 @@ namespace rcManagerTests.Domain.Models
             try
             {
                 systemEntity = new SystemEntity();
-                systemEntity.id = 1;
-                systemEntity.name = "    ";
+                systemEntity.Id = 1;
+                systemEntity.Name = "    ";
                 systemModel = new SystemModel(systemEntity);
             }
             catch (Exception ex)
@@ -129,11 +129,11 @@ namespace rcManagerTests.Domain.Models
             }
 
             Assert.NotNull(systemEntity);
-            Assert.Equal(1, systemEntity.id);
-            Assert.NotNull(systemEntity.name);
-            Assert.Equal("    ", systemEntity.name);
-            Assert.Null(systemEntity.description);
-            Assert.False(systemEntity.status);
+            Assert.Equal(1, systemEntity.Id);
+            Assert.NotNull(systemEntity.Name);
+            Assert.Equal("    ", systemEntity.Name);
+            Assert.Null(systemEntity.Description);
+            Assert.False(systemEntity.Status);
             Assert.Null(systemModel);
         }
 
@@ -146,8 +146,8 @@ namespace rcManagerTests.Domain.Models
             try
             {
                 systemEntity = new SystemEntity();
-                systemEntity.id = 1;
-                systemEntity.name = "xx";
+                systemEntity.Id = 1;
+                systemEntity.Name = "xx";
                 systemModel = new SystemModel(systemEntity);
             }
             catch (Exception ex)
@@ -158,11 +158,11 @@ namespace rcManagerTests.Domain.Models
             }
 
             Assert.NotNull(systemEntity);
-            Assert.Equal(1, systemEntity.id);
-            Assert.NotNull(systemEntity.name);
-            Assert.Equal("xx", systemEntity.name);
-            Assert.Null(systemEntity.description);
-            Assert.False(systemEntity.status);
+            Assert.Equal(1, systemEntity.Id);
+            Assert.NotNull(systemEntity.Name);
+            Assert.Equal("xx", systemEntity.Name);
+            Assert.Null(systemEntity.Description);
+            Assert.False(systemEntity.Status);
             Assert.Null(systemModel);
         }
 
@@ -175,9 +175,9 @@ namespace rcManagerTests.Domain.Models
             try
             {
                 systemEntity = new SystemEntity();
-                systemEntity.id = 2345;
-                systemEntity.name = "name";
-                systemEntity.description = "xx";
+                systemEntity.Id = 2345;
+                systemEntity.Name = "name";
+                systemEntity.Description = "xx";
                 systemModel = new SystemModel(systemEntity);
             }
             catch (Exception ex)
@@ -188,12 +188,12 @@ namespace rcManagerTests.Domain.Models
             }
 
             Assert.NotNull(systemEntity);
-            Assert.Equal(2345, systemEntity.id);
-            Assert.NotNull(systemEntity.name);
-            Assert.Equal("name", systemEntity.name);
-            Assert.NotNull(systemEntity.description);
-            Assert.Equal("xx", systemEntity.description);
-            Assert.False(systemEntity.status);
+            Assert.Equal(2345, systemEntity.Id);
+            Assert.NotNull(systemEntity.Name);
+            Assert.Equal("name", systemEntity.Name);
+            Assert.NotNull(systemEntity.Description);
+            Assert.Equal("xx", systemEntity.Description);
+            Assert.False(systemEntity.Status);
             Assert.Null(systemModel);
         }
 
@@ -206,9 +206,9 @@ namespace rcManagerTests.Domain.Models
             try
             {
                 systemEntity = new SystemEntity();
-                systemEntity.id = 23456;
-                systemEntity.name = "name";
-                systemEntity.description = null;
+                systemEntity.Id = 23456;
+                systemEntity.Name = "name";
+                systemEntity.Description = null;
                 systemModel = new SystemModel(systemEntity);
             }
             catch (Exception ex)
@@ -217,17 +217,17 @@ namespace rcManagerTests.Domain.Models
             }
 
             Assert.NotNull(systemEntity);
-            Assert.Equal(23456, systemEntity.id);
-            Assert.NotNull(systemEntity.name);
-            Assert.Equal("name", systemEntity.name);
-            Assert.Null(systemEntity.description);
-            Assert.False(systemEntity.status);
+            Assert.Equal(23456, systemEntity.Id);
+            Assert.NotNull(systemEntity.Name);
+            Assert.Equal("name", systemEntity.Name);
+            Assert.Null(systemEntity.Description);
+            Assert.False(systemEntity.Status);
             Assert.NotNull(systemModel);
-            Assert.Equal(23456, systemModel.id);
-            Assert.NotNull(systemModel.name);
-            Assert.Equal("name", systemModel.name);
-            Assert.Null(systemModel.description);
-            Assert.False(systemModel.status);
+            Assert.Equal(23456, systemModel.Id);
+            Assert.NotNull(systemModel.Name);
+            Assert.Equal("name", systemModel.Name);
+            Assert.Null(systemModel.Description);
+            Assert.False(systemModel.Status);
         }
 
         [Fact]
@@ -239,10 +239,10 @@ namespace rcManagerTests.Domain.Models
             try
             {
                 systemEntity = new SystemEntity();
-                systemEntity.id = long.MaxValue;
-                systemEntity.name = "name";
-                systemEntity.description = "description";
-                systemEntity.status = true;
+                systemEntity.Id = long.MaxValue;
+                systemEntity.Name = "name";
+                systemEntity.Description = "description";
+                systemEntity.Status = true;
                 systemModel = new SystemModel(systemEntity);
             }
             catch (Exception ex)
@@ -251,19 +251,19 @@ namespace rcManagerTests.Domain.Models
             }
 
             Assert.NotNull(systemEntity);
-            Assert.Equal(long.MaxValue, systemEntity.id);
-            Assert.NotNull(systemEntity.name);
-            Assert.Equal("name", systemEntity.name);
-            Assert.NotNull(systemEntity.description);
-            Assert.Equal("description", systemEntity.description);
-            Assert.True(systemEntity.status);
+            Assert.Equal(long.MaxValue, systemEntity.Id);
+            Assert.NotNull(systemEntity.Name);
+            Assert.Equal("name", systemEntity.Name);
+            Assert.NotNull(systemEntity.Description);
+            Assert.Equal("description", systemEntity.Description);
+            Assert.True(systemEntity.Status);
             Assert.NotNull(systemModel);
-            Assert.Equal(long.MaxValue, systemModel.id);
-            Assert.NotNull(systemModel.name);
-            Assert.Equal("name", systemModel.name);
-            Assert.NotNull(systemModel.description);
-            Assert.Equal("description", systemModel.description);
-            Assert.True(systemModel.status);
+            Assert.Equal(long.MaxValue, systemModel.Id);
+            Assert.NotNull(systemModel.Name);
+            Assert.Equal("name", systemModel.Name);
+            Assert.NotNull(systemModel.Description);
+            Assert.Equal("description", systemModel.Description);
+            Assert.True(systemModel.Status);
         }
     }
 }

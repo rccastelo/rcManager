@@ -9,16 +9,16 @@ namespace rcManagerPermissionDomain
         public PermissionModel(PermissionModel model)
         {
             if (model != null) {
-                this.id = model.id;
-                this.user_id = model.user_id;
-                this.system_id = model.system_id;
-                this.date_from = model.date_from;
-                this.date_to = model.date_to;
-                this.status = model.status;
-                this.weekday = model.weekday;
-                this.weekend = model.weekend;
-                this.start_time = model.start_time;
-                this.end_time = model.end_time;
+                this.Id = model.Id;
+                this.User_Id = model.User_Id;
+                this.System_Id = model.System_Id;
+                this.DateFrom = model.DateFrom;
+                this.DateTo = model.DateTo;
+                this.Status = model.Status;
+                this.Weekday = model.Weekday;
+                this.Weekend = model.Weekend;
+                this.StartTime = model.StartTime;
+                this.EndTime = model.EndTime;
             }
         }
 
@@ -38,7 +38,7 @@ namespace rcManagerPermissionDomain
                 throw new ArgumentException("[Permission] não pode ser nulo", "Permission");
             }
 
-            this.create(entity.id, entity.user_id, entity.system_id, entity.date_from, entity.date_to, entity.status, entity.weekday, entity.weekend, entity.start_time, entity.end_time);
+            this.create(entity.Id, entity.User_Id, entity.System_Id, entity.DateFrom, entity.DateTo, entity.Status, entity.Weekday, entity.Weekend, entity.StartTime, entity.EndTime);
         }
 
         private void create(long id, long user_id, long system_id, DateTime date_from, DateTime date_to, bool status, bool weekday, bool weekend, TimeSpan start_time, TimeSpan end_time)
@@ -88,31 +88,31 @@ namespace rcManagerPermissionDomain
             //    }
             //}
 
-            this.id = id;
-            this.user_id = user_id;
-            this.system_id = system_id;
-            this.date_from = date_from;
-            this.date_to = date_to;
-            this.status = status;
-            this.weekday = weekday;
-            this.weekend = weekend;
-            this.start_time = start_time;
-            this.end_time = end_time;
+            this.Id = id;
+            this.User_Id = user_id;
+            this.System_Id = system_id;
+            this.DateFrom = date_from;
+            this.DateTo = date_to;
+            this.Status = status;
+            this.Weekday = weekday;
+            this.Weekend = weekend;
+            this.StartTime = start_time;
+            this.EndTime = end_time;
         }
 
         public PermissionEntity toEntity()
         {
             return new PermissionEntity() {
-                id = this.id,
-                user_id = this.user_id,
-                system_id = this.system_id,
-                date_from = this.date_from,
-                date_to = this.date_to,
-                status = this.status,
-                weekday = this.weekday,
-                weekend = this.weekend,
-                start_time = this.start_time,
-                end_time = this.end_time
+                Id = this.Id,
+                User_Id = this.User_Id,
+                System_Id = this.System_Id,
+                DateFrom = this.DateFrom,
+                DateTo = this.DateTo,
+                Status = this.Status,
+                Weekday = this.Weekday,
+                Weekend = this.Weekend,
+                StartTime = this.StartTime,
+                EndTime = this.EndTime
             };
         }
     }

@@ -4,12 +4,11 @@ namespace rcManagerApplicationBase.Interfaces
 {
     public interface IDatasBase<Entity>
     {
-        IList<Entity> list();
-        Entity get(long id);
-        Entity insert(Entity entity);
-        Entity update(Entity entity);
-        Entity delete(Entity entity);
-        void save();
-        void cancel();
+        IList<Entity> List();
+        Entity Get(long id);
+        Entity Insert(Entity entity);
+        Entity Update(Entity entity);
+        Entity Delete(Entity entity);
+        void Save();
     }
 }

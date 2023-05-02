@@ -27,23 +27,23 @@ namespace rcManagerApi.Controllers
         [ProducesResponseType(typeof(UserTransfer), 200)]
         [ProducesResponseType(typeof(UserTransfer), 400)]
         [ProducesResponseType(500)]
-        public IActionResult list(UserTransfer userTransfer)
+        public IActionResult List(UserTransfer userTransfer)
         {
             UserTransfer userTransferRet;
 
             try
             {
-                userTransferRet = _userService.list(userTransfer);
+                userTransferRet = _userService.List(userTransfer);
             }
             catch (Exception ex)
             {
                 userTransferRet = new UserTransfer();
-                userTransferRet.valid = false;
-                userTransferRet.error = true;
-                userTransferRet.addMessage("Erro ao listar Usuarios");
+                userTransferRet.Valid = false;
+                userTransferRet.Error = true;
+                userTransferRet.AddMessage("Erro ao listar Usuarios");
             }
 
-            if (userTransferRet.error || !userTransferRet.valid)
+            if (userTransferRet.Error || !userTransferRet.Valid)
             {
                 return BadRequest(userTransferRet);
             }
@@ -63,23 +63,23 @@ namespace rcManagerApi.Controllers
         [ProducesResponseType(typeof(UserTransfer), 200)]
         [ProducesResponseType(typeof(UserTransfer), 400)]
         [ProducesResponseType(500)]
-        public IActionResult get(long id)
+        public IActionResult Get(long id)
         {
             UserTransfer userTransferRet;
 
             try
             {
-                userTransferRet = _userService.get(id);
+                userTransferRet = _userService.Get(id);
             }
             catch (Exception ex)
             {
                 userTransferRet = new UserTransfer();
-                userTransferRet.valid = false;
-                userTransferRet.error = true;
-                userTransferRet.addMessage("Erro ao consultar Usuario");
+                userTransferRet.Valid = false;
+                userTransferRet.Error = true;
+                userTransferRet.AddMessage("Erro ao consultar Usuario");
             }
 
-            if (userTransferRet.error || !userTransferRet.valid)
+            if (userTransferRet.Error || !userTransferRet.Valid)
             {
                 return BadRequest(userTransferRet);
             }
@@ -99,23 +99,23 @@ namespace rcManagerApi.Controllers
         [ProducesResponseType(typeof(UserTransfer), 200)]
         [ProducesResponseType(typeof(UserTransfer), 400)]
         [ProducesResponseType(500)]
-        public IActionResult insert(UserTransfer userTransfer)
+        public IActionResult Insert(UserTransfer userTransfer)
         {
             UserTransfer userTransferRet;
 
             try
             {
-                userTransferRet = _userService.insert(userTransfer);
+                userTransferRet = _userService.Insert(userTransfer);
             }
             catch (Exception ex)
             {
                 userTransferRet = new UserTransfer();
-                userTransferRet.valid = false;
-                userTransferRet.error = true;
-                userTransferRet.addMessage("Erro ao incluir Usuario");
+                userTransferRet.Valid = false;
+                userTransferRet.Error = true;
+                userTransferRet.AddMessage("Erro ao incluir Usuario");
             }
 
-            if (userTransferRet.error || !userTransferRet.valid)
+            if (userTransferRet.Error || !userTransferRet.Valid)
             {
                 return BadRequest(userTransferRet);
             }
@@ -135,23 +135,23 @@ namespace rcManagerApi.Controllers
         [ProducesResponseType(typeof(UserTransfer), 200)]
         [ProducesResponseType(typeof(UserTransfer), 400)]
         [ProducesResponseType(500)]
-        public IActionResult update(UserTransfer userTransfer)
+        public IActionResult Update(UserTransfer userTransfer)
         {
             UserTransfer userTransferRet;
 
             try
             {
-                userTransferRet = _userService.update(userTransfer);
+                userTransferRet = _userService.Update(userTransfer);
             }
             catch (Exception ex)
             {
                 userTransferRet = new UserTransfer();
-                userTransferRet.valid = false;
-                userTransferRet.error = true;
-                userTransferRet.addMessage("Erro ao alterar Usuario");
+                userTransferRet.Valid = false;
+                userTransferRet.Error = true;
+                userTransferRet.AddMessage("Erro ao alterar Usuario");
             }
 
-            if (userTransferRet.error || !userTransferRet.valid)
+            if (userTransferRet.Error || !userTransferRet.Valid)
             {
                 return BadRequest(userTransferRet);
             }
@@ -171,23 +171,23 @@ namespace rcManagerApi.Controllers
         [ProducesResponseType(typeof(UserTransfer), 200)]
         [ProducesResponseType(typeof(UserTransfer), 400)]
         [ProducesResponseType(500)]
-        public IActionResult delete(long id)
+        public IActionResult Delete(long id)
         {
             UserTransfer userTransferRet;
 
             try
             {
-                userTransferRet = _userService.delete(id);
+                userTransferRet = _userService.Delete(id);
             }
             catch (Exception ex)
             {
                 userTransferRet = new UserTransfer();
-                userTransferRet.valid = false;
-                userTransferRet.error = true;
-                userTransferRet.addMessage("Erro ao excluir Usuario");
+                userTransferRet.Valid = false;
+                userTransferRet.Error = true;
+                userTransferRet.AddMessage("Erro ao excluir Usuario");
             }
 
-            if (userTransferRet.error || !userTransferRet.valid)
+            if (userTransferRet.Error || !userTransferRet.Valid)
             {
                 return BadRequest(userTransferRet);
             }

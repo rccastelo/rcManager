@@ -17,49 +17,36 @@ namespace rcManagerApplicationBase.Base
             this._context = context;
         }
 
-        public Entity get(long id)
+        public Entity Get(long id)
         {
-            return _context.Set<Entity>().AsNoTracking().SingleOrDefault(et => et.id == id);
+            return _context.Set<Entity>().AsNoTracking().SingleOrDefault(et => et.Id == id);
         }
 
-        public IList<Entity> list()
+        public IList<Entity> List()
         {
             return _context.Set<Entity>().AsNoTracking().ToList();
         }
 
-        public Entity insert(Entity entity)
+        public Entity Insert(Entity entity)
         {
             return _context.Set<Entity>().Add(entity).Entity;
         }
 
-        public virtual Entity update(Entity entity)
+        public virtual Entity Update(Entity entity)
         {
             return _context.Set<Entity>().Update(entity).Entity;
         }
 
-        public Entity delete(Entity entity)
+        public Entity Delete(Entity entity)
         {
             return _context.Set<Entity>().Remove(entity).Entity;
         }
 
-        public void detach(Entity entity) 
-        {
-            _context.Entry<Entity>(entity).State = EntityState.Detached;
-        }
-
-        public void save()
+        public void Save()
         {
             this._context.SaveChanges();
 
             foreach(EntityEntry entry in this._context.ChangeTracker.Entries()) {
-                entry.State = EntityState.Detached;
-            }
-        }
-
-        public void cancel()
-        {
-            foreach (EntityEntry entry in this._context.ChangeTracker.Entries())
-            {
                 entry.State = EntityState.Detached;
             }
         }

@@ -27,20 +27,20 @@ namespace rcManagerApi.Controllers
         [ProducesResponseType(typeof(PermissionTransfer), 200)]
         [ProducesResponseType(typeof(PermissionTransfer), 400)]
         [ProducesResponseType(500)]
-        public IActionResult list(PermissionTransfer permissionTransfer)
+        public IActionResult List(PermissionTransfer permissionTransfer)
         {
             PermissionTransfer permissionTransferRet;
 
             try {
-                permissionTransferRet = _permissionService.list(permissionTransfer);
+                permissionTransferRet = _permissionService.List(permissionTransfer);
             } catch (Exception ex) {
                 permissionTransferRet = new PermissionTransfer();
-                permissionTransferRet.valid = false;
-                permissionTransferRet.error = true;
-                permissionTransferRet.addMessage("Erro ao listar Permissões");
+                permissionTransferRet.Valid = false;
+                permissionTransferRet.Error = true;
+                permissionTransferRet.AddMessage("Erro ao listar Permissões");
             }
 
-            if (permissionTransferRet.error || !permissionTransferRet.valid) {
+            if (permissionTransferRet.Error || !permissionTransferRet.Valid) {
                 return BadRequest(permissionTransferRet);
             } else {
                 return Ok(permissionTransferRet);
@@ -57,20 +57,20 @@ namespace rcManagerApi.Controllers
         [ProducesResponseType(typeof(PermissionTransfer), 200)]
         [ProducesResponseType(typeof(PermissionTransfer), 400)]
         [ProducesResponseType(500)]
-        public IActionResult get(long id)
+        public IActionResult Get(long id)
         {
             PermissionTransfer permissionTransferRet;
 
             try {
-                permissionTransferRet = _permissionService.get(id);
+                permissionTransferRet = _permissionService.Get(id);
             } catch (Exception ex) {
                 permissionTransferRet = new PermissionTransfer();
-                permissionTransferRet.valid = false;
-                permissionTransferRet.error = true;
-                permissionTransferRet.addMessage("Erro ao consultar Permissão");
+                permissionTransferRet.Valid = false;
+                permissionTransferRet.Error = true;
+                permissionTransferRet.AddMessage("Erro ao consultar Permissão");
             }
 
-            if (permissionTransferRet.error || !permissionTransferRet.valid) {
+            if (permissionTransferRet.Error || !permissionTransferRet.Valid) {
                 return BadRequest(permissionTransferRet);
             } else {
                 return Ok(permissionTransferRet);
@@ -87,20 +87,20 @@ namespace rcManagerApi.Controllers
         [ProducesResponseType(typeof(PermissionTransfer), 200)]
         [ProducesResponseType(typeof(PermissionTransfer), 400)]
         [ProducesResponseType(500)]
-        public IActionResult insert(PermissionTransfer permissionTransfer)
+        public IActionResult Insert(PermissionTransfer permissionTransfer)
         {
             PermissionTransfer permissionTransferRet;
 
             try {
-                permissionTransferRet = _permissionService.insert(permissionTransfer);
+                permissionTransferRet = _permissionService.Insert(permissionTransfer);
             } catch (Exception ex) {
                 permissionTransferRet = new PermissionTransfer();
-                permissionTransferRet.valid = false;
-                permissionTransferRet.error = true;
-                permissionTransferRet.addMessage("Erro ao incluir Permissão");
+                permissionTransferRet.Valid = false;
+                permissionTransferRet.Error = true;
+                permissionTransferRet.AddMessage("Erro ao incluir Permissão");
             }
 
-            if (permissionTransferRet.error || !permissionTransferRet.valid) {
+            if (permissionTransferRet.Error || !permissionTransferRet.Valid) {
                 return BadRequest(permissionTransferRet);
             } else {
                 return Ok(permissionTransferRet);
@@ -117,20 +117,20 @@ namespace rcManagerApi.Controllers
         [ProducesResponseType(typeof(PermissionTransfer), 200)]
         [ProducesResponseType(typeof(PermissionTransfer), 400)]
         [ProducesResponseType(500)]
-        public IActionResult update(PermissionTransfer permissionTransfer)
+        public IActionResult Update(PermissionTransfer permissionTransfer)
         {
             PermissionTransfer permissionTransferRet;
 
             try {
-                permissionTransferRet = _permissionService.update(permissionTransfer);
+                permissionTransferRet = _permissionService.Update(permissionTransfer);
             } catch (Exception ex) {
                 permissionTransferRet = new PermissionTransfer();
-                permissionTransferRet.valid = false;
-                permissionTransferRet.error = true;
-                permissionTransferRet.addMessage("Erro ao alterar Permissão");
+                permissionTransferRet.Valid = false;
+                permissionTransferRet.Error = true;
+                permissionTransferRet.AddMessage("Erro ao alterar Permissão");
             }
 
-            if (permissionTransferRet.error || !permissionTransferRet.valid) {
+            if (permissionTransferRet.Error || !permissionTransferRet.Valid) {
                 return BadRequest(permissionTransferRet);
             } else {
                 return Ok(permissionTransferRet);
@@ -147,20 +147,20 @@ namespace rcManagerApi.Controllers
         [ProducesResponseType(typeof(PermissionTransfer), 200)]
         [ProducesResponseType(typeof(PermissionTransfer), 400)]
         [ProducesResponseType(500)]
-        public IActionResult delete(long id)
+        public IActionResult Delete(long id)
         {
             PermissionTransfer permissionTransferRet;
 
             try {
-                permissionTransferRet = _permissionService.delete(id);
+                permissionTransferRet = _permissionService.Delete(id);
             } catch (Exception ex) {
                 permissionTransferRet = new PermissionTransfer();
-                permissionTransferRet.valid = false;
-                permissionTransferRet.error = true;
-                permissionTransferRet.addMessage("Erro ao excluir Permissão");
+                permissionTransferRet.Valid = false;
+                permissionTransferRet.Error = true;
+                permissionTransferRet.AddMessage("Erro ao excluir Permissão");
             }
 
-            if (permissionTransferRet.error || !permissionTransferRet.valid) {
+            if (permissionTransferRet.Error || !permissionTransferRet.Valid) {
                 return BadRequest(permissionTransferRet);
             } else {
                 return Ok(permissionTransferRet);

@@ -12,46 +12,45 @@ namespace rcManagerUserDomain
         [Column("login", Order = 2)]
         [Required]
         [StringLength(50)]
-        public string login { get; set; }
+        public string Login { get; set; }
 
         [Column("password", Order = 3)]
         [Required]
         [StringLength(200)]
-        public string password { get; set; }
+        public string Password { get; set; }
 
         [Column("name", Order = 4)]
         [StringLength(200)]
-        public string name { get; set; }
+        public string Name { get; set; }
 
         [Column("description", Order = 5)]
         [StringLength(200)]
-        public string description { get; set; }
+        public string Description { get; set; }
 
         [Column("status", Order = 6)]
         [Required]
-        public bool status { get; set; }
+        public bool Status { get; set; }
 
         [Column("createdAt", Order = 7)]
         [Required]
-        public DateTime createdAt { get; set; }
+        public DateTime CreatedAt { get; set; }
 
         [Column("updatedAt", Order = 8)]
-        public DateTime updatedAt { get; set; }
+        public DateTime UpdatedAt { get; set; }
 
         public UserEntity() { }
 
         public UserEntity(UserEntity entity)
         {
-            if (entity != null)
-            {
-                this.id = entity.id;
-                this.login = entity.login;
-                this.password = entity.password;
-                this.name = entity.name;
-                this.description = entity.description;
-                this.status = entity.status;
-                this.createdAt = entity.createdAt;
-                this.updatedAt = entity.updatedAt;
+            if (entity != null) {
+                this.Id = entity.Id;
+                this.Login = entity.Login;
+                this.Password = entity.Password;
+                this.Name = entity.Name;
+                this.Description = entity.Description;
+                this.Status = entity.Status;
+                this.CreatedAt = entity.CreatedAt;
+                this.UpdatedAt = entity.UpdatedAt;
             }
         }
     }

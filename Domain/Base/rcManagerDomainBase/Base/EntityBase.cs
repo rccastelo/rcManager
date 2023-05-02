@@ -10,7 +10,7 @@ namespace rcManagerDomainBase.Base
         [Column("id", Order = 1)]
         [Required]
         [Key]
-        public long id { get; set; }
+        public long Id { get; set; }
 
         public EntityBase()
         {
@@ -18,14 +18,14 @@ namespace rcManagerDomainBase.Base
 
         public EntityBase(int id)
         {
-            this.id = id;
+            this.Id = id;
         }
 
         public EntityBase(EntityBase entity)
         {
             if (entity != null)
             {
-                this.id = entity.id;
+                this.Id = entity.Id;
             }
         }
     }

@@ -17,7 +17,7 @@ namespace rcManagerApi.Controllers
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
         [ProducesResponseType(500)]
-        public string test() {
+        public string Test() {
             return "ok";
         }
     }

@@ -12,15 +12,15 @@ namespace rcManagerSystemDomain
         [Column("name", Order = 2)]
         [Required]
         [StringLength(50)]
-        public string name { get; set; }
+        public string Name { get; set; }
 
         [Column("description", Order = 3)]
         [StringLength(200)]
-        public string description { get; set; }
+        public string Description { get; set; }
 
         [Column("status", Order = 4)]
         [Required]
-        public bool status { get; set; }
+        public bool Status { get; set; }
 
         public SystemEntity() { }
 
@@ -28,10 +28,10 @@ namespace rcManagerSystemDomain
         {
             if (entity != null)
             {
-                this.id = entity.id;
-                this.name = entity.name;
-                this.description = entity.description;
-                this.status = entity.status;
+                this.Id = entity.Id;
+                this.Name = entity.Name;
+                this.Description = entity.Description;
+                this.Status = entity.Status;
             }
         }
     }

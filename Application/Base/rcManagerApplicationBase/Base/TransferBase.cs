@@ -6,65 +6,65 @@ namespace rcManagerApplicationBase.Base
     [Serializable]
     public abstract class TransferBase<T>
     {
-        public bool valid { get; set; }
-        public bool error { get; set; }
-        public IList<string> messages { get; set; }
-        public T item { get; set; }
-        public IList<T> list { get; set; }
+        public bool Valid { get; set; }
+        public bool Error { get; set; }
+        public IList<string> Messages { get; set; }
+        public T Item { get; set; }
+        public IList<T> List { get; set; }
 
         public TransferBase()
         {
-            this.valid = true;
-            this.error = false;
+            this.Valid = true;
+            this.Error = false;
         }
 
         public TransferBase(TransferBase<T> transfer)
         {
             if (transfer != null)
             {
-                this.valid = transfer.valid;
-                this.error = transfer.error;
+                this.Valid = transfer.Valid;
+                this.Error = transfer.Error;
 
-                if (transfer.messages != null)
+                if (transfer.Messages != null)
                 {
-                    this.messages = new List<string>(transfer.messages);
+                    this.Messages = new List<string>(transfer.Messages);
                 }
 
-                if (transfer.list != null)
+                if (transfer.List != null)
                 {
-                    this.list = new List<T>(transfer.list);
+                    this.List = new List<T>(transfer.List);
                 }
 
-                if (transfer.item != null)
+                if (transfer.Item != null)
                 {
-                    this.item = (T)Activator.CreateInstance(typeof(T), transfer.item);
+                    this.Item = (T)Activator.CreateInstance(typeof(T), transfer.Item);
                 }
             }
         }
 
-        public void addMessage(string message)
+        public void AddMessage(string message)
         {
             if (!string.IsNullOrEmpty(message))
             {
-                if (this.messages == null)
+                if (this.Messages == null)
                 {
-                    this.messages = new List<string>();
+                    this.Messages = new List<string>();
                 }
 
-                this.messages.Add(message);
+                this.Messages.Add(message);
             }
         }
 
-        public void addModel(T model)
+        public void AddModel(T model)
         {
             if (model != null)
             {
-                if (this.list == null)
+                if (this.List == null)
                 {
-                    this.list = new List<T>();
+                    this.List = new List<T>();
                 }
 
-                this.list.Add(model);
+                this.List.Add(model);
             }
         }
     }

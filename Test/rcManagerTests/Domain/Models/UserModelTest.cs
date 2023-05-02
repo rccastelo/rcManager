@@ -40,10 +40,10 @@ namespace rcManagerTests.Domain.Models
             }
 
             Assert.NotNull(userEntity);
-            Assert.Equal(0, userEntity.id);
-            Assert.Null(userEntity.name);
-            Assert.Null(userEntity.description);
-            Assert.False(userEntity.status);
+            Assert.Equal(0, userEntity.Id);
+            Assert.Null(userEntity.Name);
+            Assert.Null(userEntity.Description);
+            Assert.False(userEntity.Status);
             Assert.Null(userModel);
         }
 
@@ -55,7 +55,7 @@ namespace rcManagerTests.Domain.Models
 
             try {
                 userEntity = new UserEntity();
-                userEntity.id = -1;
+                userEntity.Id = -1;
                 userModel = new UserModel(userEntity);
             } catch (Exception ex) {
                 Assert.NotNull(ex);
@@ -64,10 +64,10 @@ namespace rcManagerTests.Domain.Models
             }
 
             Assert.NotNull(userEntity);
-            Assert.Equal(-1, userEntity.id);
-            Assert.Null(userEntity.name);
-            Assert.Null(userEntity.description);
-            Assert.False(userEntity.status);
+            Assert.Equal(-1, userEntity.Id);
+            Assert.Null(userEntity.Name);
+            Assert.Null(userEntity.Description);
+            Assert.False(userEntity.Status);
             Assert.Null(userModel);
         }
 
@@ -79,8 +79,8 @@ namespace rcManagerTests.Domain.Models
 
             try {
                 userEntity = new UserEntity();
-                userEntity.id = 1;
-                userEntity.name = null;
+                userEntity.Id = 1;
+                userEntity.Name = null;
                 userModel = new UserModel(userEntity);
             } catch (Exception ex) {
                 Assert.NotNull(ex);
@@ -89,10 +89,10 @@ namespace rcManagerTests.Domain.Models
             }
 
             Assert.NotNull(userEntity);
-            Assert.Equal(1, userEntity.id);
-            Assert.Null(userEntity.name);
-            Assert.Null(userEntity.description);
-            Assert.False(userEntity.status);
+            Assert.Equal(1, userEntity.Id);
+            Assert.Null(userEntity.Name);
+            Assert.Null(userEntity.Description);
+            Assert.False(userEntity.Status);
             Assert.Null(userModel);
         }
 
@@ -104,8 +104,8 @@ namespace rcManagerTests.Domain.Models
 
             try {
                 userEntity = new UserEntity();
-                userEntity.id = 1;
-                userEntity.name = "    ";
+                userEntity.Id = 1;
+                userEntity.Name = "    ";
                 userModel = new UserModel(userEntity);
             } catch (Exception ex) {
                 Assert.NotNull(ex);
@@ -114,11 +114,11 @@ namespace rcManagerTests.Domain.Models
             }
 
             Assert.NotNull(userEntity);
-            Assert.Equal(1, userEntity.id);
-            Assert.NotNull(userEntity.name);
-            Assert.Equal("    ", userEntity.name);
-            Assert.Null(userEntity.description);
-            Assert.False(userEntity.status);
+            Assert.Equal(1, userEntity.Id);
+            Assert.NotNull(userEntity.Name);
+            Assert.Equal("    ", userEntity.Name);
+            Assert.Null(userEntity.Description);
+            Assert.False(userEntity.Status);
             Assert.Null(userModel);
         }
 
@@ -130,8 +130,8 @@ namespace rcManagerTests.Domain.Models
 
             try {
                 userEntity = new UserEntity();
-                userEntity.id = 1;
-                userEntity.name = "xx";
+                userEntity.Id = 1;
+                userEntity.Name = "xx";
                 userModel = new UserModel(userEntity);
             } catch (Exception ex) {
                 Assert.NotNull(ex);
@@ -140,11 +140,11 @@ namespace rcManagerTests.Domain.Models
             }
 
             Assert.NotNull(userEntity);
-            Assert.Equal(1, userEntity.id);
-            Assert.NotNull(userEntity.name);
-            Assert.Equal("xx", userEntity.name);
-            Assert.Null(userEntity.description);
-            Assert.False(userEntity.status);
+            Assert.Equal(1, userEntity.Id);
+            Assert.NotNull(userEntity.Name);
+            Assert.Equal("xx", userEntity.Name);
+            Assert.Null(userEntity.Description);
+            Assert.False(userEntity.Status);
             Assert.Null(userModel);
         }
 
@@ -156,9 +156,9 @@ namespace rcManagerTests.Domain.Models
 
             try {
                 userEntity = new UserEntity();
-                userEntity.id = 2345;
-                userEntity.name = "name";
-                userEntity.description = "xx";
+                userEntity.Id = 2345;
+                userEntity.Name = "name";
+                userEntity.Description = "xx";
                 userModel = new UserModel(userEntity);
             } catch (Exception ex) {
                 Assert.NotNull(ex);
@@ -167,12 +167,12 @@ namespace rcManagerTests.Domain.Models
             }
 
             Assert.NotNull(userEntity);
-            Assert.Equal(2345, userEntity.id);
-            Assert.NotNull(userEntity.name);
-            Assert.Equal("name", userEntity.name);
-            Assert.NotNull(userEntity.description);
-            Assert.Equal("xx", userEntity.description);
-            Assert.False(userEntity.status);
+            Assert.Equal(2345, userEntity.Id);
+            Assert.NotNull(userEntity.Name);
+            Assert.Equal("name", userEntity.Name);
+            Assert.NotNull(userEntity.Description);
+            Assert.Equal("xx", userEntity.Description);
+            Assert.False(userEntity.Status);
             Assert.Null(userModel);
         }
 
@@ -184,26 +184,26 @@ namespace rcManagerTests.Domain.Models
 
             try {
                 userEntity = new UserEntity();
-                userEntity.id = 23456;
-                userEntity.name = "name";
-                userEntity.description = null;
+                userEntity.Id = 23456;
+                userEntity.Name = "name";
+                userEntity.Description = null;
                 userModel = new UserModel(userEntity);
             } catch (Exception ex) {
                 Assert.Null(ex);
             }
 
             Assert.NotNull(userEntity);
-            Assert.Equal(23456, userEntity.id);
-            Assert.NotNull(userEntity.name);
-            Assert.Equal("name", userEntity.name);
-            Assert.Null(userEntity.description);
-            Assert.False(userEntity.status);
+            Assert.Equal(23456, userEntity.Id);
+            Assert.NotNull(userEntity.Name);
+            Assert.Equal("name", userEntity.Name);
+            Assert.Null(userEntity.Description);
+            Assert.False(userEntity.Status);
             Assert.NotNull(userModel);
-            Assert.Equal(23456, userModel.id);
-            Assert.NotNull(userModel.name);
-            Assert.Equal("name", userModel.name);
-            Assert.Null(userModel.description);
-            Assert.False(userModel.status);
+            Assert.Equal(23456, userModel.Id);
+            Assert.NotNull(userModel.Name);
+            Assert.Equal("name", userModel.Name);
+            Assert.Null(userModel.Description);
+            Assert.False(userModel.Status);
         }
 
         [Fact]
@@ -214,29 +214,29 @@ namespace rcManagerTests.Domain.Models
 
             try {
                 userEntity = new UserEntity();
-                userEntity.id = long.MaxValue;
-                userEntity.name = "name";
-                userEntity.description = "description";
-                userEntity.status = true;
+                userEntity.Id = long.MaxValue;
+                userEntity.Name = "name";
+                userEntity.Description = "description";
+                userEntity.Status = true;
                 userModel = new UserModel(userEntity);
             } catch (Exception ex) {
                 Assert.Null(ex);
             }
 
             Assert.NotNull(userEntity);
-            Assert.Equal(long.MaxValue, userEntity.id);
-            Assert.NotNull(userEntity.name);
-            Assert.Equal("name", userEntity.name);
-            Assert.NotNull(userEntity.description);
-            Assert.Equal("description", userEntity.description);
-            Assert.True(userEntity.status);
+            Assert.Equal(long.MaxValue, userEntity.Id);
+            Assert.NotNull(userEntity.Name);
+            Assert.Equal("name", userEntity.Name);
+            Assert.NotNull(userEntity.Description);
+            Assert.Equal("description", userEntity.Description);
+            Assert.True(userEntity.Status);
             Assert.NotNull(userModel);
-            Assert.Equal(long.MaxValue, userModel.id);
-            Assert.NotNull(userModel.name);
-            Assert.Equal("name", userModel.name);
-            Assert.NotNull(userModel.description);
-            Assert.Equal("description", userModel.description);
-            Assert.True(userModel.status);
+            Assert.Equal(long.MaxValue, userModel.Id);
+            Assert.NotNull(userModel.Name);
+            Assert.Equal("name", userModel.Name);
+            Assert.NotNull(userModel.Description);
+            Assert.Equal("description", userModel.Description);
+            Assert.True(userModel.Status);
         }
     }
 }

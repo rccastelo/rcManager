@@ -13,39 +13,39 @@ namespace rcManagerPermissionDomain
     {
         [Column("user_id", Order = 2)]
         [Required]
-        public long user_id { get; set; }
+        public long User_Id { get; set; }
 
         [Column("system_id", Order = 3)]
         [Required]
-        public long system_id { get; set; }
+        public long System_Id { get; set; }
 
         [Column("status", Order = 4)]
         [Required]
-        public bool status { get; set; }
+        public bool Status { get; set; }
 
         [Column("date_from", Order = 5)]
         [Required]
-        public DateTime date_from { get; set; }
+        public DateTime DateFrom { get; set; }
 
         [Column("date_to", Order = 6)]
         [Required]
-        public DateTime date_to { get; set; }
+        public DateTime DateTo { get; set; }
 
         [Column("weekday", Order = 7)]
         [Required]
-        public bool weekday { get; set; }
+        public bool Weekday { get; set; }
 
         [Column("weekend", Order = 8)]
         [Required]
-        public bool weekend { get; set; }
+        public bool Weekend { get; set; }
 
         [Column("start_time", Order = 9)]
         [Required]
-        public TimeSpan start_time { get; set; }
+        public TimeSpan StartTime { get; set; }
 
         [Column("end_time", Order = 10)]
         [Required]
-        public TimeSpan end_time { get; set; }
+        public TimeSpan EndTime { get; set; }
 
         [ForeignKey("user_id")]
         public UserEntity UserEntity { get; set; }
@@ -59,16 +59,16 @@ namespace rcManagerPermissionDomain
         {
             if (entity != null)
             {
-                this.id = entity.id;
-                this.user_id = entity.user_id;
-                this.system_id = entity.system_id;
-                this.date_from = entity.date_from;
-                this.date_to = entity.date_to;
-                this.status = entity.status;
-                this.weekday = entity.weekday;
-                this.weekend = entity.weekend;
-                this.start_time = entity.start_time;
-                this.end_time = entity.end_time;
+                this.Id = entity.Id;
+                this.User_Id = entity.User_Id;
+                this.System_Id = entity.System_Id;
+                this.DateFrom = entity.DateFrom;
+                this.DateTo = entity.DateTo;
+                this.Status = entity.Status;
+                this.Weekday = entity.Weekday;
+                this.Weekend = entity.Weekend;
+                this.StartTime = entity.StartTime;
+                this.EndTime = entity.EndTime;
             }
         }
     }
