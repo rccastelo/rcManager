@@ -1,4 +1,5 @@
-﻿using rcManagerUserApplication.Interfaces;
+﻿using rcCryptography;
+using rcManagerUserApplication.Interfaces;
 using rcManagerUserApplication.Transport;
 using rcManagerUserDomain;
 using rcManagerUserRepository.Interfaces;
@@ -66,6 +67,10 @@ namespace rcManagerUserApplication.Service
             try {
                 UserModel req = new UserModel(userRequest);
 
+                string secret = Crypto.GetSecretSHA512(req.Login + req.Password);
+
+                req.Password = secret;
+
                 UserModel model = _repository.Insert(req);
 
                 userResponseRet.Item = model.toEntity();
@@ -84,6 +89,10 @@ namespace rcManagerUserApplication.Service
 
             try {
                 UserModel req = new UserModel(userRequest);
+
+                string secret = Crypto.GetSecretSHA512(req.Login + req.Password);
+
+                req.Password = secret;
 
                 UserModel model = _repository.Update(req);
 

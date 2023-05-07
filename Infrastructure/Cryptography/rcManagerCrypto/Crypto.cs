@@ -3,7 +3,7 @@ using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace rcManagerCrypto
+namespace rcCryptography
 {
     public class Crypto
     {
@@ -34,22 +34,17 @@ namespace rcManagerCrypto
 
             saltText = GetSaltMD5(text);
 
-            if (!String.IsNullOrEmpty(text))
-            {
+            if (!String.IsNullOrEmpty(text)) {
                 int textSize = text.Length;
 
-                for (int i = 0; i < textSize; i++)
-                {
+                for (int i = 0; i < textSize; i++) {
                     result += text[i].ToString();
 
-                    if (i < 16)
-                    {
+                    if (i < 16) {
                         result += saltText[i].ToString();
                     }
                 }
-            }
-            else
-            {
+            } else {
                 result = text;
             }
 
@@ -65,27 +60,19 @@ namespace rcManagerCrypto
         {
             string result = null;
 
-            if (!String.IsNullOrEmpty(text))
-            {
+            if (!String.IsNullOrEmpty(text)) {
                 int textSize = text.Length;
 
-                for (int i = 0; i < textSize; i++)
-                {
-                    if (i < 32)
-                    {
-                        if (i % 2 == 0)
-                        {
+                for (int i = 0; i < textSize; i++) {
+                    if (i < 32) {
+                        if (i % 2 == 0) {
                             result += text[i].ToString();
                         }
-                    }
-                    else
-                    {
+                    } else {
                         result += text[i].ToString();
                     }
                 }
-            }
-            else
-            {
+            } else {
                 result = text;
             }
 
@@ -100,10 +87,8 @@ namespace rcManagerCrypto
         {
             string secret = null;
 
-            try
-            {
-                if (password != null)
-                {
+            try {
+                if (password != null) {
                     byte[] byteVector = null;
                     byte[] byteKey = null;
                     byte[] textByte = null;
@@ -138,9 +123,7 @@ namespace rcManagerCrypto
 
                     secret = Convert.ToBase64String(textByte);
                 }
-            }
-            catch (Exception e)
-            {
+            } catch {
                 secret = null;
             }
 
@@ -155,10 +138,8 @@ namespace rcManagerCrypto
         {
             string secret = null;
 
-            try
-            {
-                if (password != null)
-                {
+            try {
+                if (password != null) {
                     byte[] byteVector = null;
                     byte[] textByte = null;
                     byte[] byteKey = null;
@@ -194,9 +175,7 @@ namespace rcManagerCrypto
 
                     secret = ASCIIEncoding.ASCII.GetString(textByte);
                 }
-            }
-            catch (Exception e)
-            {
+            } catch {
                 secret = null;
             }
 
@@ -211,10 +190,8 @@ namespace rcManagerCrypto
         {
             string secret = null;
 
-            try
-            {
-                if (!String.IsNullOrEmpty(password))
-                {
+            try {
+                if (!String.IsNullOrEmpty(password)) {
                     secret = password;
 
                     byte[] textByte = null;
@@ -231,16 +208,13 @@ namespace rcManagerCrypto
 
                     sb = new StringBuilder();
 
-                    for (int i = 0; i < textoHash.Length; i++)
-                    {
+                    for (int i = 0; i < textoHash.Length; i++) {
                         sb.Append(textoHash[i].ToString("X2"));
                     }
 
                     secret = sb.ToString();
                 }
-            }
-            catch (Exception e)
-            {
+            } catch {
                 secret = null;
             }
 
@@ -255,10 +229,8 @@ namespace rcManagerCrypto
         {
             string secret = null;
 
-            try
-            {
-                if (!String.IsNullOrEmpty(password))
-                {
+            try {
+                if (!String.IsNullOrEmpty(password)) {
                     byte[] textByte = null;
                     byte[] textHash = null;
 
@@ -273,16 +245,13 @@ namespace rcManagerCrypto
 
                     sb = new StringBuilder();
 
-                    for (int i = 0; i < textHash.Length; i++)
-                    {
+                    for (int i = 0; i < textHash.Length; i++) {
                         sb.Append(textHash[i].ToString("X2"));
                     }
 
                     secret = sb.ToString();
                 }
-            }
-            catch (Exception e)
-            {
+            } catch {
                 secret = null;
             }
 
@@ -297,10 +266,8 @@ namespace rcManagerCrypto
         {
             string secret = null;
 
-            try
-            {
-                if (!String.IsNullOrEmpty(password))
-                {
+            try {
+                if (!String.IsNullOrEmpty(password)) {
                     byte[] textByte = null;
                     byte[] textHash = null;
 
@@ -315,16 +282,13 @@ namespace rcManagerCrypto
 
                     sb = new StringBuilder();
 
-                    for (int i = 0; i < textHash.Length; i++)
-                    {
+                    for (int i = 0; i < textHash.Length; i++) {
                         sb.Append(textHash[i].ToString("X2"));
                     }
 
                     secret = sb.ToString();
                 }
-            }
-            catch (Exception e)
-            {
+            } catch {
                 secret = null;
             }
 
@@ -339,10 +303,8 @@ namespace rcManagerCrypto
         {
             string secret = null;
 
-            try
-            {
-                if (!String.IsNullOrEmpty(password))
-                {
+            try {
+                if (!String.IsNullOrEmpty(password)) {
                     byte[] textByte = null;
                     byte[] textHash = null;
 
@@ -364,9 +326,7 @@ namespace rcManagerCrypto
 
                     secret = sb.ToString();
                 }
-            }
-            catch (Exception e)
-            {
+            } catch {
                 secret = null;
             }
 
