@@ -1,10 +1,18 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace rcManagerSystemDomain
 {
     public class SystemModel : SystemEntity
     {
-        public SystemModel() { }
+        public bool IsValid { get; private set; }
+        public IList<string> Messages { get; private set; }
+
+        public SystemModel()
+        {
+            IsValid = true;
+            Messages = new List<string>();
+        }
 
         public SystemModel(SystemModel model)
         {

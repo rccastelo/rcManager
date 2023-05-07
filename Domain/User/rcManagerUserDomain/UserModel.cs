@@ -1,10 +1,18 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace rcManagerUserDomain
 {
     public class UserModel : UserEntity
     {
-        public UserModel() { }
+        public bool IsValid { get; private set; }
+        public IList<string> Messages { get; private set; }
+
+        public UserModel()
+        {
+            IsValid = true;
+            Messages = new List<string>();
+        }
 
         public UserModel(UserModel model)
         {

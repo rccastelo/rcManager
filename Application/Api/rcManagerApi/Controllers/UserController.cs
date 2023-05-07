@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using rcManagerUserApplication.Application;
 using rcManagerUserApplication.Interfaces;
+using rcManagerUserApplication.Transport;
 using Swashbuckle.AspNetCore.Annotations;
 using System;
 
@@ -24,32 +24,26 @@ namespace rcManagerApi.Controllers
                 "[en-US] List all Users. ",
             Tags = new[] { "Users" }
         )]
-        [ProducesResponseType(typeof(UserTransfer), 200)]
-        [ProducesResponseType(typeof(UserTransfer), 400)]
+        [ProducesResponseType(typeof(UserResponse), 200)]
+        [ProducesResponseType(typeof(UserResponse), 400)]
         [ProducesResponseType(500)]
-        public IActionResult List(UserTransfer userTransfer)
+        public IActionResult List()
         {
-            UserTransfer userTransferRet;
+            UserResponse userRequestRet;
 
-            try
-            {
-                userTransferRet = _userService.List(userTransfer);
-            }
-            catch (Exception ex)
-            {
-                userTransferRet = new UserTransfer();
-                userTransferRet.Valid = false;
-                userTransferRet.Error = true;
-                userTransferRet.AddMessage("Erro ao listar Usuarios");
+            try {
+                userRequestRet = _userService.List();
+            } catch (Exception ex) {
+                userRequestRet = new UserResponse();
+                userRequestRet.IsValid = false;
+                userRequestRet.Error = true;
+                userRequestRet.AddMessage("Erro ao listar Usuarios");
             }
 
-            if (userTransferRet.Error || !userTransferRet.Valid)
-            {
-                return BadRequest(userTransferRet);
-            }
-            else
-            {
-                return Ok(userTransferRet);
+            if (userRequestRet.Error || !userRequestRet.IsValid) {
+                return BadRequest(userRequestRet);
+            } else {
+                return Ok(userRequestRet);
             }
         }
 
@@ -60,32 +54,26 @@ namespace rcManagerApi.Controllers
                 "[en-US] Get a User by id. ",
             Tags = new[] { "Users" }
         )]
-        [ProducesResponseType(typeof(UserTransfer), 200)]
-        [ProducesResponseType(typeof(UserTransfer), 400)]
+        [ProducesResponseType(typeof(UserResponse), 200)]
+        [ProducesResponseType(typeof(UserResponse), 400)]
         [ProducesResponseType(500)]
         public IActionResult Get(long id)
         {
-            UserTransfer userTransferRet;
+            UserResponse userRequestRet;
 
-            try
-            {
-                userTransferRet = _userService.Get(id);
-            }
-            catch (Exception ex)
-            {
-                userTransferRet = new UserTransfer();
-                userTransferRet.Valid = false;
-                userTransferRet.Error = true;
-                userTransferRet.AddMessage("Erro ao consultar Usuario");
+            try {
+                userRequestRet = _userService.Get(id);
+            } catch {
+                userRequestRet = new UserResponse();
+                userRequestRet.IsValid = false;
+                userRequestRet.Error = true;
+                userRequestRet.AddMessage("Erro ao consultar Usuario");
             }
 
-            if (userTransferRet.Error || !userTransferRet.Valid)
-            {
-                return BadRequest(userTransferRet);
-            }
-            else
-            {
-                return Ok(userTransferRet);
+            if (userRequestRet.Error || !userRequestRet.IsValid) {
+                return BadRequest(userRequestRet);
+            } else {
+                return Ok(userRequestRet);
             }
         }
 
@@ -96,32 +84,26 @@ namespace rcManagerApi.Controllers
                 "[en-US] Add a User. ",
             Tags = new[] { "Users" }
         )]
-        [ProducesResponseType(typeof(UserTransfer), 200)]
-        [ProducesResponseType(typeof(UserTransfer), 400)]
+        [ProducesResponseType(typeof(UserResponse), 200)]
+        [ProducesResponseType(typeof(UserResponse), 400)]
         [ProducesResponseType(500)]
-        public IActionResult Insert(UserTransfer userTransfer)
+        public IActionResult Insert(UserRequest userRequest)
         {
-            UserTransfer userTransferRet;
+            UserResponse userRequestRet;
 
-            try
-            {
-                userTransferRet = _userService.Insert(userTransfer);
-            }
-            catch (Exception ex)
-            {
-                userTransferRet = new UserTransfer();
-                userTransferRet.Valid = false;
-                userTransferRet.Error = true;
-                userTransferRet.AddMessage("Erro ao incluir Usuario");
+            try {
+                userRequestRet = _userService.Insert(userRequest);
+            } catch {
+                userRequestRet = new UserResponse();
+                userRequestRet.IsValid = false;
+                userRequestRet.Error = true;
+                userRequestRet.AddMessage("Erro ao incluir Usuario");
             }
 
-            if (userTransferRet.Error || !userTransferRet.Valid)
-            {
-                return BadRequest(userTransferRet);
-            }
-            else
-            {
-                return Ok(userTransferRet);
+            if (userRequestRet.Error || !userRequestRet.IsValid) {
+                return BadRequest(userRequestRet);
+            } else {
+                return Ok(userRequestRet);
             }
         }
 
@@ -132,32 +114,26 @@ namespace rcManagerApi.Controllers
                 "[en-US] Update a User. ",
             Tags = new[] { "Users" }
         )]
-        [ProducesResponseType(typeof(UserTransfer), 200)]
-        [ProducesResponseType(typeof(UserTransfer), 400)]
+        [ProducesResponseType(typeof(UserResponse), 200)]
+        [ProducesResponseType(typeof(UserResponse), 400)]
         [ProducesResponseType(500)]
-        public IActionResult Update(UserTransfer userTransfer)
+        public IActionResult Update(UserRequest userRequest)
         {
-            UserTransfer userTransferRet;
+            UserResponse userRequestRet;
 
-            try
-            {
-                userTransferRet = _userService.Update(userTransfer);
-            }
-            catch (Exception ex)
-            {
-                userTransferRet = new UserTransfer();
-                userTransferRet.Valid = false;
-                userTransferRet.Error = true;
-                userTransferRet.AddMessage("Erro ao alterar Usuario");
+            try {
+                userRequestRet = _userService.Update(userRequest);
+            } catch {
+                userRequestRet = new UserResponse();
+                userRequestRet.IsValid = false;
+                userRequestRet.Error = true;
+                userRequestRet.AddMessage("Erro ao alterar Usuario");
             }
 
-            if (userTransferRet.Error || !userTransferRet.Valid)
-            {
-                return BadRequest(userTransferRet);
-            }
-            else
-            {
-                return Ok(userTransferRet);
+            if (userRequestRet.Error || !userRequestRet.IsValid) {
+                return BadRequest(userRequestRet);
+            } else {
+                return Ok(userRequestRet);
             }
         }
 
@@ -168,32 +144,26 @@ namespace rcManagerApi.Controllers
                 "[en-US] Delete a User. ",
             Tags = new[] { "Users" }
         )]
-        [ProducesResponseType(typeof(UserTransfer), 200)]
-        [ProducesResponseType(typeof(UserTransfer), 400)]
+        [ProducesResponseType(typeof(UserResponse), 200)]
+        [ProducesResponseType(typeof(UserResponse), 400)]
         [ProducesResponseType(500)]
         public IActionResult Delete(long id)
         {
-            UserTransfer userTransferRet;
+            UserResponse userRequestRet;
 
-            try
-            {
-                userTransferRet = _userService.Delete(id);
-            }
-            catch (Exception ex)
-            {
-                userTransferRet = new UserTransfer();
-                userTransferRet.Valid = false;
-                userTransferRet.Error = true;
-                userTransferRet.AddMessage("Erro ao excluir Usuario");
+            try {
+                userRequestRet = _userService.Delete(id);
+            } catch {
+                userRequestRet = new UserResponse();
+                userRequestRet.IsValid = false;
+                userRequestRet.Error = true;
+                userRequestRet.AddMessage("Erro ao excluir Usuario");
             }
 
-            if (userTransferRet.Error || !userTransferRet.Valid)
-            {
-                return BadRequest(userTransferRet);
-            }
-            else
-            {
-                return Ok(userTransferRet);
+            if (userRequestRet.Error || !userRequestRet.IsValid) {
+                return BadRequest(userRequestRet);
+            } else {
+                return Ok(userRequestRet);
             }
         }
     }

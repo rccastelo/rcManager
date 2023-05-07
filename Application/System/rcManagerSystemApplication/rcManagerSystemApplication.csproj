@@ -6,6 +6,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\..\..\Domain\System\rcManagerSystemDomain\rcManagerSystemDomain.csproj" />
+      <ProjectReference Include="..\..\..\Infrastructure\Repository\System\rcManagerSystemRepository\rcManagerSystemRepository.csproj" />
       <ProjectReference Include="..\..\Base\rcManagerApplicationBase\rcManagerApplicationBase.csproj" />
     </ItemGroup>
 

@@ -15,8 +15,6 @@ namespace rcManagerApi.Controllers
             Tags = new[] { "Tests" }
         )]
         [ProducesResponseType(200)]
-        [ProducesResponseType(400)]
-        [ProducesResponseType(500)]
         public string Test() {
             return "ok";
         }

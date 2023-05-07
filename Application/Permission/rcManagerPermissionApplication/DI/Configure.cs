@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using rcManagerPermissionApplication.Application;
+using rcManagerPermissionApplication.Service;
 using rcManagerPermissionApplication.Interfaces;
-using diDatabase = rcManagerDatabase.DI.Configure;
+using diPermissionRepository = rcManagerPermissionRepository.DI.Configure;
 
 namespace rcManagerPermissionApplication.DI
 {
@@ -9,9 +9,8 @@ namespace rcManagerPermissionApplication.DI
     {
         public static void ConfigureServices(IServiceCollection services)
         {
-            diDatabase.ConfigureServices(services);
-            services.AddScoped<IPermissionData, PermissionData>();
             services.AddScoped<IPermissionService, PermissionService>();
+            diPermissionRepository.ConfigureServices(services);
         }
     }
 }

@@ -1,12 +1,20 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace rcManagerPermissionDomain
 {
     public class PermissionModel : PermissionEntity
     {
-        public PermissionModel() { }
+        public bool IsValid { get; private set; }
+        public IList<string> Messages { get; private set; }
 
-        public PermissionModel(PermissionModel model)
+        public PermissionModel() 
+        {
+            IsValid = true;
+            Messages = new List<string>();
+        }
+
+        public PermissionModel(PermissionModel model) : this()
         {
             if (model != null) {
                 this.Id = model.Id;
@@ -19,15 +27,17 @@ namespace rcManagerPermissionDomain
                 this.Weekend = model.Weekend;
                 this.StartTime = model.StartTime;
                 this.EndTime = model.EndTime;
+                this.IsValid = model.IsValid;
+                this.Messages = new List<string>(model.Messages);
             }
         }
 
-        public PermissionModel(long id, long user_id, long system_id, DateTime date_from, DateTime date_to, bool status, bool weekday,bool weekend, TimeSpan start_time, TimeSpan end_time)
+        public PermissionModel(long id, long user_id, long system_id, DateTime date_from, DateTime date_to, bool status, bool weekday,bool weekend, TimeSpan start_time, TimeSpan end_time) : this()
         {
             this.create(id, user_id, system_id, date_from, date_to, status, weekday, weekend, start_time, end_time);
         }
 
-        public PermissionModel(PermissionEntity entity)
+        public PermissionModel(PermissionEntity entity) : this()
         {
             this.create(entity);
         }

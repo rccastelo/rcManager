@@ -1,13 +1,13 @@
-﻿using rcManagerSystemApplication.Application;
+﻿using rcManagerSystemApplication.Transport;
 
 namespace rcManagerSystemApplication.Interfaces
 {
     public interface ISystemService
     {
-        SystemTransfer List(SystemTransfer systemTransfer);
-        SystemTransfer Get(long id);
-        SystemTransfer Insert(SystemTransfer systemTransfer);
-        SystemTransfer Update(SystemTransfer systemTransfer);
-        SystemTransfer Delete(long id);
+        SystemResponse List(SystemRequest systemRequest);
+        SystemResponse Get(long id);
+        SystemResponse Insert(SystemRequest systemRequest);
+        SystemResponse Update(SystemRequest systemRequest);
+        SystemResponse Delete(long id);
     }
 }

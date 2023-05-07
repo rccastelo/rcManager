@@ -1,13 +1,13 @@
-﻿using rcManagerUserApplication.Application;
+﻿using rcManagerUserApplication.Transport;
 
 namespace rcManagerUserApplication.Interfaces
 {
     public interface IUserService
     {
-        UserTransfer List(UserTransfer userTransfer);
-        UserTransfer Get(long id);
-        UserTransfer Insert(UserTransfer userTransfer);
-        UserTransfer Update(UserTransfer userTransfer);
-        UserTransfer Delete(long id);
+        UserResponse List();
+        UserResponse Get(long id);
+        UserResponse Insert(UserRequest userRequest);
+        UserResponse Update(UserRequest userRequest);
+        UserResponse Delete(long id);
     }
 }

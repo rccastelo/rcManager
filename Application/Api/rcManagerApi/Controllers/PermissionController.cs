@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using rcManagerPermissionApplication.Application;
 using rcManagerPermissionApplication.Interfaces;
+using rcManagerPermissionApplication.Transport;
 using Swashbuckle.AspNetCore.Annotations;
 using System;
 
@@ -20,120 +20,120 @@ namespace rcManagerApi.Controllers
         [HttpGet]
         [SwaggerOperation(
             Summary = "Listar todas as Permissões",
-            Description = "[pt-BR] Listar todos os Permissões. \n\n " +
+            Description = "[pt-BR] Listar todos as Permissões. \n\n " +
                 "[en-US] List all Permissions. ",
             Tags = new[] { "Permissions" }
         )]
-        [ProducesResponseType(typeof(PermissionTransfer), 200)]
-        [ProducesResponseType(typeof(PermissionTransfer), 400)]
+        [ProducesResponseType(typeof(PermissionResponse), 200)]
+        [ProducesResponseType(typeof(PermissionResponse), 400)]
         [ProducesResponseType(500)]
-        public IActionResult List(PermissionTransfer permissionTransfer)
+        public IActionResult List(PermissionRequest permissionRequest)
         {
-            PermissionTransfer permissionTransferRet;
+            PermissionResponse permissionResponseRet;
 
             try {
-                permissionTransferRet = _permissionService.List(permissionTransfer);
-            } catch (Exception ex) {
-                permissionTransferRet = new PermissionTransfer();
-                permissionTransferRet.Valid = false;
-                permissionTransferRet.Error = true;
-                permissionTransferRet.AddMessage("Erro ao listar Permissões");
+                permissionResponseRet = _permissionService.List(permissionRequest);
+            } catch {
+                permissionResponseRet = new PermissionResponse();
+                permissionResponseRet.IsValid = false;
+                permissionResponseRet.Error = true;
+                permissionResponseRet.AddMessage("Erro ao listar Permissões");
             }
 
-            if (permissionTransferRet.Error || !permissionTransferRet.Valid) {
-                return BadRequest(permissionTransferRet);
+            if (permissionResponseRet.Error || !permissionResponseRet.IsValid) {
+                return BadRequest(permissionResponseRet);
             } else {
-                return Ok(permissionTransferRet);
+                return Ok(permissionResponseRet);
             }
         }
 
         [HttpGet("{id}")]
         [SwaggerOperation(
             Summary = "Obter uma Permissão pelo id",
-            Description = "[pt-BR] Obter um Permissão pelo id. \n\n " +
+            Description = "[pt-BR] Obter uma Permissão pelo id. \n\n " +
                 "[en-US] Get a Permission by id. ",
             Tags = new[] { "Permissions" }
         )]
-        [ProducesResponseType(typeof(PermissionTransfer), 200)]
-        [ProducesResponseType(typeof(PermissionTransfer), 400)]
+        [ProducesResponseType(typeof(PermissionResponse), 200)]
+        [ProducesResponseType(typeof(PermissionResponse), 400)]
         [ProducesResponseType(500)]
         public IActionResult Get(long id)
         {
-            PermissionTransfer permissionTransferRet;
+            PermissionResponse permissionResponseRet;
 
             try {
-                permissionTransferRet = _permissionService.Get(id);
-            } catch (Exception ex) {
-                permissionTransferRet = new PermissionTransfer();
-                permissionTransferRet.Valid = false;
-                permissionTransferRet.Error = true;
-                permissionTransferRet.AddMessage("Erro ao consultar Permissão");
+                permissionResponseRet = _permissionService.Get(id);
+            } catch {
+                permissionResponseRet = new PermissionResponse();
+                permissionResponseRet.IsValid = false;
+                permissionResponseRet.Error = true;
+                permissionResponseRet.AddMessage("Erro ao consultar Permissão");
             }
 
-            if (permissionTransferRet.Error || !permissionTransferRet.Valid) {
-                return BadRequest(permissionTransferRet);
+            if (permissionResponseRet.Error || !permissionResponseRet.IsValid) {
+                return BadRequest(permissionResponseRet);
             } else {
-                return Ok(permissionTransferRet);
+                return Ok(permissionResponseRet);
             }
         }
 
         [HttpPost]
         [SwaggerOperation(
             Summary = "Incluir uma Permissão",
-            Description = "[pt-BR] Incluir um Permissão. \n\n " +
+            Description = "[pt-BR] Incluir uma Permissão. \n\n " +
                 "[en-US] Add a Permission. ",
             Tags = new[] { "Permissions" }
         )]
-        [ProducesResponseType(typeof(PermissionTransfer), 200)]
-        [ProducesResponseType(typeof(PermissionTransfer), 400)]
+        [ProducesResponseType(typeof(PermissionResponse), 200)]
+        [ProducesResponseType(typeof(PermissionResponse), 400)]
         [ProducesResponseType(500)]
-        public IActionResult Insert(PermissionTransfer permissionTransfer)
+        public IActionResult Insert(PermissionRequest permissionRequest)
         {
-            PermissionTransfer permissionTransferRet;
+            PermissionResponse permissionResponseRet;
 
             try {
-                permissionTransferRet = _permissionService.Insert(permissionTransfer);
-            } catch (Exception ex) {
-                permissionTransferRet = new PermissionTransfer();
-                permissionTransferRet.Valid = false;
-                permissionTransferRet.Error = true;
-                permissionTransferRet.AddMessage("Erro ao incluir Permissão");
+                permissionResponseRet = _permissionService.Insert(permissionRequest);
+            } catch {
+                permissionResponseRet = new PermissionResponse();
+                permissionResponseRet.IsValid = false;
+                permissionResponseRet.Error = true;
+                permissionResponseRet.AddMessage("Erro ao incluir Permissão");
             }
 
-            if (permissionTransferRet.Error || !permissionTransferRet.Valid) {
-                return BadRequest(permissionTransferRet);
+            if (permissionResponseRet.Error || !permissionResponseRet.IsValid) {
+                return BadRequest(permissionResponseRet);
             } else {
-                return Ok(permissionTransferRet);
+                return Ok(permissionResponseRet);
             }
         }
 
         [HttpPut]
         [SwaggerOperation(
             Summary = "Atualizar uma Permissão",
-            Description = "[pt-BR] Atualizar um Permissão. \n\n " +
+            Description = "[pt-BR] Atualizar uma Permissão. \n\n " +
                 "[en-US] Update a Permission. ",
             Tags = new[] { "Permissions" }
         )]
-        [ProducesResponseType(typeof(PermissionTransfer), 200)]
-        [ProducesResponseType(typeof(PermissionTransfer), 400)]
+        [ProducesResponseType(typeof(PermissionResponse), 200)]
+        [ProducesResponseType(typeof(PermissionResponse), 400)]
         [ProducesResponseType(500)]
-        public IActionResult Update(PermissionTransfer permissionTransfer)
+        public IActionResult Update(PermissionRequest permissionRequest)
         {
-            PermissionTransfer permissionTransferRet;
+            PermissionResponse permissionResponseRet;
 
             try {
-                permissionTransferRet = _permissionService.Update(permissionTransfer);
-            } catch (Exception ex) {
-                permissionTransferRet = new PermissionTransfer();
-                permissionTransferRet.Valid = false;
-                permissionTransferRet.Error = true;
-                permissionTransferRet.AddMessage("Erro ao alterar Permissão");
+                permissionResponseRet = _permissionService.Update(permissionRequest);
+            } catch {
+                permissionResponseRet = new PermissionResponse();
+                permissionResponseRet.IsValid = false;
+                permissionResponseRet.Error = true;
+                permissionResponseRet.AddMessage("Erro ao alterar Permissão");
             }
 
-            if (permissionTransferRet.Error || !permissionTransferRet.Valid) {
-                return BadRequest(permissionTransferRet);
+            if (permissionResponseRet.Error || !permissionResponseRet.IsValid) {
+                return BadRequest(permissionResponseRet);
             } else {
-                return Ok(permissionTransferRet);
+                return Ok(permissionResponseRet);
             }
         }
 
@@ -144,26 +144,26 @@ namespace rcManagerApi.Controllers
                 "[en-US] Delete a Permission. ",
             Tags = new[] { "Permissions" }
         )]
-        [ProducesResponseType(typeof(PermissionTransfer), 200)]
-        [ProducesResponseType(typeof(PermissionTransfer), 400)]
+        [ProducesResponseType(typeof(PermissionResponse), 200)]
+        [ProducesResponseType(typeof(PermissionResponse), 400)]
         [ProducesResponseType(500)]
         public IActionResult Delete(long id)
         {
-            PermissionTransfer permissionTransferRet;
+            PermissionResponse permissionResponseRet;
 
             try {
-                permissionTransferRet = _permissionService.Delete(id);
-            } catch (Exception ex) {
-                permissionTransferRet = new PermissionTransfer();
-                permissionTransferRet.Valid = false;
-                permissionTransferRet.Error = true;
-                permissionTransferRet.AddMessage("Erro ao excluir Permissão");
+                permissionResponseRet = _permissionService.Delete(id);
+            } catch {
+                permissionResponseRet = new PermissionResponse();
+                permissionResponseRet.IsValid = false;
+                permissionResponseRet.Error = true;
+                permissionResponseRet.AddMessage("Erro ao excluir Permissão");
             }
 
-            if (permissionTransferRet.Error || !permissionTransferRet.Valid) {
-                return BadRequest(permissionTransferRet);
+            if (permissionResponseRet.Error || !permissionResponseRet.IsValid) {
+                return BadRequest(permissionResponseRet);
             } else {
-                return Ok(permissionTransferRet);
+                return Ok(permissionResponseRet);
             }
         }
     }

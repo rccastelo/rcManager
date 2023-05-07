@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using rcManagerSystemApplication.Application;
 using rcManagerSystemApplication.Interfaces;
+using rcManagerSystemApplication.Transport;
 using Swashbuckle.AspNetCore.Annotations;
 using System;
 
@@ -27,27 +27,27 @@ namespace rcManagerApi.Controllers
             //    "[en-US] List all Systems. Authentication token is required.",
             Tags = new[] { "Systems" }
         )]
-        [ProducesResponseType(typeof(SystemTransfer), 200)]
-        [ProducesResponseType(typeof(SystemTransfer), 400)]
+        [ProducesResponseType(typeof(SystemResponse), 200)]
+        [ProducesResponseType(typeof(SystemResponse), 400)]
         //[ProducesResponseType(401)]
         [ProducesResponseType(500)]
-        public IActionResult List(SystemTransfer systemTransfer) 
+        public IActionResult List(SystemRequest systemRequest) 
         {
-            SystemTransfer systemTransferRet;
+            SystemResponse systemResponseRet;
 
             try {
-                systemTransferRet = _systemService.List(systemTransfer);
-            } catch (Exception ex) {
-                systemTransferRet = new SystemTransfer();
-                systemTransferRet.Valid = false;
-                systemTransferRet.Error = true;
-                systemTransferRet.AddMessage("Erro ao listar Sistemas");
+                systemResponseRet = _systemService.List(systemRequest);
+            } catch {
+                systemResponseRet = new SystemResponse();
+                systemResponseRet.IsValid = false;
+                systemResponseRet.Error = true;
+                systemResponseRet.AddMessage("Erro ao listar Sistemas");
             }
 
-            if (systemTransferRet.Error || !systemTransferRet.Valid) {
-                return BadRequest(systemTransferRet);
+            if (systemResponseRet.Error || !systemResponseRet.IsValid) {
+                return BadRequest(systemResponseRet);
             } else {
-                return Ok(systemTransferRet);
+                return Ok(systemResponseRet);
             }
         }
 
@@ -60,27 +60,27 @@ namespace rcManagerApi.Controllers
             //    "[en-US] Get a System by id. Authentication token is required.",
             Tags = new[] { "Systems" }
         )]
-        [ProducesResponseType(typeof(SystemTransfer), 200)]
-        [ProducesResponseType(typeof(SystemTransfer), 400)]
+        [ProducesResponseType(typeof(SystemResponse), 200)]
+        [ProducesResponseType(typeof(SystemResponse), 400)]
         //[ProducesResponseType(401)]
         [ProducesResponseType(500)]
         public IActionResult Get(long id) 
         {
-            SystemTransfer systemTransferRet;
+            SystemResponse systemResponseRet;
 
             try {
-                systemTransferRet = _systemService.Get(id);
-            } catch (Exception ex) {
-                systemTransferRet = new SystemTransfer();
-                systemTransferRet.Valid = false;
-                systemTransferRet.Error = true;
-                systemTransferRet.AddMessage("Erro ao consultar Sistema");
+                systemResponseRet = _systemService.Get(id);
+            } catch {
+                systemResponseRet = new SystemResponse();
+                systemResponseRet.IsValid = false;
+                systemResponseRet.Error = true;
+                systemResponseRet.AddMessage("Erro ao consultar Sistema");
             }
 
-            if (systemTransferRet.Error || !systemTransferRet.Valid) {
-                return BadRequest(systemTransferRet);
+            if (systemResponseRet.Error || !systemResponseRet.IsValid) {
+                return BadRequest(systemResponseRet);
             } else {
-                return Ok(systemTransferRet);
+                return Ok(systemResponseRet);
             }
         }
 
@@ -93,27 +93,27 @@ namespace rcManagerApi.Controllers
             //    "[en-US] Add a System. Authentication token is required.",
             Tags = new[] { "Systems" }
         )]
-        [ProducesResponseType(typeof(SystemTransfer), 200)]
-        [ProducesResponseType(typeof(SystemTransfer), 400)]
+        [ProducesResponseType(typeof(SystemResponse), 200)]
+        [ProducesResponseType(typeof(SystemResponse), 400)]
         //[ProducesResponseType(401)]
         [ProducesResponseType(500)]
-        public IActionResult Insert(SystemTransfer systemTransfer) 
+        public IActionResult Insert(SystemRequest systemRequest) 
         {
-            SystemTransfer systemTransferRet;
+            SystemResponse systemResponseRet;
 
             try {
-                systemTransferRet = _systemService.Insert(systemTransfer);
-            } catch (Exception ex) {
-                systemTransferRet = new SystemTransfer();
-                systemTransferRet.Valid = false;
-                systemTransferRet.Error = true;
-                systemTransferRet.AddMessage("Erro ao incluir Sistema");
+                systemResponseRet = _systemService.Insert(systemRequest);
+            } catch {
+                systemResponseRet = new SystemResponse();
+                systemResponseRet.IsValid = false;
+                systemResponseRet.Error = true;
+                systemResponseRet.AddMessage("Erro ao incluir Sistema");
             }
 
-            if (systemTransferRet.Error || !systemTransferRet.Valid) {
-                return BadRequest(systemTransferRet);
+            if (systemResponseRet.Error || !systemResponseRet.IsValid) {
+                return BadRequest(systemResponseRet);
             } else {
-                return Ok(systemTransferRet);
+                return Ok(systemResponseRet);
             }
         }
 
@@ -126,27 +126,27 @@ namespace rcManagerApi.Controllers
             //    "[en-US] Update a System. Authentication token is required.",
             Tags = new[] { "Systems" }
         )]
-        [ProducesResponseType(typeof(SystemTransfer), 200)]
-        [ProducesResponseType(typeof(SystemTransfer), 400)]
+        [ProducesResponseType(typeof(SystemResponse), 200)]
+        [ProducesResponseType(typeof(SystemResponse), 400)]
         //[ProducesResponseType(401)]
         [ProducesResponseType(500)]
-        public IActionResult Update(SystemTransfer systemTransfer) 
+        public IActionResult Update(SystemRequest systemRequest) 
         {
-            SystemTransfer systemTransferRet;
+            SystemResponse systemResponseRet;
 
             try {
-                systemTransferRet = _systemService.Update(systemTransfer);
-            } catch (Exception ex) {
-                systemTransferRet = new SystemTransfer();
-                systemTransferRet.Valid = false;
-                systemTransferRet.Error = true;
-                systemTransferRet.AddMessage("Erro ao alterar Sistema");
+                systemResponseRet = _systemService.Update(systemRequest);
+            } catch {
+                systemResponseRet = new SystemResponse();
+                systemResponseRet.IsValid = false;
+                systemResponseRet.Error = true;
+                systemResponseRet.AddMessage("Erro ao alterar Sistema");
             }
 
-            if (systemTransferRet.Error || !systemTransferRet.Valid) {
-                return BadRequest(systemTransferRet);
+            if (systemResponseRet.Error || !systemResponseRet.IsValid) {
+                return BadRequest(systemResponseRet);
             } else {
-                return Ok(systemTransferRet);
+                return Ok(systemResponseRet);
             }
         }
 
@@ -159,27 +159,27 @@ namespace rcManagerApi.Controllers
             //    "[en-US] Delete a System. Authentication token is required.",
             Tags = new[] { "Systems" }
         )]
-        [ProducesResponseType(typeof(SystemTransfer), 200)]
-        [ProducesResponseType(typeof(SystemTransfer), 400)]
+        [ProducesResponseType(typeof(SystemResponse), 200)]
+        [ProducesResponseType(typeof(SystemResponse), 400)]
         //[ProducesResponseType(401)]
         [ProducesResponseType(500)]
         public IActionResult Delete(long id) 
         {
-            SystemTransfer systemTransferRet;
+            SystemResponse systemResponseRet;
 
             try {
-                systemTransferRet = _systemService.Delete(id);
-            } catch (Exception ex) {
-                systemTransferRet = new SystemTransfer();
-                systemTransferRet.Valid = false;
-                systemTransferRet.Error = true;
-                systemTransferRet.AddMessage("Erro ao excluir Sistema");
+                systemResponseRet = _systemService.Delete(id);
+            } catch {
+                systemResponseRet = new SystemResponse();
+                systemResponseRet.IsValid = false;
+                systemResponseRet.Error = true;
+                systemResponseRet.AddMessage("Erro ao excluir Sistema");
             }
 
-            if (systemTransferRet.Error || !systemTransferRet.Valid) {
-                return BadRequest(systemTransferRet);
+            if (systemResponseRet.Error || !systemResponseRet.IsValid) {
+                return BadRequest(systemResponseRet);
             } else {
-                return Ok(systemTransferRet);
+                return Ok(systemResponseRet);
             }
         }
     }

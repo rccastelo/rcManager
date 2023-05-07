@@ -1,13 +1,13 @@
-﻿using rcManagerPermissionApplication.Application;
+﻿using rcManagerPermissionApplication.Transport;
 
 namespace rcManagerPermissionApplication.Interfaces
 {
     public interface IPermissionService
     {
-        PermissionTransfer List(PermissionTransfer permissionTransfer);
-        PermissionTransfer Get(long id);
-        PermissionTransfer Insert(PermissionTransfer permissionTransfer);
-        PermissionTransfer Update(PermissionTransfer permissionTransfer);
-        PermissionTransfer Delete(long id);
+        PermissionResponse List(PermissionRequest permissionRequest);
+        PermissionResponse Get(long id);
+        PermissionResponse Insert(PermissionRequest permissionRequest);
+        PermissionResponse Update(PermissionRequest permissionRequest);
+        PermissionResponse Delete(long id);
     }
 }
