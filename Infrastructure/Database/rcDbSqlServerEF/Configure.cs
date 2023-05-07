@@ -1,7 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using rcManagerDatabase.EF;
 
-namespace rcManagerDatabase.DI
+namespace rcDbSqlServerEF
 {
     public class Configure
     {

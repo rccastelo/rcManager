@@ -1,15 +1,25 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using rcManagerPermissionDomain;
 using rcManagerSystemDomain;
 using rcManagerUserDomain;
 
-namespace rcManagerDatabase.EF
+namespace rcDbSqlServerEF
 {
     public class ManagerDbContext : DbContext
     {
+        private string _connectionString;
+        private IConfiguration _configuration;
+
+        public ManagerDbContext(IConfiguration configuration)
+        {
+            this._configuration = configuration;
+            this._connectionString = _configuration.GetConnectionString("DefaultConnection");
+        }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(Settings.GetConnectionString());
+            optionsBuilder.UseSqlServer(this._connectionString);
         }
 
         public DbSet<SystemEntity> Systems { get; set; }
