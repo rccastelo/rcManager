@@ -5,11 +5,11 @@ namespace rcManagerPermissionRepository.Interfaces
 {
     public interface IPermissionData
     {
-        PermissionModel Get(long id);
-        IList<PermissionModel> List();
-        PermissionModel Insert(PermissionModel model);
-        PermissionModel Update(PermissionModel model);
-        PermissionModel Delete(PermissionModel model);
+        PermissionEntity Get(long id);
+        IList<PermissionEntity> List();
+        PermissionEntity Insert(PermissionEntity entity);
+        PermissionEntity Update(PermissionEntity model);
+        PermissionEntity Delete(PermissionEntity model);
         void Save();
     }
 }

@@ -5,7 +5,7 @@ namespace rcManagerUserDomain
 {
     public class UserModel : UserEntity
     {
-        public bool IsValid { get; private set; }
+        public bool IsValid { get; set; }
         public IList<string> Messages { get; private set; }
 
         public UserModel()
@@ -14,7 +14,27 @@ namespace rcManagerUserDomain
             Messages = new List<string>();
         }
 
-        public UserModel(UserModel model)
+        public void AddMessage(string message)
+        {
+            if (!String.IsNullOrWhiteSpace(message)) {
+                if (Messages == null) Messages = new List<string>();
+
+                this.Messages.Add(message);
+            }
+        }
+
+        public void AddMessages(IList<string> messages)
+        {
+            if ((messages != null) && (messages.Count > 0)) {
+                if (this.Messages == null) this.Messages = new List<string>();
+
+                foreach (string m in messages) {
+                    if (!String.IsNullOrWhiteSpace(m)) this.Messages.Add(m);
+                }
+            }
+        }
+
+        public UserModel(UserModel model) : this()
         {
             if (model != null) {
                 this.Id = Id;
@@ -29,12 +49,12 @@ namespace rcManagerUserDomain
         }
 
         public UserModel(long id, string login, string password, string name, string description, 
-            bool status, DateTime createdAt, DateTime updatedAt)
+            bool status, DateTime createdAt, DateTime updatedAt) : this()
         {
             this.create(id, login, password, name, description, status, createdAt, updatedAt);
         }
 
-        public UserModel(UserEntity entity)
+        public UserModel(UserEntity entity) : this()
         {
             this.create(entity);
         }
@@ -90,7 +110,7 @@ namespace rcManagerUserDomain
             this.UpdatedAt = updatedAt;
         }
 
-        public UserEntity toEntity()
+        public UserEntity ToEntity()
         {
             return new UserEntity() {
                 Id = this.Id,

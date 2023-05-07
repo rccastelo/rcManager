@@ -5,11 +5,11 @@ namespace rcManagerUserRepository.Interfaces
 {
     public interface IUserData
     {
-        UserModel Get(long id);
-        IList<UserModel> List();
-        UserModel Insert(UserModel model);
-        UserModel Update(UserModel model);
-        UserModel Delete(UserModel model);
+        UserEntity Get(long id);
+        IList<UserEntity> List();
+        UserEntity Insert(UserEntity model);
+        UserEntity Update(UserEntity model);
+        UserEntity Delete(UserEntity model);
         void Save();
     }
 }

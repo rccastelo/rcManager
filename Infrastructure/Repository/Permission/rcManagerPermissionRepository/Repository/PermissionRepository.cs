@@ -1,6 +1,7 @@
 ﻿using rcManagerPermissionDomain;
 using rcManagerPermissionRepository.Interfaces;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace rcManagerPermissionRepository.Repository
 {
@@ -15,43 +16,113 @@ namespace rcManagerPermissionRepository.Repository
 
         public PermissionModel Get(long id)
         {
-            PermissionModel ret = _permissionData.Get(id);
+            PermissionModel modelRet = null;
 
-            return ret;
+            PermissionEntity entity = _permissionData.Get(id);
+
+            if (entity != null) {
+                modelRet = new PermissionModel(entity);
+            } else {
+                modelRet = new PermissionModel() {
+                    IsValid = false
+                };
+
+                modelRet.AddMessage("Permissão não encontrada.");
+            }
+
+            return modelRet;
         }
 
         public IList<PermissionModel> List()
         {
-            IList<PermissionModel> ret = _permissionData.List();
+            IList<PermissionModel> listRet = null;
 
-            return ret;
+            IList<PermissionEntity> listEntity = _permissionData.List();
+
+            if ((listEntity != null) && (listEntity.Count > 0)) {
+                listRet = listEntity.Select(et => new PermissionModel(et)).ToList();
+            }
+
+            return listRet;
         }
 
         public PermissionModel Insert(PermissionModel model)
         {
-            PermissionModel ret = _permissionData.Insert(model);
+            PermissionModel modelRet = null;
+
+            PermissionEntity entity = _permissionData.Insert(model.ToEntity());
 
             _permissionData.Save();
 
-            return ret;
+            if ((entity != null) && (entity.Id > 0)) {
+                modelRet = new PermissionModel(entity);
+                modelRet.AddMessage("Permissão incluída com sucesso.");
+            }
+            else
+            {
+                modelRet = new PermissionModel(model);
+                modelRet.IsValid = false;
+                modelRet.AddMessage("Não foi possível incluir a Permissão.");
+            }
+
+            return modelRet;
         }
 
         public PermissionModel Update(PermissionModel model)
         {
-            PermissionModel ret = _permissionData.Update(model);
+            PermissionModel modelRet = null;
 
-            _permissionData.Save();
+            PermissionModel exist = this.Get(model.Id);
 
-            return ret;
+            if (exist != null) {
+                PermissionEntity entity = _permissionData.Update(model.ToEntity());
+
+                _permissionData.Save();
+
+                if (entity != null) {
+                    modelRet = new PermissionModel(entity);
+
+                    modelRet.AddMessage("Permissão alterada com sucesso.");
+                } else {
+                    modelRet = new PermissionModel(model);
+                    modelRet.IsValid = false;
+                    modelRet.AddMessage("Não foi possível alterar a Permissão.");
+                }
+            } else {
+                modelRet = new PermissionModel(model);
+                modelRet.IsValid = false;
+                modelRet.AddMessage("Permissão não encontrada para alteração.");
+            }
+
+            return modelRet;
         }
 
-        public PermissionModel Delete(PermissionModel model)
+        public PermissionModel Delete(long id)
         {
-            PermissionModel ret = _permissionData.Delete(model);
+            PermissionModel modelRet = null;
 
-            _permissionData.Save();
+            PermissionModel exist = this.Get(id);
 
-            return ret;
+            if (exist != null) {
+                PermissionEntity entity = _permissionData.Delete(exist.ToEntity());
+
+                _permissionData.Save();
+
+                if (entity != null) {
+                    modelRet = new PermissionModel(entity);
+                    modelRet.AddMessage("Permissão excluída com sucesso.");
+                } else {
+                    modelRet = new PermissionModel();
+                    modelRet.IsValid = false;
+                    modelRet.AddMessage("Não foi possível excluir a Permissão.");
+                }
+            } else {
+                modelRet = new PermissionModel();
+                modelRet.IsValid = false;
+                modelRet.AddMessage("Permissão não encontrada para exclusão.");
+            }
+
+            return modelRet;
         }
     }
 }

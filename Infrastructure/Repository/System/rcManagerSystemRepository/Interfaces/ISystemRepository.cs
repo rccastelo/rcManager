@@ -9,6 +9,6 @@ namespace rcManagerSystemRepository.Interfaces
         SystemModel Get(long id);
         SystemModel Insert(SystemModel model);
         SystemModel Update(SystemModel model);
-        SystemModel Delete(SystemModel model);
+        SystemModel Delete(long id);
     }
 }

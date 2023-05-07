@@ -47,9 +47,11 @@ namespace rcManagerPermissionDomain
         [Required]
         public TimeSpan EndTime { get; set; }
 
+        [NotMapped]
         [ForeignKey("user_id")]
         public UserEntity UserEntity { get; set; }
 
+        [NotMapped]
         [ForeignKey("system_id")]
         public SystemEntity SystemEntity { get; set; }
 

@@ -4,7 +4,7 @@ namespace rcManagerPermissionApplication.Interfaces
 {
     public interface IPermissionService
     {
-        PermissionResponse List(PermissionRequest permissionRequest);
+        PermissionResponse List();
         PermissionResponse Get(long id);
         PermissionResponse Insert(PermissionRequest permissionRequest);
         PermissionResponse Update(PermissionRequest permissionRequest);

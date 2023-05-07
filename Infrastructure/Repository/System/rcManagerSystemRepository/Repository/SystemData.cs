@@ -11,69 +11,29 @@ namespace rcManagerSystemRepository.Repository
     {
         public SystemData(ManagerDbContext context) : base(context) { }
 
-        public SystemModel Get(long id)
+        public SystemEntity Get(long id)
         {
-            SystemModel model = null;
-
-            SystemEntity entity = _context.Set<SystemEntity>().AsNoTracking().SingleOrDefault(et => et.Id == id);
-
-            if (entity != null) {
-                model = new SystemModel(entity);
-            }
-
-            return model;
+            return _context.Set<SystemEntity>().AsNoTracking().SingleOrDefault(et => et.Id == id);
         }
 
-        public IList<SystemModel> List()
+        public IList<SystemEntity> List()
         {
-            IList<SystemModel> listMod = null;
-
-            IList<SystemEntity> listEnt = _context.Set<SystemEntity>().AsNoTracking().ToList();
-
-            if (listEnt != null) {
-                listMod = listEnt.Select(et => new SystemModel(et)).ToList();
-            }
-
-            return listMod;
+            return _context.Set<SystemEntity>().AsNoTracking().ToList();
         }
 
-        public SystemModel Insert(SystemModel model)
+        public SystemEntity Insert(SystemEntity entity)
         {
-            SystemModel modelRet = null;
-
-            SystemEntity entity = _context.Set<SystemEntity>().Add(model.toEntity()).Entity;
-
-            if (entity != null) {
-                modelRet = new SystemModel(entity);
-            }
-
-            return modelRet;
+            return _context.Set<SystemEntity>().Add(entity).Entity;
         }
 
-        public SystemModel Update(SystemModel model)
+        public SystemEntity Update(SystemEntity entity)
         {
-            SystemModel modelRet = null;
-
-            SystemEntity entity = _context.Set<SystemEntity>().Update(model.toEntity()).Entity;
-
-            if (entity != null) {
-                modelRet = new SystemModel(entity);
-            }
-
-            return modelRet;
+            return _context.Set<SystemEntity>().Update(entity).Entity;
         }
 
-        public SystemModel Delete(SystemModel model)
+        public SystemEntity Delete(SystemEntity entity)
         {
-            SystemModel modelRet = null;
-
-            SystemEntity entity = _context.Set<SystemEntity>().Remove(model.toEntity()).Entity;
-
-            if (entity != null) {
-                modelRet = new SystemModel(entity);
-            }
-
-            return modelRet;
+            return _context.Set<SystemEntity>().Remove(entity).Entity;
         }
     }
 }

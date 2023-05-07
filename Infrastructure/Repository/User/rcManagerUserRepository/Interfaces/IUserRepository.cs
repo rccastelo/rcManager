@@ -9,6 +9,6 @@ namespace rcManagerUserRepository.Interfaces
         UserModel Get(long id);
         UserModel Insert(UserModel model);
         UserModel Update(UserModel model);
-        UserModel Delete(UserModel model);
+        UserModel Delete(long id);
     }
 }

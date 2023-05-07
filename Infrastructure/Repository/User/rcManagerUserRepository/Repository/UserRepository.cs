@@ -1,6 +1,7 @@
 ﻿using rcManagerUserDomain;
 using rcManagerUserRepository.Interfaces;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace rcManagerUserRepository.Repository
 {
@@ -15,43 +16,111 @@ namespace rcManagerUserRepository.Repository
 
         public UserModel Get(long id)
         {
-            UserModel ret = _userData.Get(id);
+            UserModel modelRet = null;
 
-            return ret;
+            UserEntity entity = _userData.Get(id);
+
+            if (entity != null) {
+                modelRet = new UserModel(entity);
+            } else {
+                modelRet = new UserModel() {
+                    IsValid = false
+                };
+
+                modelRet.AddMessage("Usuário não encontrado.");
+            }
+
+            return modelRet;
         }
 
         public IList<UserModel> List()
         {
-            IList<UserModel> ret = _userData.List();
+            IList<UserModel> listRet = null;
 
-            return ret;
+            IList<UserEntity> listEntity = _userData.List();
+
+            if ((listEntity != null) && (listEntity.Count > 0)) {
+                listRet = listEntity.Select(et => new UserModel(et)).ToList();
+            }
+
+            return listRet;
         }
 
         public UserModel Insert(UserModel model)
         {
-            UserModel ret = _userData.Insert(model);
+            UserModel modelRet = null;
+
+            UserEntity entity = _userData.Insert(model.ToEntity());
 
             _userData.Save();
 
-            return ret;
+            if ((entity != null) && (entity.Id > 0)) {
+                modelRet = new UserModel(entity);
+                modelRet.AddMessage("Usuário incluído com sucesso.");
+            } else {
+                modelRet = new UserModel(model);
+                modelRet.IsValid = false;
+                modelRet.AddMessage("Não foi possível incluir o Usuário.");
+            }
+
+            return modelRet;
         }
 
         public UserModel Update(UserModel model)
         {
-            UserModel ret = _userData.Update(model);
+            UserModel modelRet = null;
 
-            _userData.Save();
+            UserModel exist = this.Get(model.Id);
 
-            return ret;
+            if (exist != null) {
+                UserEntity entity = _userData.Update(model.ToEntity());
+
+                _userData.Save();
+
+                if (entity != null) {
+                    modelRet = new UserModel(entity);
+
+                    modelRet.AddMessage("Usuário alterado com sucesso.");
+                } else {
+                    modelRet = new UserModel(model);
+                    modelRet.IsValid = false;
+                    modelRet.AddMessage("Não foi possível alterar o Usuário.");
+                }
+            } else {
+                modelRet = new UserModel(model);
+                modelRet.IsValid = false;
+                modelRet.AddMessage("Usuário não encontrado para alteração.");
+            }
+
+            return modelRet;
         }
 
-        public UserModel Delete(UserModel model)
+        public UserModel Delete(long id)
         {
-            UserModel ret = _userData.Delete(model);
+            UserModel modelRet = null;
 
-            _userData.Save();
+            UserModel exist = this.Get(id);
 
-            return ret;
+            if (exist != null) {
+                UserEntity entity = _userData.Delete(exist.ToEntity());
+
+                _userData.Save();
+
+                if (entity != null) {
+                    modelRet = new UserModel(entity);
+                    modelRet.AddMessage("Usuário excluído com sucesso.");
+                } else {
+                    modelRet = new UserModel();
+                    modelRet.IsValid = false;
+                    modelRet.AddMessage("Não foi possível excluir o Usuário.");
+                }
+            } else {
+                modelRet = new UserModel();
+                modelRet.IsValid = false;
+                modelRet.AddMessage("Usuário não encontrado para exclusão.");
+            }
+
+            return modelRet;
         }
     }
 }

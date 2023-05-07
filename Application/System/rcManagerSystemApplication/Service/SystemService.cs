@@ -2,7 +2,6 @@
 using rcManagerSystemApplication.Transport;
 using rcManagerSystemDomain;
 using rcManagerSystemRepository.Interfaces;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -17,109 +16,79 @@ namespace rcManagerSystemApplication.Service
             this._repository = repository;
         }
 
-        public SystemResponse List(SystemRequest systemRequest)
+        public SystemResponse List()
         {
-            SystemResponse systemResponseRet = new SystemResponse();
+            SystemResponse response = new SystemResponse();
 
-            try {
-                IList<SystemModel> listRet = _repository.List();
+            IList<SystemModel> listResp = _repository.List();
 
-                if ((listRet != null)  && (listRet.Count > 0)) {
-                    systemResponseRet.List = listRet.Select(et => new SystemEntity(et)).ToList(); 
-                } else {
-                    systemResponseRet.AddMessage("Nenhum registro encontrado");
-                }
-            } catch (ArgumentException ex) {
-                systemResponseRet.IsValid = false;
-                systemResponseRet.Error = true;
-                systemResponseRet.AddMessage(ex.Message);
+            if ((listResp != null) && (listResp.Count > 0)) {
+                response.List = listResp.Select(md => md.ToEntity()).ToList();
+            } else {
+                response.AddMessage("Nenhum registro encontrado");
             }
 
-            return systemResponseRet;
+            return response;
         }
 
         public SystemResponse Get(long id)
         {
-            SystemResponse systemResponseRet = new SystemResponse();
+            SystemResponse response = new SystemResponse();
 
-            try {
-                SystemModel systemModelRet = _repository.Get(id);
+            SystemModel modelResp = _repository.Get(id);
 
-                if (systemModelRet == null) {
-                    systemResponseRet.AddMessage("Registro não encontrado");
-                } else {
-                    systemResponseRet.Item = systemModelRet;
-                }
-            } catch (ArgumentException ex) {
-                systemResponseRet.IsValid = false;
-                systemResponseRet.Error = true;
-                systemResponseRet.AddMessage(ex.Message);
+            if (modelResp != null) {
+                response.Item = modelResp.ToEntity();
+                response.AddMessages(modelResp.Messages);
             }
 
-            return systemResponseRet;
+            return response;
         }
 
         public SystemResponse Insert(SystemRequest systemRequest)
         {
-            SystemResponse systemResponseRet = new SystemResponse();
+            SystemResponse response = new SystemResponse();
 
-            try {
-                SystemModel req = new SystemModel(systemRequest);
+            SystemModel modelReq = new SystemModel(systemRequest) { Id = 0 };
 
-                SystemModel model = _repository.Insert(req);
+            SystemModel modelResp = _repository.Insert(modelReq);
 
-                systemResponseRet.Item = model.toEntity();
-            } catch (ArgumentException ex) {
-                systemResponseRet.IsValid = false;
-                systemResponseRet.Error = true;
-                systemResponseRet.AddMessage(ex.Message);
+            if (modelResp != null) {
+                response.Item = modelResp.ToEntity();
+                response.AddMessages(modelResp.Messages);
             }
 
-            return systemResponseRet;
+            return response;
         }
 
         public SystemResponse Update(SystemRequest systemRequest)
         {
-            SystemResponse systemResponseRet = new SystemResponse();
+            SystemResponse response = new SystemResponse();
 
-            try {
-                SystemModel req = new SystemModel(systemRequest);
+            SystemModel modelReq = new SystemModel(systemRequest);
 
-                SystemModel model = _repository.Update(req);
+            SystemModel modelResp = _repository.Update(modelReq);
 
-                systemResponseRet.Item = model.toEntity();
-            } catch (ArgumentException ex) {
-                systemResponseRet.IsValid = false;
-                systemResponseRet.Error = true;
-                systemResponseRet.AddMessage(ex.Message);
+            if (modelResp != null) {
+                response.Item = modelResp.ToEntity();
+                response.AddMessages(modelResp.Messages);
             }
 
-            return systemResponseRet;
+            return response;
         }
 
         public SystemResponse Delete(long id)
         {
-            SystemResponse systemResponseRet = new SystemResponse();
+            SystemResponse response = new SystemResponse();
 
-            try {
-                SystemEntity entityExist = _repository.Get(id);
+            SystemModel modelResp = _repository.Delete(id);
 
-                if (entityExist != null) {
-                    SystemModel req = new SystemModel(entityExist);
-
-                    SystemModel model = _repository.Delete(req);
-
-                    systemResponseRet.Item = model.toEntity();
-                } else {
-                    systemResponseRet.AddMessage("Registro não encontrado");
-                }
-            } catch (ArgumentException ex) {
-                systemResponseRet.IsValid = false;
-                systemResponseRet.Error = true;
-                systemResponseRet.AddMessage(ex.Message);
+            if (modelResp != null) {
+                response.Item = modelResp.ToEntity();
+                response.AddMessages(modelResp.Messages);
             }
 
-            return systemResponseRet;
+            return response;
         }
     }
 }

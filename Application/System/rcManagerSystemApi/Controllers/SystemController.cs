@@ -2,9 +2,8 @@
 using rcManagerSystemApplication.Interfaces;
 using rcManagerSystemApplication.Transport;
 using Swashbuckle.AspNetCore.Annotations;
-using System;
 
-namespace rcManagerApi.Controllers
+namespace rcManagerUserApi.Controllers
 {
     [ApiController]
     [Route("[controller]")]

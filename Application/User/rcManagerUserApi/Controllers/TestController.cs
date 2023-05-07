@@ -1,7 +1,7 @@
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
-namespace rcManagerApi.Controllers
+namespace rcManagerUserApi.Controllers
 {
     [ApiController]
     [Route("[controller]")]

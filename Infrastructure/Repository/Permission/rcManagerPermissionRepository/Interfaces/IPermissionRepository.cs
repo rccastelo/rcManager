@@ -9,6 +9,6 @@ namespace rcManagerPermissionRepository.Interfaces
         PermissionModel Get(long id);
         PermissionModel Insert(PermissionModel model);
         PermissionModel Update(PermissionModel model);
-        PermissionModel Delete(PermissionModel model);
+        PermissionModel Delete(long id);
     }
 }

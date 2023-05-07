@@ -11,69 +11,29 @@ namespace rcManagerUserRepository.Repository
     {
         public UserData(ManagerDbContext context) : base(context) { }
 
-        public UserModel Get(long id)
+        public UserEntity Get(long id)
         {
-            UserModel model = null;
-
-            UserEntity entity = _context.Set<UserEntity>().AsNoTracking().SingleOrDefault(et => et.Id == id);
-
-            if (entity != null) {
-                model = new UserModel(entity) { Password = null };
-            }
-
-            return model;
+            return _context.Set<UserEntity>().AsNoTracking().SingleOrDefault(et => et.Id == id);
         }
 
-        public IList<UserModel> List()
+        public IList<UserEntity> List()
         {
-            IList<UserModel> listMod = null;
-
-            IList<UserEntity> listEnt = _context.Set<UserEntity>().AsNoTracking().ToList();
-
-            if (listEnt != null) {
-                listMod = listEnt.Select(et => new UserModel(et) { Password = null }).ToList();
-            }
-
-            return listMod;
+            return _context.Set<UserEntity>().AsNoTracking().ToList();
         }
 
-        public UserModel Insert(UserModel model)
+        public UserEntity Insert(UserEntity entity)
         {
-            UserModel modelRet = null;
-
-            UserEntity entity = _context.Set<UserEntity>().Add(model.toEntity()).Entity;
-
-            if (entity != null) {
-                modelRet = new UserModel(entity) { Password = null };
-            }
-
-            return modelRet;
+            return _context.Set<UserEntity>().Add(entity).Entity;
         }
 
-        public UserModel Update(UserModel model)
+        public UserEntity Update(UserEntity entity)
         {
-            UserModel modelRet = null;
-
-            UserEntity entity = _context.Set<UserEntity>().Update(model.toEntity()).Entity;
-
-            if (entity != null) {
-                modelRet = new UserModel(entity) { Password = null };
-            }
-
-            return modelRet;
+            return _context.Set<UserEntity>().Update(entity).Entity;
         }
 
-        public UserModel Delete(UserModel model) 
+        public UserEntity Delete(UserEntity entity)
         {
-            UserModel modelRet = null;
-
-            UserEntity entity = _context.Set<UserEntity>().Remove(model.toEntity()).Entity;
-
-            if (entity != null) {
-                modelRet = new UserModel(entity) { Password = null };
-            }
-
-            return modelRet;
+            return _context.Set<UserEntity>().Remove(entity).Entity;
         }
     }
 }

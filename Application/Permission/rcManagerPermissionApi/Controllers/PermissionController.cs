@@ -3,7 +3,7 @@ using rcManagerPermissionApplication.Interfaces;
 using rcManagerPermissionApplication.Transport;
 using Swashbuckle.AspNetCore.Annotations;
 
-namespace rcManagerApi.Controllers
+namespace rcManagerPermissionApi.Controllers
 {
     [Route("[controller]")]
     [ApiController]

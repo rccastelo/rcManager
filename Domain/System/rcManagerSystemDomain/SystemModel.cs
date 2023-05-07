@@ -5,7 +5,7 @@ namespace rcManagerSystemDomain
 {
     public class SystemModel : SystemEntity
     {
-        public bool IsValid { get; private set; }
+        public bool IsValid { get; set; }
         public IList<string> Messages { get; private set; }
 
         public SystemModel()
@@ -14,7 +14,27 @@ namespace rcManagerSystemDomain
             Messages = new List<string>();
         }
 
-        public SystemModel(SystemModel model)
+        public void AddMessage(string message)
+        {
+            if (!String.IsNullOrWhiteSpace(message)) { 
+                if (Messages == null) Messages = new List<string>();
+
+                this.Messages.Add(message);
+            }
+        }
+
+        public void AddMessages(IList<string> messages)
+        {
+            if ((messages != null) && (messages.Count > 0)) {
+                if (this.Messages == null) this.Messages = new List<string>();
+
+                foreach (string m in messages) {
+                    if (!String.IsNullOrWhiteSpace(m)) this.Messages.Add(m);
+                }
+            }
+        }
+
+        public SystemModel(SystemModel model) : this()
         {
             if (model != null) {
                 this.Id = model.Id;
@@ -24,12 +44,12 @@ namespace rcManagerSystemDomain
             }
         }
 
-        public SystemModel(long id, string name, string description, bool status)
+        public SystemModel(long id, string name, string description, bool status) : this()
         {
             this.create(id, name, description, status);
         }
 
-        public SystemModel(SystemEntity entity)
+        public SystemModel(SystemEntity entity) : this()
         {
             this.create(entity);
         }
@@ -80,7 +100,7 @@ namespace rcManagerSystemDomain
             this.Status = status;
         }
 
-        public SystemEntity toEntity() 
+        public SystemEntity ToEntity() 
         {
             return new SystemEntity() {
                 Id = this.Id,

@@ -3,7 +3,7 @@ using rcManagerUserApplication.Interfaces;
 using rcManagerUserApplication.Transport;
 using Swashbuckle.AspNetCore.Annotations;
 
-namespace rcManagerApi.Controllers
+namespace rcManagerUserApi.Controllers
 {
     [ApiController]
     [Route("[controller]")]

@@ -5,11 +5,11 @@ namespace rcManagerSystemRepository.Interfaces
 {
     public interface ISystemData
     {
-        SystemModel Get(long id);
-        IList<SystemModel> List();
-        SystemModel Insert(SystemModel model);
-        SystemModel Update(SystemModel model);
-        SystemModel Delete(SystemModel model);
+        SystemEntity Get(long id);
+        IList<SystemEntity> List();
+        SystemEntity Insert(SystemEntity model);
+        SystemEntity Update(SystemEntity model);
+        SystemEntity Delete(SystemEntity model);
         void Save();
     }
 }

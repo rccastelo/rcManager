@@ -11,69 +11,29 @@ namespace rcManagerPermissionRepository.Repository
     {
         public PermissionData(ManagerDbContext context) : base(context) { }
 
-        public PermissionModel Get(long id)
+        public PermissionEntity Get(long id)
         {
-            PermissionModel model = null;
-
-            PermissionEntity entity = _context.Set<PermissionEntity>().AsNoTracking().SingleOrDefault(et => et.Id == id);
-
-            if (entity != null) {
-                model = new PermissionModel(entity);
-            }
-
-            return model;
+            return _context.Set<PermissionEntity>().AsNoTracking().SingleOrDefault(et => et.Id == id);
         }
 
-        public IList<PermissionModel> List()
+        public IList<PermissionEntity> List()
         {
-            IList<PermissionModel> listMod = null;
-
-            IList<PermissionEntity> listEnt = _context.Set<PermissionEntity>().AsNoTracking().ToList();
-
-            if (listEnt != null) {
-                listMod = listEnt.Select(et => new PermissionModel(et)).ToList();
-            }
-
-            return listMod;
+            return _context.Set<PermissionEntity>().AsNoTracking().ToList();
         }
 
-        public PermissionModel Insert(PermissionModel model)
+        public PermissionEntity Insert(PermissionEntity entity)
         {
-            PermissionModel modelRet = null;
-
-            PermissionEntity entity = _context.Set<PermissionEntity>().Add(model.toEntity()).Entity;
-
-            if (entity != null) {
-                modelRet = new PermissionModel(entity);
-            }
-
-            return modelRet;
+            return _context.Set<PermissionEntity>().Add(entity).Entity;
         }
 
-        public PermissionModel Update(PermissionModel model)
+        public PermissionEntity Update(PermissionEntity entity)
         {
-            PermissionModel modelRet = null;
-
-            PermissionEntity entity = _context.Set<PermissionEntity>().Update(model.toEntity()).Entity;
-
-            if (entity != null) {
-                modelRet = new PermissionModel(entity);
-            }
-
-            return modelRet;
+            return _context.Set<PermissionEntity>().Update(entity).Entity;
         }
 
-        public PermissionModel Delete(PermissionModel model)
+        public PermissionEntity Delete(PermissionEntity entity)
         {
-            PermissionModel modelRet = null;
-
-            PermissionEntity entity = _context.Set<PermissionEntity>().Remove(model.toEntity()).Entity;
-
-            if (entity != null) {
-                modelRet = new PermissionModel(entity);
-            }
-
-            return modelRet;
+            return _context.Set<PermissionEntity>().Remove(entity).Entity;
         }
     }
 }

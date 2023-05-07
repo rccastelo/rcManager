@@ -5,13 +5,33 @@ namespace rcManagerPermissionDomain
 {
     public class PermissionModel : PermissionEntity
     {
-        public bool IsValid { get; private set; }
+        public bool IsValid { get; set; }
         public IList<string> Messages { get; private set; }
 
         public PermissionModel() 
         {
             IsValid = true;
             Messages = new List<string>();
+        }
+
+        public void AddMessage(string message)
+        {
+            if (!String.IsNullOrWhiteSpace(message)) {
+                if (Messages == null) Messages = new List<string>();
+
+                this.Messages.Add(message);
+            }
+        }
+
+        public void AddMessages(IList<string> messages)
+        {
+            if ((messages != null) && (messages.Count > 0)) {
+                if (this.Messages == null) this.Messages = new List<string>();
+
+                foreach (string m in messages) {
+                    if (!String.IsNullOrWhiteSpace(m)) this.Messages.Add(m);
+                }
+            }
         }
 
         public PermissionModel(PermissionModel model) : this()
@@ -110,7 +130,7 @@ namespace rcManagerPermissionDomain
             this.EndTime = end_time;
         }
 
-        public PermissionEntity toEntity()
+        public PermissionEntity ToEntity()
         {
             return new PermissionEntity() {
                 Id = this.Id,
