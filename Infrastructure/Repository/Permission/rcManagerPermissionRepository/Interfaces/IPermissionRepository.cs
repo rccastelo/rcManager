@@ -5,7 +5,7 @@ namespace rcManagerPermissionRepository.Interfaces
 {
     public interface IPermissionRepository
     {
-        IList<PermissionModel> List();
+        PermissionModel List();
         PermissionModel Get(long id);
         PermissionModel Insert(PermissionModel model);
         PermissionModel Update(PermissionModel model);

@@ -1,9 +1,8 @@
-﻿using rcManagerUserApplication.Interfaces;
+﻿using rcCryptography;
+using rcManagerUserApplication.Interfaces;
 using rcManagerUserApplication.Transport;
 using rcManagerUserDomain;
 using rcManagerUserRepository.Interfaces;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace rcManagerUserApplication.Service
 {
@@ -20,12 +19,12 @@ namespace rcManagerUserApplication.Service
         {
             UserResponse response = new UserResponse();
 
-            IList<UserModel> listResp = _repository.List();
+            UserModel modelResp = _repository.List();
 
-            if ((listResp != null) && (listResp.Count > 0)) {
-                response.List = listResp.Select(md => md.ToEntity()).ToList();
-            } else {
-                response.AddMessage("Nenhum registro encontrado");
+            if (modelResp != null) {
+                response.IsValid = modelResp.IsValid;
+                response.List = modelResp.List;
+                response.AddMessages(modelResp.Messages);
             }
 
             return response;
@@ -38,7 +37,8 @@ namespace rcManagerUserApplication.Service
             UserModel modelResp = _repository.Get(id);
 
             if (modelResp != null) {
-                response.Item = modelResp.ToEntity();
+                response.IsValid = modelResp.IsValid;
+                response.Item = modelResp.Item;
                 response.AddMessages(modelResp.Messages);
             }
 
@@ -49,13 +49,25 @@ namespace rcManagerUserApplication.Service
         {
             UserResponse response = new UserResponse();
 
-            UserModel modelReq = new UserModel(userRequest) { Id = 0 };
+            userRequest.Id = 0;
+            UserModel modelReq = new UserModel(userRequest);
 
-            UserModel modelResp = _repository.Insert(modelReq);
+            if (modelReq.ValidModel) {
+                string secret = Crypto.GetSecretSHA512(modelReq.Item.Login + modelReq.Item.Password);
 
-            if (modelResp != null) {
-                response.Item = modelResp.ToEntity();
-                response.AddMessages(modelResp.Messages);
+                modelReq.Item.Password = secret; 
+                
+                UserModel modelResp = _repository.Insert(modelReq);
+
+                if (modelResp != null) {
+                    response.IsValid = modelResp.IsValid;
+                    response.Item = modelResp.Item;
+                    response.AddMessages(modelResp.Messages);
+                }
+            } else {
+                response.IsValid = false;
+                response.Item = modelReq.Item;
+                response.AddMessages(modelReq.Messages);
             }
 
             return response;
@@ -67,11 +79,22 @@ namespace rcManagerUserApplication.Service
 
             UserModel modelReq = new UserModel(userRequest);
 
-            UserModel modelResp = _repository.Update(modelReq);
+            if (modelReq.ValidModel) {
+                string secret = Crypto.GetSecretSHA512(modelReq.Item.Login + modelReq.Item.Password);
 
-            if (modelResp != null) {
-                response.Item = modelResp.ToEntity();
-                response.AddMessages(modelResp.Messages);
+                modelReq.Item.Password = secret;
+
+                UserModel modelResp = _repository.Update(modelReq);
+
+                if (modelResp != null) {
+                    response.IsValid = modelResp.IsValid;
+                    response.Item = modelResp.Item;
+                    response.AddMessages(modelResp.Messages);
+                }
+            } else {
+                response.IsValid = false;
+                response.Item = modelReq.Item;
+                response.AddMessages(modelReq.Messages);
             }
 
             return response;
@@ -84,7 +107,8 @@ namespace rcManagerUserApplication.Service
             UserModel modelResp = _repository.Delete(id);
 
             if (modelResp != null) {
-                response.Item = modelResp.ToEntity();
+                response.IsValid = modelResp.IsValid;
+                response.Item = modelResp.Item;
                 response.AddMessages(modelResp.Messages);
             }
 

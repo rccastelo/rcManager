@@ -2,8 +2,6 @@
 using rcManagerSystemApplication.Transport;
 using rcManagerSystemDomain;
 using rcManagerSystemRepository.Interfaces;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace rcManagerSystemApplication.Service
 {
@@ -20,12 +18,12 @@ namespace rcManagerSystemApplication.Service
         {
             SystemResponse response = new SystemResponse();
 
-            IList<SystemModel> listResp = _repository.List();
+            SystemModel modelResp = _repository.List();
 
-            if ((listResp != null) && (listResp.Count > 0)) {
-                response.List = listResp.Select(md => md.ToEntity()).ToList();
-            } else {
-                response.AddMessage("Nenhum registro encontrado");
+            if (modelResp != null) {
+                response.IsValid = modelResp.IsValid;
+                response.List = modelResp.List;
+                response.AddMessages(modelResp.Messages);
             }
 
             return response;
@@ -38,7 +36,8 @@ namespace rcManagerSystemApplication.Service
             SystemModel modelResp = _repository.Get(id);
 
             if (modelResp != null) {
-                response.Item = modelResp.ToEntity();
+                response.IsValid = modelResp.IsValid;
+                response.Item = modelResp.Item;
                 response.AddMessages(modelResp.Messages);
             }
 
@@ -49,13 +48,21 @@ namespace rcManagerSystemApplication.Service
         {
             SystemResponse response = new SystemResponse();
 
-            SystemModel modelReq = new SystemModel(systemRequest) { Id = 0 };
+            systemRequest.Id = 0;
+            SystemModel modelReq = new SystemModel(systemRequest);
 
-            SystemModel modelResp = _repository.Insert(modelReq);
+            if (modelReq.ValidModel) {
+                SystemModel modelResp = _repository.Insert(modelReq);
 
-            if (modelResp != null) {
-                response.Item = modelResp.ToEntity();
-                response.AddMessages(modelResp.Messages);
+                if (modelResp != null) {
+                    response.IsValid = modelResp.IsValid;
+                    response.Item = modelResp.Item;
+                    response.AddMessages(modelResp.Messages);
+                }
+            } else {
+                response.IsValid = false;
+                response.Item = modelReq.Item;
+                response.AddMessages(modelReq.Messages);
             }
 
             return response;
@@ -67,11 +74,18 @@ namespace rcManagerSystemApplication.Service
 
             SystemModel modelReq = new SystemModel(systemRequest);
 
-            SystemModel modelResp = _repository.Update(modelReq);
+            if (modelReq.ValidModel) {
+                SystemModel modelResp = _repository.Update(modelReq);
 
-            if (modelResp != null) {
-                response.Item = modelResp.ToEntity();
-                response.AddMessages(modelResp.Messages);
+                if (modelResp != null) {
+                    response.IsValid = modelResp.IsValid;
+                    response.Item = modelResp.Item;
+                    response.AddMessages(modelResp.Messages);
+                }
+            } else {
+                response.IsValid = false;
+                response.Item = modelReq.Item;
+                response.AddMessages(modelReq.Messages);
             }
 
             return response;
@@ -84,7 +98,8 @@ namespace rcManagerSystemApplication.Service
             SystemModel modelResp = _repository.Delete(id);
 
             if (modelResp != null) {
-                response.Item = modelResp.ToEntity();
+                response.IsValid = modelResp.IsValid;
+                response.Item = modelResp.Item;
                 response.AddMessages(modelResp.Messages);
             }
 

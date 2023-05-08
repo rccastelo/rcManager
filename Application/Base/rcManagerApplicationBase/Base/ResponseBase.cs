@@ -41,8 +41,7 @@ namespace rcManagerApplicationBase.Base
         }
         public void AddMessage(string message)
         {
-            if (!String.IsNullOrWhiteSpace(message))
-            {
+            if (!String.IsNullOrWhiteSpace(message)) {
                 if (Messages == null) Messages = new List<string>();
 
                 this.Messages.Add(message);
@@ -51,12 +50,10 @@ namespace rcManagerApplicationBase.Base
 
         public void AddMessages(IList<string> messages)
         {
-            if ((messages != null) && (messages.Count > 0))
-            {
+            if ((messages != null) && (messages.Count > 0)) {
                 if (this.Messages == null) this.Messages = new List<string>();
 
-                foreach (string m in messages)
-                {
+                foreach (string m in messages) {
                     if (!String.IsNullOrWhiteSpace(m)) this.Messages.Add(m);
                 }
             }

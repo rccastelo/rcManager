@@ -28,21 +28,21 @@ namespace rcManagerApi.Controllers
         [ProducesResponseType(500)]
         public IActionResult List()
         {
-            UserResponse userRequestRet;
+            UserResponse response;
 
             try {
-                userRequestRet = _userService.List();
+                response = _userService.List();
             } catch {
-                userRequestRet = new UserResponse();
-                userRequestRet.IsValid = false;
-                userRequestRet.Error = true;
-                userRequestRet.AddMessage("Erro ao listar Usuarios");
+                response = new UserResponse();
+                response.IsValid = false;
+                response.Error = true;
+                response.AddMessage("Erro ao listar Usuarios");
             }
 
-            if (userRequestRet.Error || !userRequestRet.IsValid) {
-                return BadRequest(userRequestRet);
+            if (response.Error || !response.IsValid) {
+                return BadRequest(response);
             } else {
-                return Ok(userRequestRet);
+                return Ok(response);
             }
         }
 
@@ -58,21 +58,21 @@ namespace rcManagerApi.Controllers
         [ProducesResponseType(500)]
         public IActionResult Get(long id)
         {
-            UserResponse userRequestRet;
+            UserResponse response;
 
             try {
-                userRequestRet = _userService.Get(id);
+                response = _userService.Get(id);
             } catch {
-                userRequestRet = new UserResponse();
-                userRequestRet.IsValid = false;
-                userRequestRet.Error = true;
-                userRequestRet.AddMessage("Erro ao consultar Usuario");
+                response = new UserResponse();
+                response.IsValid = false;
+                response.Error = true;
+                response.AddMessage("Erro ao consultar Usuario");
             }
 
-            if (userRequestRet.Error || !userRequestRet.IsValid) {
-                return BadRequest(userRequestRet);
+            if (response.Error || !response.IsValid) {
+                return BadRequest(response);
             } else {
-                return Ok(userRequestRet);
+                return Ok(response);
             }
         }
 
@@ -88,21 +88,21 @@ namespace rcManagerApi.Controllers
         [ProducesResponseType(500)]
         public IActionResult Insert(UserRequest userRequest)
         {
-            UserResponse userRequestRet;
+            UserResponse response;
 
             try {
-                userRequestRet = _userService.Insert(userRequest);
+                response = _userService.Insert(userRequest);
             } catch {
-                userRequestRet = new UserResponse();
-                userRequestRet.IsValid = false;
-                userRequestRet.Error = true;
-                userRequestRet.AddMessage("Erro ao incluir Usuario");
+                response = new UserResponse();
+                response.IsValid = false;
+                response.Error = true;
+                response.AddMessage("Erro ao incluir Usuario");
             }
 
-            if (userRequestRet.Error || !userRequestRet.IsValid) {
-                return BadRequest(userRequestRet);
+            if (response.Error || !response.IsValid) {
+                return BadRequest(response);
             } else {
-                return Ok(userRequestRet);
+                return Ok(response);
             }
         }
 
@@ -118,21 +118,21 @@ namespace rcManagerApi.Controllers
         [ProducesResponseType(500)]
         public IActionResult Update(UserRequest userRequest)
         {
-            UserResponse userRequestRet;
+            UserResponse response;
 
             try {
-                userRequestRet = _userService.Update(userRequest);
+                response = _userService.Update(userRequest);
             } catch {
-                userRequestRet = new UserResponse();
-                userRequestRet.IsValid = false;
-                userRequestRet.Error = true;
-                userRequestRet.AddMessage("Erro ao alterar Usuario");
+                response = new UserResponse();
+                response.IsValid = false;
+                response.Error = true;
+                response.AddMessage("Erro ao alterar Usuario");
             }
 
-            if (userRequestRet.Error || !userRequestRet.IsValid) {
-                return BadRequest(userRequestRet);
+            if (response.Error || !response.IsValid) {
+                return BadRequest(response);
             } else {
-                return Ok(userRequestRet);
+                return Ok(response);
             }
         }
 
@@ -148,21 +148,21 @@ namespace rcManagerApi.Controllers
         [ProducesResponseType(500)]
         public IActionResult Delete(long id)
         {
-            UserResponse userRequestRet;
+            UserResponse response;
 
             try {
-                userRequestRet = _userService.Delete(id);
+                response = _userService.Delete(id);
             } catch {
-                userRequestRet = new UserResponse();
-                userRequestRet.IsValid = false;
-                userRequestRet.Error = true;
-                userRequestRet.AddMessage("Erro ao excluir Usuario");
+                response = new UserResponse();
+                response.IsValid = false;
+                response.Error = true;
+                response.AddMessage("Erro ao excluir Usuario");
             }
 
-            if (userRequestRet.Error || !userRequestRet.IsValid) {
-                return BadRequest(userRequestRet);
+            if (response.Error || !response.IsValid) {
+                return BadRequest(response);
             } else {
-                return Ok(userRequestRet);
+                return Ok(response);
             }
         }
     }

@@ -1,5 +1,4 @@
-﻿using rcManagerDomainBase.Base;
-using rcManagerSystemDomain;
+﻿using rcManagerSystemDomain;
 using rcManagerUserDomain;
 using System;
 using System.ComponentModel.DataAnnotations;
@@ -9,8 +8,13 @@ namespace rcManagerPermissionDomain
 {
     [Serializable]
     [Table("Permissions")]
-    public class PermissionEntity : EntityBase
+    public class PermissionEntity
     {
+        [Column("id", Order = 1)]
+        [Required]
+        [Key]
+        public long Id { get; set; }
+
         [Column("user_id", Order = 2)]
         [Required]
         public long User_Id { get; set; }
@@ -59,8 +63,7 @@ namespace rcManagerPermissionDomain
 
         public PermissionEntity(PermissionEntity entity)
         {
-            if (entity != null)
-            {
+            if (entity != null) {
                 this.Id = entity.Id;
                 this.User_Id = entity.User_Id;
                 this.System_Id = entity.System_Id;

@@ -5,7 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Base\rcManagerDomainBase\rcManagerDomainBase.csproj" />
     <ProjectReference Include="..\..\System\rcManagerSystemDomain\rcManagerSystemDomain.csproj" />
     <ProjectReference Include="..\..\User\rcManagerUserDomain\rcManagerUserDomain.csproj" />
   </ItemGroup>

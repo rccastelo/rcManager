@@ -1,7 +1,6 @@
 ﻿using rcManagerSystemDomain;
 using rcManagerSystemRepository.Interfaces;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace rcManagerSystemRepository.Repository
 {
@@ -16,46 +15,49 @@ namespace rcManagerSystemRepository.Repository
 
         public SystemModel Get(long id)
         {
-            SystemModel modelRet = null;
+            SystemModel modelRet = new SystemModel();
 
             SystemEntity entity = _systemData.Get(id);
 
             if (entity != null) {
                 modelRet = new SystemModel(entity);
+                modelRet.IsValid = true;
             } else {
-                modelRet = new SystemModel() {
-                    IsValid = false
-                };
-
+                modelRet.IsValid = false;
                 modelRet.AddMessage("Sistema não encontrado.");
             }
 
             return modelRet;
         }
 
-        public IList<SystemModel> List()
+        public SystemModel List()
         {
-            IList<SystemModel> listRet = null;
+            SystemModel modelRet = new SystemModel();
 
             IList<SystemEntity> listEntity = _systemData.List();
 
             if ((listEntity != null) && (listEntity.Count > 0)) {
-                listRet = listEntity.Select(et => new SystemModel(et)).ToList();
+                modelRet.IsValid = true; 
+                modelRet.AddEntities(listEntity);
+            } else {
+                modelRet.IsValid = true;
+                modelRet.AddMessage("Nenhum registro encontrado.");
             }
 
-            return listRet;
+            return modelRet;
         }
 
         public SystemModel Insert(SystemModel model)
         {
             SystemModel modelRet = null;
 
-            SystemEntity entity = _systemData.Insert(model.ToEntity());
+            SystemEntity entity = _systemData.Insert(model.Item);
 
             _systemData.Save();
 
             if ((entity != null) && (entity.Id > 0)) {
                 modelRet = new SystemModel(entity);
+                modelRet.IsValid = true;
                 modelRet.AddMessage("Sistema incluído com sucesso.");
             } else {
                 modelRet = new SystemModel(model);
@@ -70,16 +72,16 @@ namespace rcManagerSystemRepository.Repository
         {
             SystemModel modelRet = null;
 
-            SystemModel exist = this.Get(model.Id);
+            SystemModel exist = this.Get(model.Item.Id);
 
             if (exist != null) {
-                SystemEntity entity = _systemData.Update(model.ToEntity());
+                SystemEntity entity = _systemData.Update(model.Item);
 
                 _systemData.Save();
 
                 if (entity != null) {
                     modelRet = new SystemModel(entity);
-
+                    modelRet.IsValid = true;
                     modelRet.AddMessage("Sistema alterado com sucesso.");
                 } else {
                     modelRet = new SystemModel(model);
@@ -101,13 +103,14 @@ namespace rcManagerSystemRepository.Repository
 
             SystemModel exist = this.Get(id);
 
-            if (exist != null) {
-                SystemEntity entity = _systemData.Delete(exist.ToEntity());
+            if ((exist != null) && (exist.IsValid)) {
+                SystemEntity entity = _systemData.Delete(exist.Item);
 
                 _systemData.Save();
 
                 if (entity != null) {
                     modelRet = new SystemModel(entity);
+                    modelRet.IsValid = true;
                     modelRet.AddMessage("Sistema excluído com sucesso.");
                 } else {
                     modelRet = new SystemModel();

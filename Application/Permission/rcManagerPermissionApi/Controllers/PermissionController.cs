@@ -28,21 +28,21 @@ namespace rcManagerPermissionApi.Controllers
         [ProducesResponseType(500)]
         public IActionResult List()
         {
-            PermissionResponse permissionResponseRet;
+            PermissionResponse response;
 
             try {
-                permissionResponseRet = _permissionService.List();
+                response = _permissionService.List();
             } catch {
-                permissionResponseRet = new PermissionResponse();
-                permissionResponseRet.IsValid = false;
-                permissionResponseRet.Error = true;
-                permissionResponseRet.AddMessage("Erro ao listar Permissões");
+                response = new PermissionResponse();
+                response.IsValid = false;
+                response.Error = true;
+                response.AddMessage("Erro ao listar Permissões");
             }
 
-            if (permissionResponseRet.Error || !permissionResponseRet.IsValid) {
-                return BadRequest(permissionResponseRet);
+            if (response.Error || !response.IsValid) {
+                return BadRequest(response);
             } else {
-                return Ok(permissionResponseRet);
+                return Ok(response);
             }
         }
 
@@ -58,21 +58,21 @@ namespace rcManagerPermissionApi.Controllers
         [ProducesResponseType(500)]
         public IActionResult Get(long id)
         {
-            PermissionResponse permissionResponseRet;
+            PermissionResponse response;
 
             try {
-                permissionResponseRet = _permissionService.Get(id);
+                response = _permissionService.Get(id);
             } catch {
-                permissionResponseRet = new PermissionResponse();
-                permissionResponseRet.IsValid = false;
-                permissionResponseRet.Error = true;
-                permissionResponseRet.AddMessage("Erro ao consultar Permissão");
+                response = new PermissionResponse();
+                response.IsValid = false;
+                response.Error = true;
+                response.AddMessage("Erro ao consultar Permissão");
             }
 
-            if (permissionResponseRet.Error || !permissionResponseRet.IsValid) {
-                return BadRequest(permissionResponseRet);
+            if (response.Error || !response.IsValid) {
+                return BadRequest(response);
             } else {
-                return Ok(permissionResponseRet);
+                return Ok(response);
             }
         }
 
@@ -88,21 +88,21 @@ namespace rcManagerPermissionApi.Controllers
         [ProducesResponseType(500)]
         public IActionResult Insert(PermissionRequest permissionRequest)
         {
-            PermissionResponse permissionResponseRet;
+            PermissionResponse response;
 
             try {
-                permissionResponseRet = _permissionService.Insert(permissionRequest);
+                response = _permissionService.Insert(permissionRequest);
             } catch {
-                permissionResponseRet = new PermissionResponse();
-                permissionResponseRet.IsValid = false;
-                permissionResponseRet.Error = true;
-                permissionResponseRet.AddMessage("Erro ao incluir Permissão");
+                response = new PermissionResponse();
+                response.IsValid = false;
+                response.Error = true;
+                response.AddMessage("Erro ao incluir Permissão");
             }
 
-            if (permissionResponseRet.Error || !permissionResponseRet.IsValid) {
-                return BadRequest(permissionResponseRet);
+            if (response.Error || !response.IsValid) {
+                return BadRequest(response);
             } else {
-                return Ok(permissionResponseRet);
+                return Ok(response);
             }
         }
 
@@ -118,21 +118,21 @@ namespace rcManagerPermissionApi.Controllers
         [ProducesResponseType(500)]
         public IActionResult Update(PermissionRequest permissionRequest)
         {
-            PermissionResponse permissionResponseRet;
+            PermissionResponse response;
 
             try {
-                permissionResponseRet = _permissionService.Update(permissionRequest);
+                response = _permissionService.Update(permissionRequest);
             } catch {
-                permissionResponseRet = new PermissionResponse();
-                permissionResponseRet.IsValid = false;
-                permissionResponseRet.Error = true;
-                permissionResponseRet.AddMessage("Erro ao alterar Permissão");
+                response = new PermissionResponse();
+                response.IsValid = false;
+                response.Error = true;
+                response.AddMessage("Erro ao alterar Permissão");
             }
 
-            if (permissionResponseRet.Error || !permissionResponseRet.IsValid) {
-                return BadRequest(permissionResponseRet);
+            if (response.Error || !response.IsValid) {
+                return BadRequest(response);
             } else {
-                return Ok(permissionResponseRet);
+                return Ok(response);
             }
         }
 
@@ -148,21 +148,21 @@ namespace rcManagerPermissionApi.Controllers
         [ProducesResponseType(500)]
         public IActionResult Delete(long id)
         {
-            PermissionResponse permissionResponseRet;
+            PermissionResponse response;
 
             try {
-                permissionResponseRet = _permissionService.Delete(id);
+                response = _permissionService.Delete(id);
             } catch {
-                permissionResponseRet = new PermissionResponse();
-                permissionResponseRet.IsValid = false;
-                permissionResponseRet.Error = true;
-                permissionResponseRet.AddMessage("Erro ao excluir Permissão");
+                response = new PermissionResponse();
+                response.IsValid = false;
+                response.Error = true;
+                response.AddMessage("Erro ao excluir Permissão");
             }
 
-            if (permissionResponseRet.Error || !permissionResponseRet.IsValid) {
-                return BadRequest(permissionResponseRet);
+            if (response.Error || !response.IsValid) {
+                return BadRequest(response);
             } else {
-                return Ok(permissionResponseRet);
+                return Ok(response);
             }
         }
     }

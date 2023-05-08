@@ -5,7 +5,7 @@ namespace rcManagerUserRepository.Interfaces
 {
     public interface IUserRepository
     {
-        IList<UserModel> List();
+        UserModel List();
         UserModel Get(long id);
         UserModel Insert(UserModel model);
         UserModel Update(UserModel model);

@@ -1,5 +1,4 @@
-﻿using rcManagerDomainBase.Base;
-using System;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -7,8 +6,13 @@ namespace rcManagerSystemDomain
 {
     [Serializable]
     [Table("Systems")]
-    public class SystemEntity : EntityBase
+    public class SystemEntity
     {
+        [Column("id", Order = 1)]
+        [Required]
+        [Key]
+        public long Id { get; set; }
+
         [Column("name", Order = 2)]
         [Required]
         [StringLength(50)]

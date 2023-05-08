@@ -3,147 +3,143 @@ using System.Collections.Generic;
 
 namespace rcManagerPermissionDomain
 {
-    public class PermissionModel : PermissionEntity
+    public class PermissionModel
     {
-        public bool IsValid { get; set; }
-        public IList<string> Messages { get; private set; }
+        private PermissionEntity _item = null;
+        private IList<PermissionEntity> _list = null;
+        private IList<string> _messages = null;
 
-        public PermissionModel() 
+        public PermissionModel() { }
+
+        public PermissionModel(PermissionModel model)
         {
-            IsValid = true;
-            Messages = new List<string>();
+            if (model != null) {
+                this._item = model._item == null ? null : new PermissionEntity(model._item);
+                this._list = model._list == null ? null : new List<PermissionEntity>(model._list);
+                this.IsValid = model.IsValid;
+                this._messages = model._messages == null ? null : new List<string>(model._messages);
+            }
+        }
+
+        public PermissionModel(long id, long user_id, long system_id, DateTime date_from, DateTime date_to, 
+                bool status, bool weekday,bool weekend, TimeSpan start_time, TimeSpan end_time)
+        {
+            this.SetItem(id, user_id, system_id, date_from, date_to, status, weekday, weekend, start_time, end_time);
+        }
+
+        public PermissionModel(PermissionEntity entity)
+        {
+            if (entity != null) this.SetItem(entity);
+        }
+
+
+        public PermissionEntity Item
+        {
+            get { return this._item; }
+            private set { }
+        }
+
+        public IList<PermissionEntity> List
+        {
+            get { return this._list; }
+            private set { }
+        }
+
+        public bool IsValid { get; set; }
+
+        public IList<string> Messages
+        {
+            get { return this._messages; }
+            private set { }
+        }
+
+        public bool ValidModel
+        {
+            get { return this.ValidateModel(); }
+            private set { }
         }
 
         public void AddMessage(string message)
         {
-            if (!String.IsNullOrWhiteSpace(message)) {
-                if (Messages == null) Messages = new List<string>();
+            if (!string.IsNullOrWhiteSpace(message)) {
+                if (this._messages == null) this._messages = new List<string>();
 
-                this.Messages.Add(message);
+                this._messages.Add(message);
             }
         }
 
         public void AddMessages(IList<string> messages)
         {
             if ((messages != null) && (messages.Count > 0)) {
-                if (this.Messages == null) this.Messages = new List<string>();
+                if (this._messages == null) this._messages = new List<string>();
 
                 foreach (string m in messages) {
-                    if (!String.IsNullOrWhiteSpace(m)) this.Messages.Add(m);
+                    if (!String.IsNullOrWhiteSpace(m)) this._messages.Add(m);
                 }
             }
         }
 
-        public PermissionModel(PermissionModel model) : this()
+        public void AddEntity(PermissionEntity entity)
         {
-            if (model != null) {
-                this.Id = model.Id;
-                this.User_Id = model.User_Id;
-                this.System_Id = model.System_Id;
-                this.DateFrom = model.DateFrom;
-                this.DateTo = model.DateTo;
-                this.Status = model.Status;
-                this.Weekday = model.Weekday;
-                this.Weekend = model.Weekend;
-                this.StartTime = model.StartTime;
-                this.EndTime = model.EndTime;
-                this.IsValid = model.IsValid;
-                this.Messages = new List<string>(model.Messages);
+            if (entity != null) {
+                if (this._list == null) this._list = new List<PermissionEntity>();
+
+                this._list.Add(entity);
             }
         }
 
-        public PermissionModel(long id, long user_id, long system_id, DateTime date_from, DateTime date_to, bool status, bool weekday,bool weekend, TimeSpan start_time, TimeSpan end_time) : this()
+        public void AddEntities(IList<PermissionEntity> entities)
         {
-            this.create(id, user_id, system_id, date_from, date_to, status, weekday, weekend, start_time, end_time);
+            if ((entities != null) && (entities.Count > 0)) {
+                this._list = entities;
+            }
         }
 
-        public PermissionModel(PermissionEntity entity) : this()
+        private void SetItem(PermissionEntity entity)
         {
-            this.create(entity);
+            if (entity != null) {
+                this.SetItem(entity.Id, entity.User_Id, entity.System_Id, entity.DateFrom, entity.DateTo, 
+                        entity.Status, entity.Weekday, entity.Weekend, entity.StartTime, entity.EndTime);
+            }
         }
 
-        private void create(PermissionEntity entity)
+        private void SetItem(long id, long user_id, long system_id, DateTime date_from, DateTime date_to, 
+                bool status, bool weekday, bool weekend, TimeSpan start_time, TimeSpan end_time)
         {
-            if (entity == null) {
-                throw new ArgumentException("[Permission] não pode ser nulo", "Permission");
-            }
-
-            this.create(entity.Id, entity.User_Id, entity.System_Id, entity.DateFrom, entity.DateTo, entity.Status, entity.Weekday, entity.Weekend, entity.StartTime, entity.EndTime);
-        }
-
-        private void create(long id, long user_id, long system_id, DateTime date_from, DateTime date_to, bool status, bool weekday, bool weekend, TimeSpan start_time, TimeSpan end_time)
-        {
-            if (id < 0) {
-                throw new ArgumentException("Campo [id] deve ser maior ou igual a zero", "id");
-            }
-
-            if (user_id < 0) {
-                throw new ArgumentException("Campo [user_id] deve ser maior ou igual a zero", "user_id");
-            }
-
-            if (system_id < 0) {
-                throw new ArgumentException("Campo [system_id] deve ser maior ou igual a zero", "system_id");
-            }
-
-            //if (name == null)
-            //{
-            //    throw new ArgumentException("Campo [name] deve estar preenchido", "name");
-            //}
-            //else
-            //{
-            //    name = name.Trim();
-
-            //    if (String.IsNullOrWhiteSpace(name))
-            //    {
-            //        throw new ArgumentException("Campo [name] deve estar preenchido", "name");
-            //    }
-
-            //    if (name.Length < 3)
-            //    {
-            //        throw new ArgumentException("Campo [name] deve possuir no mínimo 3 caracteres", "name");
-            //    }
-            //}
-
-            //if (description != null)
-            //{
-            //    description = description.Trim();
-
-            //    if (String.IsNullOrWhiteSpace(description))
-            //    {
-            //        this.description = null;
-            //    }
-            //    else if (description.Length < 3)
-            //    {
-            //        throw new ArgumentException("Campo [description] deve possuir no mínimo 3 caracteres", "description");
-            //    }
-            //}
-
-            this.Id = id;
-            this.User_Id = user_id;
-            this.System_Id = system_id;
-            this.DateFrom = date_from;
-            this.DateTo = date_to;
-            this.Status = status;
-            this.Weekday = weekday;
-            this.Weekend = weekend;
-            this.StartTime = start_time;
-            this.EndTime = end_time;
-        }
-
-        public PermissionEntity ToEntity()
-        {
-            return new PermissionEntity() {
-                Id = this.Id,
-                User_Id = this.User_Id,
-                System_Id = this.System_Id,
-                DateFrom = this.DateFrom,
-                DateTo = this.DateTo,
-                Status = this.Status,
-                Weekday = this.Weekday,
-                Weekend = this.Weekend,
-                StartTime = this.StartTime,
-                EndTime = this.EndTime
+            this._item = new PermissionEntity() {
+                Id = id,
+                User_Id = user_id,
+                System_Id = system_id,
+                DateFrom = date_from,
+                DateTo = date_to,
+                Status = status,
+                Weekday = weekday,
+                Weekend = weekend,
+                StartTime = start_time,
+                EndTime = end_time
             };
+        }
+
+        private bool ValidateModel()
+        {
+            bool validity = true;
+
+            if (this._item.Id < 0) {
+                validity = false;
+                this.AddMessage("Campo [id] deve ser maior ou igual a zero");
+            }
+
+            if (this._item.User_Id < 0) {
+                validity = false;
+                this.AddMessage("Campo [user_id] deve ser maior ou igual a zero");
+            }
+
+            if (this._item.System_Id < 0) {
+                validity = false;
+                this.AddMessage("Campo [system_id] deve ser maior ou igual a zero");
+            }
+
+            return validity;
         }
     }
 }

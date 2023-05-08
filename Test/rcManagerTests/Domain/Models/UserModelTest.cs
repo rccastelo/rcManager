@@ -199,11 +199,11 @@ namespace rcManagerTests.Domain.Models
             Assert.Null(userEntity.Description);
             Assert.False(userEntity.Status);
             Assert.NotNull(userModel);
-            Assert.Equal(23456, userModel.Id);
-            Assert.NotNull(userModel.Name);
-            Assert.Equal("name", userModel.Name);
-            Assert.Null(userModel.Description);
-            Assert.False(userModel.Status);
+            Assert.Equal(23456, userModel.Item.Id);
+            Assert.NotNull(userModel.Item.Name);
+            Assert.Equal("name", userModel.Item.Name);
+            Assert.Null(userModel.Item.Description);
+            Assert.False(userModel.Item.Status);
         }
 
         [Fact]
@@ -231,12 +231,12 @@ namespace rcManagerTests.Domain.Models
             Assert.Equal("description", userEntity.Description);
             Assert.True(userEntity.Status);
             Assert.NotNull(userModel);
-            Assert.Equal(long.MaxValue, userModel.Id);
-            Assert.NotNull(userModel.Name);
-            Assert.Equal("name", userModel.Name);
-            Assert.NotNull(userModel.Description);
-            Assert.Equal("description", userModel.Description);
-            Assert.True(userModel.Status);
+            Assert.Equal(long.MaxValue, userModel.Item.Id);
+            Assert.NotNull(userModel.Item.Name);
+            Assert.Equal("name", userModel.Item.Name);
+            Assert.NotNull(userModel.Item.Description);
+            Assert.Equal("description", userModel.Item.Description);
+            Assert.True(userModel.Item.Status);
         }
     }
 }

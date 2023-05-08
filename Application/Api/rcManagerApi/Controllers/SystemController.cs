@@ -29,21 +29,21 @@ namespace rcManagerApi.Controllers
         [ProducesResponseType(500)]
         public IActionResult List()
         {
-            SystemResponse systemResponseRet;
+            SystemResponse response;
 
             try {
-                systemResponseRet = _systemService.List();
+                response = _systemService.List();
             } catch {
-                systemResponseRet = new SystemResponse();
-                systemResponseRet.IsValid = false;
-                systemResponseRet.Error = true;
-                systemResponseRet.AddMessage("Erro ao listar Sistemas");
+                response = new SystemResponse();
+                response.IsValid = false;
+                response.Error = true;
+                response.AddMessage("Erro ao listar Sistemas");
             }
 
-            if (systemResponseRet.Error || !systemResponseRet.IsValid) {
-                return BadRequest(systemResponseRet);
+            if (response.Error || !response.IsValid) {
+                return BadRequest(response);
             } else {
-                return Ok(systemResponseRet);
+                return Ok(response);
             }
         }
 
@@ -59,21 +59,21 @@ namespace rcManagerApi.Controllers
         [ProducesResponseType(500)]
         public IActionResult Get(long id)
         {
-            SystemResponse systemResponseRet;
+            SystemResponse response;
 
             try {
-                systemResponseRet = _systemService.Get(id);
+                response = _systemService.Get(id);
             } catch {
-                systemResponseRet = new SystemResponse();
-                systemResponseRet.IsValid = false;
-                systemResponseRet.Error = true;
-                systemResponseRet.AddMessage("Erro ao consultar Sistema");
+                response = new SystemResponse();
+                response.IsValid = false;
+                response.Error = true;
+                response.AddMessage("Erro ao consultar Sistema");
             }
 
-            if (systemResponseRet.Error || !systemResponseRet.IsValid) {
-                return BadRequest(systemResponseRet);
+            if (response.Error || !response.IsValid) {
+                return BadRequest(response);
             } else {
-                return Ok(systemResponseRet);
+                return Ok(response);
             }
         }
 
@@ -89,21 +89,21 @@ namespace rcManagerApi.Controllers
         [ProducesResponseType(500)]
         public IActionResult Insert(SystemRequest systemRequest)
         {
-            SystemResponse systemResponseRet;
+            SystemResponse response;
 
             try {
-                systemResponseRet = _systemService.Insert(systemRequest);
+                response = _systemService.Insert(systemRequest);
             } catch {
-                systemResponseRet = new SystemResponse();
-                systemResponseRet.IsValid = false;
-                systemResponseRet.Error = true;
-                systemResponseRet.AddMessage("Erro ao incluir Sistema");
+                response = new SystemResponse();
+                response.IsValid = false;
+                response.Error = true;
+                response.AddMessage("Erro ao incluir Sistema");
             }
 
-            if (systemResponseRet.Error || !systemResponseRet.IsValid) {
-                return BadRequest(systemResponseRet);
+            if (response.Error || !response.IsValid) {
+                return BadRequest(response);
             } else {
-                return Ok(systemResponseRet);
+                return Ok(response);
             }
         }
 
@@ -119,21 +119,21 @@ namespace rcManagerApi.Controllers
         [ProducesResponseType(500)]
         public IActionResult Update(SystemRequest systemRequest)
         {
-            SystemResponse systemResponseRet;
+            SystemResponse response;
 
             try {
-                systemResponseRet = _systemService.Update(systemRequest);
+                response = _systemService.Update(systemRequest);
             } catch {
-                systemResponseRet = new SystemResponse();
-                systemResponseRet.IsValid = false;
-                systemResponseRet.Error = true;
-                systemResponseRet.AddMessage("Erro ao alterar Sistema");
+                response = new SystemResponse();
+                response.IsValid = false;
+                response.Error = true;
+                response.AddMessage("Erro ao alterar Sistema");
             }
 
-            if (systemResponseRet.Error || !systemResponseRet.IsValid) {
-                return BadRequest(systemResponseRet);
+            if (response.Error || !response.IsValid) {
+                return BadRequest(response);
             } else {
-                return Ok(systemResponseRet);
+                return Ok(response);
             }
         }
 
@@ -149,21 +149,21 @@ namespace rcManagerApi.Controllers
         [ProducesResponseType(500)]
         public IActionResult Delete(long id)
         {
-            SystemResponse systemResponseRet;
+            SystemResponse response;
 
             try {
-                systemResponseRet = _systemService.Delete(id);
+                response = _systemService.Delete(id);
             } catch {
-                systemResponseRet = new SystemResponse();
-                systemResponseRet.IsValid = false;
-                systemResponseRet.Error = true;
-                systemResponseRet.AddMessage("Erro ao excluir Sistema");
+                response = new SystemResponse();
+                response.IsValid = false;
+                response.Error = true;
+                response.AddMessage("Erro ao excluir Sistema");
             }
 
-            if (systemResponseRet.Error || !systemResponseRet.IsValid) {
-                return BadRequest(systemResponseRet);
+            if (response.Error || !response.IsValid) {
+                return BadRequest(response);
             } else {
-                return Ok(systemResponseRet);
+                return Ok(response);
             }
         }
     }

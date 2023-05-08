@@ -1,7 +1,6 @@
 ﻿using rcManagerPermissionDomain;
 using rcManagerPermissionRepository.Interfaces;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace rcManagerPermissionRepository.Repository
 {
@@ -16,50 +15,51 @@ namespace rcManagerPermissionRepository.Repository
 
         public PermissionModel Get(long id)
         {
-            PermissionModel modelRet = null;
+            PermissionModel modelRet = new PermissionModel();
 
             PermissionEntity entity = _permissionData.Get(id);
 
             if (entity != null) {
                 modelRet = new PermissionModel(entity);
+                modelRet.IsValid = true;
             } else {
-                modelRet = new PermissionModel() {
-                    IsValid = false
-                };
-
+                modelRet.IsValid = false;
                 modelRet.AddMessage("Permissão não encontrada.");
             }
 
             return modelRet;
         }
 
-        public IList<PermissionModel> List()
+        public PermissionModel List()
         {
-            IList<PermissionModel> listRet = null;
+            PermissionModel modelRet = new PermissionModel();
 
             IList<PermissionEntity> listEntity = _permissionData.List();
 
             if ((listEntity != null) && (listEntity.Count > 0)) {
-                listRet = listEntity.Select(et => new PermissionModel(et)).ToList();
+                modelRet.IsValid = true;
+                modelRet.AddEntities(listEntity);
+            } else {
+                modelRet.IsValid = true; 
+                modelRet.AddMessage("Nenhum registro encontrado.");
             }
 
-            return listRet;
+            return modelRet;
         }
 
         public PermissionModel Insert(PermissionModel model)
         {
             PermissionModel modelRet = null;
 
-            PermissionEntity entity = _permissionData.Insert(model.ToEntity());
+            PermissionEntity entity = _permissionData.Insert(model.Item);
 
             _permissionData.Save();
 
             if ((entity != null) && (entity.Id > 0)) {
                 modelRet = new PermissionModel(entity);
+                modelRet.IsValid = true;
                 modelRet.AddMessage("Permissão incluída com sucesso.");
-            }
-            else
-            {
+            } else {
                 modelRet = new PermissionModel(model);
                 modelRet.IsValid = false;
                 modelRet.AddMessage("Não foi possível incluir a Permissão.");
@@ -72,16 +72,16 @@ namespace rcManagerPermissionRepository.Repository
         {
             PermissionModel modelRet = null;
 
-            PermissionModel exist = this.Get(model.Id);
+            PermissionModel exist = this.Get(model.Item.Id);
 
             if (exist != null) {
-                PermissionEntity entity = _permissionData.Update(model.ToEntity());
+                PermissionEntity entity = _permissionData.Update(model.Item);
 
                 _permissionData.Save();
 
                 if (entity != null) {
                     modelRet = new PermissionModel(entity);
-
+                    modelRet.IsValid = true;
                     modelRet.AddMessage("Permissão alterada com sucesso.");
                 } else {
                     modelRet = new PermissionModel(model);
@@ -103,13 +103,14 @@ namespace rcManagerPermissionRepository.Repository
 
             PermissionModel exist = this.Get(id);
 
-            if (exist != null) {
-                PermissionEntity entity = _permissionData.Delete(exist.ToEntity());
+            if ((exist != null) && (exist.IsValid)) {
+                PermissionEntity entity = _permissionData.Delete(exist.Item);
 
                 _permissionData.Save();
 
                 if (entity != null) {
                     modelRet = new PermissionModel(entity);
+                    modelRet.IsValid = true;
                     modelRet.AddMessage("Permissão excluída com sucesso.");
                 } else {
                     modelRet = new PermissionModel();

@@ -1,7 +1,6 @@
 ﻿using rcManagerUserDomain;
 using rcManagerUserRepository.Interfaces;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace rcManagerUserRepository.Repository
 {
@@ -16,46 +15,49 @@ namespace rcManagerUserRepository.Repository
 
         public UserModel Get(long id)
         {
-            UserModel modelRet = null;
+            UserModel modelRet = new UserModel();
 
             UserEntity entity = _userData.Get(id);
 
             if (entity != null) {
                 modelRet = new UserModel(entity);
+                modelRet.IsValid = true;
             } else {
-                modelRet = new UserModel() {
-                    IsValid = false
-                };
-
+                modelRet.IsValid = false;
                 modelRet.AddMessage("Usuário não encontrado.");
             }
 
             return modelRet;
         }
 
-        public IList<UserModel> List()
+        public UserModel List()
         {
-            IList<UserModel> listRet = null;
+            UserModel modelRet = new UserModel();
 
             IList<UserEntity> listEntity = _userData.List();
 
             if ((listEntity != null) && (listEntity.Count > 0)) {
-                listRet = listEntity.Select(et => new UserModel(et)).ToList();
+                modelRet.IsValid = true;
+                modelRet.AddEntities(listEntity);
+            } else {
+                modelRet.IsValid = true;
+                modelRet.AddMessage("Nenhum registro encontrado.");
             }
 
-            return listRet;
+            return modelRet;
         }
 
         public UserModel Insert(UserModel model)
         {
             UserModel modelRet = null;
 
-            UserEntity entity = _userData.Insert(model.ToEntity());
+            UserEntity entity = _userData.Insert(model.Item);
 
             _userData.Save();
 
             if ((entity != null) && (entity.Id > 0)) {
                 modelRet = new UserModel(entity);
+                modelRet.IsValid = true;
                 modelRet.AddMessage("Usuário incluído com sucesso.");
             } else {
                 modelRet = new UserModel(model);
@@ -70,16 +72,16 @@ namespace rcManagerUserRepository.Repository
         {
             UserModel modelRet = null;
 
-            UserModel exist = this.Get(model.Id);
+            UserModel exist = this.Get(model.Item.Id);
 
             if (exist != null) {
-                UserEntity entity = _userData.Update(model.ToEntity());
+                UserEntity entity = _userData.Update(model.Item);
 
                 _userData.Save();
 
                 if (entity != null) {
                     modelRet = new UserModel(entity);
-
+                    modelRet.IsValid = true;
                     modelRet.AddMessage("Usuário alterado com sucesso.");
                 } else {
                     modelRet = new UserModel(model);
@@ -101,13 +103,14 @@ namespace rcManagerUserRepository.Repository
 
             UserModel exist = this.Get(id);
 
-            if (exist != null) {
-                UserEntity entity = _userData.Delete(exist.ToEntity());
+            if ((exist != null) && (exist.IsValid)) {
+                UserEntity entity = _userData.Delete(exist.Item);
 
                 _userData.Save();
 
                 if (entity != null) {
                     modelRet = new UserModel(entity);
+                    modelRet.IsValid = true;
                     modelRet.AddMessage("Usuário excluído com sucesso.");
                 } else {
                     modelRet = new UserModel();

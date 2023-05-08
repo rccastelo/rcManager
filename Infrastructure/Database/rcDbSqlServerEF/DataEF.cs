@@ -16,8 +16,7 @@ namespace rcDbSqlServerEF
         {
             this._context.SaveChanges();
 
-            foreach (EntityEntry entry in this._context.ChangeTracker.Entries())
-            {
+            foreach (EntityEntry entry in this._context.ChangeTracker.Entries()) {
                 entry.State = EntityState.Detached;
             }
         }
