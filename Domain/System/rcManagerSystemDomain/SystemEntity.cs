@@ -8,7 +8,7 @@ namespace rcManagerSystemDomain
     [Table("Systems")]
     public class SystemEntity
     {
-        [Column("id", Order = 1)]
+        [Column("pk_id_system", Order = 1)]
         [Required]
         [Key]
         public long Id { get; set; }
@@ -26,16 +26,24 @@ namespace rcManagerSystemDomain
         [Required]
         public bool Status { get; set; }
 
+        [Column("createdAt", Order = 5)]
+        [Required]
+        public DateTime CreatedAt { get; set; }
+
+        [Column("updatedAt", Order = 6)]
+        public DateTime UpdatedAt { get; set; }
+
         public SystemEntity() { }
 
         public SystemEntity(SystemEntity entity) 
         {
-            if (entity != null)
-            {
+            if (entity != null) {
                 this.Id = entity.Id;
                 this.Name = entity.Name;
                 this.Description = entity.Description;
                 this.Status = entity.Status;
+                this.CreatedAt = entity.CreatedAt;
+                this.UpdatedAt = entity.UpdatedAt;
             }
         }
     }

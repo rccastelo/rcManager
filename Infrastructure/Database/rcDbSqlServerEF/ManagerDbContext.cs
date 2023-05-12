@@ -25,5 +25,6 @@ namespace rcDbSqlServerEF
         public DbSet<SystemEntity> Systems { get; set; }
         public DbSet<UserEntity> Users { get; set; }
         public DbSet<PermissionEntity> Permissions { get; set; }
+        public DbSet<PasswordEntity> Login { get; set; }
     }
 }

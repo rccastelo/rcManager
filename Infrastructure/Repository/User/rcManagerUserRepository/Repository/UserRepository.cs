@@ -7,10 +7,12 @@ namespace rcManagerUserRepository.Repository
     public class UserRepository : IUserRepository
     {
         private readonly IUserData _userData;
+        private readonly IPasswordData _pwdData;
 
-        public UserRepository(IUserData userData)
+        public UserRepository(IUserData userData, IPasswordData pwdData)
         {
             this._userData = userData;
+            this._pwdData = pwdData;
         }
 
         public UserModel Get(long id)
@@ -21,9 +23,9 @@ namespace rcManagerUserRepository.Repository
 
             if (entity != null) {
                 modelRet = new UserModel(entity);
-                modelRet.IsValid = true;
+                modelRet.IsValidResponse = true;
             } else {
-                modelRet.IsValid = false;
+                modelRet.IsValidResponse = false;
                 modelRet.AddMessage("Usuário não encontrado.");
             }
 
@@ -37,10 +39,10 @@ namespace rcManagerUserRepository.Repository
             IList<UserEntity> listEntity = _userData.List();
 
             if ((listEntity != null) && (listEntity.Count > 0)) {
-                modelRet.IsValid = true;
+                modelRet.IsValidResponse = true;
                 modelRet.AddEntities(listEntity);
             } else {
-                modelRet.IsValid = true;
+                modelRet.IsValidResponse = true;
                 modelRet.AddMessage("Nenhum registro encontrado.");
             }
 
@@ -51,17 +53,18 @@ namespace rcManagerUserRepository.Repository
         {
             UserModel modelRet = null;
 
-            UserEntity entity = _userData.Insert(model.Item);
+            model.Entity.Id = 0;
+            UserEntity entity = _userData.Insert(model.Entity);
 
             _userData.Save();
 
             if ((entity != null) && (entity.Id > 0)) {
                 modelRet = new UserModel(entity);
-                modelRet.IsValid = true;
+                modelRet.IsValidResponse = true;
                 modelRet.AddMessage("Usuário incluído com sucesso.");
             } else {
                 modelRet = new UserModel(model);
-                modelRet.IsValid = false;
+                modelRet.IsValidResponse = false;
                 modelRet.AddMessage("Não foi possível incluir o Usuário.");
             }
 
@@ -72,25 +75,25 @@ namespace rcManagerUserRepository.Repository
         {
             UserModel modelRet = null;
 
-            UserModel exist = this.Get(model.Item.Id);
+            UserModel exist = this.Get(model.Entity.Id);
 
             if (exist != null) {
-                UserEntity entity = _userData.Update(model.Item);
+                UserEntity entity = _userData.Update(model.Entity);
 
                 _userData.Save();
 
                 if (entity != null) {
                     modelRet = new UserModel(entity);
-                    modelRet.IsValid = true;
+                    modelRet.IsValidResponse = true;
                     modelRet.AddMessage("Usuário alterado com sucesso.");
                 } else {
                     modelRet = new UserModel(model);
-                    modelRet.IsValid = false;
+                    modelRet.IsValidResponse = false;
                     modelRet.AddMessage("Não foi possível alterar o Usuário.");
                 }
             } else {
                 modelRet = new UserModel(model);
-                modelRet.IsValid = false;
+                modelRet.IsValidResponse = false;
                 modelRet.AddMessage("Usuário não encontrado para alteração.");
             }
 
@@ -103,24 +106,49 @@ namespace rcManagerUserRepository.Repository
 
             UserModel exist = this.Get(id);
 
-            if ((exist != null) && (exist.IsValid)) {
-                UserEntity entity = _userData.Delete(exist.Item);
+            if ((exist != null) && (exist.IsValidResponse)) {
+                UserEntity entity = _userData.Delete(exist.Entity);
 
                 _userData.Save();
 
                 if (entity != null) {
                     modelRet = new UserModel(entity);
-                    modelRet.IsValid = true;
+                    modelRet.IsValidResponse = true;
                     modelRet.AddMessage("Usuário excluído com sucesso.");
                 } else {
                     modelRet = new UserModel();
-                    modelRet.IsValid = false;
+                    modelRet.IsValidResponse = false;
                     modelRet.AddMessage("Não foi possível excluir o Usuário.");
                 }
             } else {
                 modelRet = new UserModel();
-                modelRet.IsValid = false;
+                modelRet.IsValidResponse = false;
                 modelRet.AddMessage("Usuário não encontrado para exclusão.");
+            }
+
+            return modelRet;
+        }
+
+        public UserModel InsertUserPwd(UserModel userModel, PasswordModel pwdModel)
+        {
+            UserModel modelRet = null;
+
+            userModel.Entity.Id = 0;
+            UserEntity user = _userData.Insert(userModel.Entity);
+
+            pwdModel.Entity.User_Id = user.Id;
+            PasswordEntity pwd = _pwdData.Insert(pwdModel.Entity);
+
+            _userData.Save();
+
+            if (((user != null) && (user.Id > 0)) && ((pwd != null) && (pwd.Id > 0))) {
+                modelRet = new UserModel(user);
+                modelRet.IsValidResponse = true;
+                modelRet.AddMessage("Usuário e Senha incluídos com sucesso.");
+            } else {
+                modelRet = new UserModel(userModel);
+                modelRet.IsValidResponse = false;
+                modelRet.AddMessage("Não foi possível incluir o Usuário.");
             }
 
             return modelRet;

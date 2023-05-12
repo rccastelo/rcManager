@@ -21,8 +21,8 @@ namespace rcManagerSystemApplication.Service
             SystemModel modelResp = _repository.List();
 
             if (modelResp != null) {
-                response.IsValid = modelResp.IsValid;
-                response.List = modelResp.List;
+                response.IsValid = modelResp.IsValidResponse;
+                response.List = modelResp.TransportList;
                 response.AddMessages(modelResp.Messages);
             }
 
@@ -36,8 +36,8 @@ namespace rcManagerSystemApplication.Service
             SystemModel modelResp = _repository.Get(id);
 
             if (modelResp != null) {
-                response.IsValid = modelResp.IsValid;
-                response.Item = modelResp.Item;
+                response.IsValid = modelResp.IsValidResponse;
+                response.Item = modelResp.Transport;
                 response.AddMessages(modelResp.Messages);
             }
 
@@ -48,20 +48,19 @@ namespace rcManagerSystemApplication.Service
         {
             SystemResponse response = new SystemResponse();
 
-            systemRequest.Id = 0;
             SystemModel modelReq = new SystemModel(systemRequest);
 
-            if (modelReq.ValidModel) {
+            if (modelReq.IsValidModel) {
                 SystemModel modelResp = _repository.Insert(modelReq);
 
                 if (modelResp != null) {
-                    response.IsValid = modelResp.IsValid;
-                    response.Item = modelResp.Item;
+                    response.IsValid = modelResp.IsValidResponse;
+                    response.Item = modelResp.Transport;
                     response.AddMessages(modelResp.Messages);
                 }
             } else {
                 response.IsValid = false;
-                response.Item = modelReq.Item;
+                response.Item = modelReq.Transport;
                 response.AddMessages(modelReq.Messages);
             }
 
@@ -74,17 +73,17 @@ namespace rcManagerSystemApplication.Service
 
             SystemModel modelReq = new SystemModel(systemRequest);
 
-            if (modelReq.ValidModel) {
+            if (modelReq.IsValidModel) {
                 SystemModel modelResp = _repository.Update(modelReq);
 
                 if (modelResp != null) {
-                    response.IsValid = modelResp.IsValid;
-                    response.Item = modelResp.Item;
+                    response.IsValid = modelResp.IsValidResponse;
+                    response.Item = modelResp.Transport;
                     response.AddMessages(modelResp.Messages);
                 }
             } else {
                 response.IsValid = false;
-                response.Item = modelReq.Item;
+                response.Item = modelReq.Transport;
                 response.AddMessages(modelReq.Messages);
             }
 
@@ -98,8 +97,8 @@ namespace rcManagerSystemApplication.Service
             SystemModel modelResp = _repository.Delete(id);
 
             if (modelResp != null) {
-                response.IsValid = modelResp.IsValid;
-                response.Item = modelResp.Item;
+                response.IsValid = modelResp.IsValidResponse;
+                response.Item = modelResp.Transport;
                 response.AddMessages(modelResp.Messages);
             }
 

@@ -4,7 +4,7 @@ using System;
 namespace rcManagerPermissionApplication.Transport
 {
     [Serializable]
-    public class PermissionRequest : PermissionEntity
+    public class PermissionRequest : PermissionTransport
     {
         
     }

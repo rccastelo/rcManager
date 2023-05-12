@@ -10,16 +10,16 @@ namespace rcManagerPermissionDomain
     [Table("Permissions")]
     public class PermissionEntity
     {
-        [Column("id", Order = 1)]
+        [Column("pk_id_permission", Order = 1)]
         [Required]
         [Key]
         public long Id { get; set; }
 
-        [Column("user_id", Order = 2)]
+        [Column("fk_user_id", Order = 2)]
         [Required]
         public long User_Id { get; set; }
 
-        [Column("system_id", Order = 3)]
+        [Column("fk_system_id", Order = 3)]
         [Required]
         public long System_Id { get; set; }
 
@@ -51,12 +51,10 @@ namespace rcManagerPermissionDomain
         [Required]
         public TimeSpan EndTime { get; set; }
 
-        [NotMapped]
-        [ForeignKey("user_id")]
+        [ForeignKey("User_Id")]
         public UserEntity UserEntity { get; set; }
 
-        [NotMapped]
-        [ForeignKey("system_id")]
+        [ForeignKey("System_Id")]
         public SystemEntity SystemEntity { get; set; }
 
         public PermissionEntity() { }

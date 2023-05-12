@@ -21,7 +21,7 @@ namespace rcManagerUserApi.Controllers
             Summary = "Listar todos os Usuários",
             Description = "[pt-BR] Listar todos os Usuários. \n\n " +
                 "[en-US] List all Users. ",
-            Tags = new[] { "Users" }
+            Tags = new[] { "User" }
         )]
         [ProducesResponseType(typeof(UserResponse), 200)]
         [ProducesResponseType(typeof(UserResponse), 400)]
@@ -51,7 +51,7 @@ namespace rcManagerUserApi.Controllers
             Summary = "Obter um Usuário pelo id",
             Description = "[pt-BR] Obter um Usuário pelo id. \n\n " +
                 "[en-US] Get a User by id. ",
-            Tags = new[] { "Users" }
+            Tags = new[] { "User" }
         )]
         [ProducesResponseType(typeof(UserResponse), 200)]
         [ProducesResponseType(typeof(UserResponse), 400)]
@@ -81,7 +81,7 @@ namespace rcManagerUserApi.Controllers
             Summary = "Incluir um Usuário",
             Description = "[pt-BR] Incluir um Usuário. \n\n " +
                 "[en-US] Add a User. ",
-            Tags = new[] { "Users" }
+            Tags = new[] { "User" }
         )]
         [ProducesResponseType(typeof(UserResponse), 200)]
         [ProducesResponseType(typeof(UserResponse), 400)]
@@ -111,7 +111,7 @@ namespace rcManagerUserApi.Controllers
             Summary = "Atualizar um Usuário",
             Description = "[pt-BR] Atualizar um Usuário. \n\n " +
                 "[en-US] Update a User. ",
-            Tags = new[] { "Users" }
+            Tags = new[] { "User" }
         )]
         [ProducesResponseType(typeof(UserResponse), 200)]
         [ProducesResponseType(typeof(UserResponse), 400)]
@@ -141,7 +141,7 @@ namespace rcManagerUserApi.Controllers
             Summary = "Excluir um Usuário",
             Description = "[pt-BR] Excluir um Usuário. \n\n " +
                 "[en-US] Delete a User. ",
-            Tags = new[] { "Users" }
+            Tags = new[] { "User" }
         )]
         [ProducesResponseType(typeof(UserResponse), 200)]
         [ProducesResponseType(typeof(UserResponse), 400)]

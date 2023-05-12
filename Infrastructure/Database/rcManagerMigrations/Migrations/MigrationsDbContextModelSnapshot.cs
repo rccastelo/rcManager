@@ -21,128 +21,154 @@ namespace rcManagerMigrations.Migrations
 
             modelBuilder.Entity("rcManagerPermissionDomain.PermissionEntity", b =>
                 {
-                    b.Property<long>("id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("id")
+                        .HasColumnName("pk_id_permission")
                         .HasColumnType("bigint")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("date_from")
+                    b.Property<DateTime>("DateFrom")
                         .HasColumnName("date_from")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("date_to")
+                    b.Property<DateTime>("DateTo")
                         .HasColumnName("date_to")
                         .HasColumnType("datetime2");
 
-                    b.Property<TimeSpan>("end_time")
+                    b.Property<TimeSpan>("EndTime")
                         .HasColumnName("end_time")
                         .HasColumnType("time");
 
-                    b.Property<TimeSpan>("start_time")
+                    b.Property<TimeSpan>("StartTime")
                         .HasColumnName("start_time")
                         .HasColumnType("time");
 
-                    b.Property<bool>("status")
+                    b.Property<bool>("Status")
                         .HasColumnName("status")
                         .HasColumnType("bit");
 
-                    b.Property<long>("system_id")
-                        .HasColumnName("system_id")
+                    b.Property<long>("System_Id")
+                        .HasColumnName("fk_system_id")
                         .HasColumnType("bigint");
 
-                    b.Property<long>("user_id")
-                        .HasColumnName("user_id")
+                    b.Property<long>("User_Id")
+                        .HasColumnName("fk_user_id")
                         .HasColumnType("bigint");
 
-                    b.Property<bool>("weekday")
+                    b.Property<bool>("Weekday")
                         .HasColumnName("weekday")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("weekend")
+                    b.Property<bool>("Weekend")
                         .HasColumnName("weekend")
                         .HasColumnType("bit");
 
-                    b.HasKey("id");
+                    b.HasKey("Id");
 
-                    b.HasIndex("system_id");
+                    b.HasIndex("System_Id");
 
-                    b.HasIndex("user_id");
+                    b.HasIndex("User_Id");
 
                     b.ToTable("Permissions");
                 });
 
             modelBuilder.Entity("rcManagerSystemDomain.SystemEntity", b =>
                 {
-                    b.Property<long>("id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("id")
+                        .HasColumnName("pk_id_system")
                         .HasColumnType("bigint")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("description")
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnName("createdAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
                         .HasColumnName("description")
                         .HasColumnType("nvarchar(200)")
                         .HasMaxLength(200);
 
-                    b.Property<string>("name")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnName("name")
                         .HasColumnType("nvarchar(50)")
                         .HasMaxLength(50);
 
-                    b.Property<bool>("status")
+                    b.Property<bool>("Status")
                         .HasColumnName("status")
                         .HasColumnType("bit");
 
-                    b.HasKey("id");
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnName("updatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
 
                     b.ToTable("Systems");
                 });
 
-            modelBuilder.Entity("rcManagerUserDomain.UserEntity", b =>
+            modelBuilder.Entity("rcManagerUserDomain.PasswordEntity", b =>
                 {
-                    b.Property<long>("id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("id")
+                        .HasColumnName("pk_id_login")
                         .HasColumnType("bigint")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("createdAt")
+                    b.Property<string>("Login")
+                        .IsRequired()
+                        .HasColumnName("login")
+                        .HasColumnType("nvarchar(200)")
+                        .HasMaxLength(200);
+
+                    b.Property<string>("Secret")
+                        .HasColumnName("secret")
+                        .HasColumnType("nvarchar(200)")
+                        .HasMaxLength(200);
+
+                    b.Property<long>("User_Id")
+                        .HasColumnName("fk_user_id")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("User_Id");
+
+                    b.ToTable("Login");
+                });
+
+            modelBuilder.Entity("rcManagerUserDomain.UserEntity", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("pk_id_user")
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreatedAt")
                         .HasColumnName("createdAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("description")
+                    b.Property<string>("Description")
                         .HasColumnName("description")
                         .HasColumnType("nvarchar(200)")
                         .HasMaxLength(200);
 
-                    b.Property<string>("login")
-                        .IsRequired()
-                        .HasColumnName("login")
-                        .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
-
-                    b.Property<string>("name")
+                    b.Property<string>("Name")
                         .HasColumnName("name")
                         .HasColumnType("nvarchar(200)")
                         .HasMaxLength(200);
 
-                    b.Property<string>("password")
-                        .IsRequired()
-                        .HasColumnName("password")
-                        .HasColumnType("nvarchar(200)")
-                        .HasMaxLength(200);
-
-                    b.Property<bool>("status")
+                    b.Property<bool>("Status")
                         .HasColumnName("status")
                         .HasColumnType("bit");
 
-                    b.Property<DateTime>("updatedAt")
+                    b.Property<DateTime>("UpdatedAt")
                         .HasColumnName("updatedAt")
                         .HasColumnType("datetime2");
 
-                    b.HasKey("id");
+                    b.HasKey("Id");
 
                     b.ToTable("Users");
                 });
@@ -151,13 +177,22 @@ namespace rcManagerMigrations.Migrations
                 {
                     b.HasOne("rcManagerSystemDomain.SystemEntity", "SystemEntity")
                         .WithMany()
-                        .HasForeignKey("system_id")
+                        .HasForeignKey("System_Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("rcManagerUserDomain.UserEntity", "UserEntity")
                         .WithMany()
-                        .HasForeignKey("user_id")
+                        .HasForeignKey("User_Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("rcManagerUserDomain.PasswordEntity", b =>
+                {
+                    b.HasOne("rcManagerUserDomain.UserEntity", "UserEntity")
+                        .WithMany()
+                        .HasForeignKey("User_Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

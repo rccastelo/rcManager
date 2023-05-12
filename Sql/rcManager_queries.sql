@@ -6,9 +6,11 @@ select * from [dbo].[__EFMigrationsHistory];
 
 select * from Systems;
 select * from Users;
+select * from Login;
 select * from Permissions;
 
 delete from Permissions;
+delete from Login;
 delete from Systems;
 delete from Users;
 

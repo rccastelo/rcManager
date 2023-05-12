@@ -5,7 +5,7 @@ using System;
 namespace rcManagerUserApplication.Transport
 {
     [Serializable]
-    public class UserResponse : ResponseBase<UserEntity>
+    public class UserResponse : ResponseBase<UserTransport>
     {
         public UserResponse() : base() { }
 

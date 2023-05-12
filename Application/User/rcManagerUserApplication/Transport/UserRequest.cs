@@ -4,7 +4,7 @@ using System;
 namespace rcManagerUserApplication.Transport
 {
     [Serializable]
-    public class UserRequest : UserEntity
+    public class UserRequest : UserTransport
     {
         
     }

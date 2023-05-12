@@ -21,9 +21,9 @@ namespace rcManagerSystemRepository.Repository
 
             if (entity != null) {
                 modelRet = new SystemModel(entity);
-                modelRet.IsValid = true;
+                modelRet.IsValidResponse = true;
             } else {
-                modelRet.IsValid = false;
+                modelRet.IsValidResponse = false;
                 modelRet.AddMessage("Sistema não encontrado.");
             }
 
@@ -37,10 +37,10 @@ namespace rcManagerSystemRepository.Repository
             IList<SystemEntity> listEntity = _systemData.List();
 
             if ((listEntity != null) && (listEntity.Count > 0)) {
-                modelRet.IsValid = true; 
+                modelRet.IsValidResponse = true; 
                 modelRet.AddEntities(listEntity);
             } else {
-                modelRet.IsValid = true;
+                modelRet.IsValidResponse = true;
                 modelRet.AddMessage("Nenhum registro encontrado.");
             }
 
@@ -51,17 +51,18 @@ namespace rcManagerSystemRepository.Repository
         {
             SystemModel modelRet = null;
 
-            SystemEntity entity = _systemData.Insert(model.Item);
+            model.Entity.Id = 0;
+            SystemEntity entity = _systemData.Insert(model.Entity);
 
             _systemData.Save();
 
             if ((entity != null) && (entity.Id > 0)) {
                 modelRet = new SystemModel(entity);
-                modelRet.IsValid = true;
+                modelRet.IsValidResponse = true;
                 modelRet.AddMessage("Sistema incluído com sucesso.");
             } else {
                 modelRet = new SystemModel(model);
-                modelRet.IsValid = false;
+                modelRet.IsValidResponse = false;
                 modelRet.AddMessage("Não foi possível incluir o Sistema.");
             }
 
@@ -72,25 +73,25 @@ namespace rcManagerSystemRepository.Repository
         {
             SystemModel modelRet = null;
 
-            SystemModel exist = this.Get(model.Item.Id);
+            SystemModel exist = this.Get(model.Entity.Id);
 
             if (exist != null) {
-                SystemEntity entity = _systemData.Update(model.Item);
+                SystemEntity entity = _systemData.Update(model.Entity);
 
                 _systemData.Save();
 
                 if (entity != null) {
                     modelRet = new SystemModel(entity);
-                    modelRet.IsValid = true;
+                    modelRet.IsValidResponse = true;
                     modelRet.AddMessage("Sistema alterado com sucesso.");
                 } else {
                     modelRet = new SystemModel(model);
-                    modelRet.IsValid = false;
+                    modelRet.IsValidResponse = false;
                     modelRet.AddMessage("Não foi possível alterar o Sistema.");
                 }
             } else {
                 modelRet = new SystemModel(model);
-                modelRet.IsValid = false;
+                modelRet.IsValidResponse = false;
                 modelRet.AddMessage("Sistema não encontrado para alteração.");
             }
 
@@ -103,23 +104,23 @@ namespace rcManagerSystemRepository.Repository
 
             SystemModel exist = this.Get(id);
 
-            if ((exist != null) && (exist.IsValid)) {
-                SystemEntity entity = _systemData.Delete(exist.Item);
+            if ((exist != null) && (exist.IsValidResponse)) {
+                SystemEntity entity = _systemData.Delete(exist.Entity);
 
                 _systemData.Save();
 
                 if (entity != null) {
                     modelRet = new SystemModel(entity);
-                    modelRet.IsValid = true;
+                    modelRet.IsValidResponse = true;
                     modelRet.AddMessage("Sistema excluído com sucesso.");
                 } else {
                     modelRet = new SystemModel();
-                    modelRet.IsValid = false;
+                    modelRet.IsValidResponse = false;
                     modelRet.AddMessage("Não foi possível excluir o Sistema.");
                 }
             } else {
                 modelRet = new SystemModel();
-                modelRet.IsValid = false;
+                modelRet.IsValidResponse = false;
                 modelRet.AddMessage("Sistema não encontrado para exclusão.");
             }
 

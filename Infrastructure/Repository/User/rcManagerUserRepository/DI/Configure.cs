@@ -12,6 +12,8 @@ namespace rcManagerUserRepository.DI
             diDbSqlServerEF.ConfigureServices(services);
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IUserData, UserData>();
+            services.AddScoped<IPasswordRepository, PasswordRepository>();
+            services.AddScoped<IPasswordData, PasswordData>();
         }
     }
 }

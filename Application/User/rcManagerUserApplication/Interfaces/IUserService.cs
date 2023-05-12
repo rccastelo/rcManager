@@ -9,5 +9,7 @@ namespace rcManagerUserApplication.Interfaces
         UserResponse Insert(UserRequest userRequest);
         UserResponse Update(UserRequest userRequest);
         UserResponse Delete(long id);
+        PasswordResponse ListPwd();
+        UserPasswordResponse InsertUserPwd(UserPasswordRequest userPwdRequest);
     }
 }

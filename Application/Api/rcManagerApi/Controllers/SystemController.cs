@@ -2,7 +2,6 @@
 using rcManagerSystemApplication.Interfaces;
 using rcManagerSystemApplication.Transport;
 using Swashbuckle.AspNetCore.Annotations;
-using System;
 
 namespace rcManagerApi.Controllers
 {
@@ -22,7 +21,7 @@ namespace rcManagerApi.Controllers
             Summary = "Listar todos os Sistemas",
             Description = "[pt-BR] Listar todos os Sistemas. \n\n " +
                 "[en-US] List all Systems. ",
-            Tags = new[] { "Systems" }
+            Tags = new[] { "System" }
         )]
         [ProducesResponseType(typeof(SystemResponse), 200)]
         [ProducesResponseType(typeof(SystemResponse), 400)]
@@ -52,7 +51,7 @@ namespace rcManagerApi.Controllers
             Summary = "Obter um Sistema pelo id",
             Description = "[pt-BR] Obter um Sistema pelo id. \n\n " +
                 "[en-US] Get a System by id. ",
-            Tags = new[] { "Systems" }
+            Tags = new[] { "System" }
         )]
         [ProducesResponseType(typeof(SystemResponse), 200)]
         [ProducesResponseType(typeof(SystemResponse), 400)]
@@ -82,7 +81,7 @@ namespace rcManagerApi.Controllers
             Summary = "Incluir um Sistema",
             Description = "[pt-BR] Incluir um Sistema. \n\n " +
                 "[en-US] Add a System. ",
-            Tags = new[] { "Systems" }
+            Tags = new[] { "System" }
         )]
         [ProducesResponseType(typeof(SystemResponse), 200)]
         [ProducesResponseType(typeof(SystemResponse), 400)]
@@ -112,7 +111,7 @@ namespace rcManagerApi.Controllers
             Summary = "Atualizar um Sistema",
             Description = "[pt-BR] Atualizar um Sistema. \n\n " +
                 "[en-US] Update a System. ",
-            Tags = new[] { "Systems" }
+            Tags = new[] { "System" }
         )]
         [ProducesResponseType(typeof(SystemResponse), 200)]
         [ProducesResponseType(typeof(SystemResponse), 400)]
@@ -142,7 +141,7 @@ namespace rcManagerApi.Controllers
             Summary = "Excluir um Sistema",
             Description = "[pt-BR] Excluir um Sistema. \n\n " +
                 "[en-US] Delete a System. ",
-            Tags = new[] { "Systems" }
+            Tags = new[] { "System" }
         )]
         [ProducesResponseType(typeof(SystemResponse), 200)]
         [ProducesResponseType(typeof(SystemResponse), 400)]

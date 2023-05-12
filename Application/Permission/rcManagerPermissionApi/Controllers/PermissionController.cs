@@ -21,7 +21,7 @@ namespace rcManagerPermissionApi.Controllers
             Summary = "Listar todas as Permissões",
             Description = "[pt-BR] Listar todos as Permissões. \n\n " +
                 "[en-US] List all Permissions. ",
-            Tags = new[] { "Permissions" }
+            Tags = new[] { "Permission" }
         )]
         [ProducesResponseType(typeof(PermissionResponse), 200)]
         [ProducesResponseType(typeof(PermissionResponse), 400)]
@@ -51,7 +51,7 @@ namespace rcManagerPermissionApi.Controllers
             Summary = "Obter uma Permissão pelo id",
             Description = "[pt-BR] Obter uma Permissão pelo id. \n\n " +
                 "[en-US] Get a Permission by id. ",
-            Tags = new[] { "Permissions" }
+            Tags = new[] { "Permission" }
         )]
         [ProducesResponseType(typeof(PermissionResponse), 200)]
         [ProducesResponseType(typeof(PermissionResponse), 400)]
@@ -81,7 +81,7 @@ namespace rcManagerPermissionApi.Controllers
             Summary = "Incluir uma Permissão",
             Description = "[pt-BR] Incluir uma Permissão. \n\n " +
                 "[en-US] Add a Permission. ",
-            Tags = new[] { "Permissions" }
+            Tags = new[] { "Permission" }
         )]
         [ProducesResponseType(typeof(PermissionResponse), 200)]
         [ProducesResponseType(typeof(PermissionResponse), 400)]
@@ -111,7 +111,7 @@ namespace rcManagerPermissionApi.Controllers
             Summary = "Atualizar uma Permissão",
             Description = "[pt-BR] Atualizar uma Permissão. \n\n " +
                 "[en-US] Update a Permission. ",
-            Tags = new[] { "Permissions" }
+            Tags = new[] { "Permission" }
         )]
         [ProducesResponseType(typeof(PermissionResponse), 200)]
         [ProducesResponseType(typeof(PermissionResponse), 400)]
@@ -141,7 +141,7 @@ namespace rcManagerPermissionApi.Controllers
             Summary = "Excluir uma Permissão",
             Description = "[pt-BR] Excluir uma Permissão. \n\n " +
                 "[en-US] Delete a Permission. ",
-            Tags = new[] { "Permissions" }
+            Tags = new[] { "Permission" }
         )]
         [ProducesResponseType(typeof(PermissionResponse), 200)]
         [ProducesResponseType(typeof(PermissionResponse), 400)]

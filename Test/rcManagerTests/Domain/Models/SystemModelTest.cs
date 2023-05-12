@@ -223,11 +223,11 @@ namespace rcManagerTests.Domain.Models
             Assert.Null(systemEntity.Description);
             Assert.False(systemEntity.Status);
             Assert.NotNull(systemModel);
-            Assert.Equal(23456, systemModel.Item.Id);
-            Assert.NotNull(systemModel.Item.Name);
-            Assert.Equal("name", systemModel.Item.Name);
-            Assert.Null(systemModel.Item.Description);
-            Assert.False(systemModel.Item.Status);
+            Assert.Equal(23456, systemModel.Entity.Id);
+            Assert.NotNull(systemModel.Entity.Name);
+            Assert.Equal("name", systemModel.Entity.Name);
+            Assert.Null(systemModel.Entity.Description);
+            Assert.False(systemModel.Entity.Status);
         }
 
         [Fact]
@@ -258,12 +258,12 @@ namespace rcManagerTests.Domain.Models
             Assert.Equal("description", systemEntity.Description);
             Assert.True(systemEntity.Status);
             Assert.NotNull(systemModel);
-            Assert.Equal(long.MaxValue, systemModel.Item.Id);
-            Assert.NotNull(systemModel.Item.Name);
-            Assert.Equal("name", systemModel.Item.Name);
-            Assert.NotNull(systemModel.Item.Description);
-            Assert.Equal("description", systemModel.Item.Description);
-            Assert.True(systemModel.Item.Status);
+            Assert.Equal(long.MaxValue, systemModel.Entity.Id);
+            Assert.NotNull(systemModel.Entity.Name);
+            Assert.Equal("name", systemModel.Entity.Name);
+            Assert.NotNull(systemModel.Entity.Description);
+            Assert.Equal("description", systemModel.Entity.Description);
+            Assert.True(systemModel.Entity.Status);
         }
     }
 }

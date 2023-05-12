@@ -1,144 +1,117 @@
-﻿using System;
+﻿using rcManagerDomainBase.Base;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace rcManagerSystemDomain
 {
-    public class SystemModel
+    public sealed class SystemModel : ModelBase<SystemEntity, SystemTransport>
     {
-        private SystemEntity _item = null;
-        private IList<SystemEntity> _list = null;
-        private IList<string> _messages = null;
+        public SystemModel() : base() { }
 
-        public SystemModel() { }
+        public SystemModel(SystemModel model) : base(model) { }
 
-        public SystemModel(SystemModel model)
+        public SystemModel(SystemEntity entity) : base(entity) { }
+
+        public SystemModel(SystemTransport transport) : base(transport) { }
+
+        public SystemModel(long id, string name, string description, 
+                bool status, DateTime createdAt, DateTime updatedAt)
         {
-            if (model != null) {
-                this._item = model._item == null ? null : new SystemEntity(model._item);
-                this._list = model._list == null ? null : new List<SystemEntity>(model._list);
-                this.IsValid = model.IsValid;
-                this._messages = model._messages == null ? null : new List<string>(model._messages);
-            }
+            this.SetEntity(id, name, description, status, createdAt, updatedAt);
         }
 
-        public SystemModel(long id, string name, string description, bool status)
-        {
-            this.SetItem(id, name, description, status);
-        }
-
-        public SystemModel(SystemEntity entity)
-        {
-            if (entity != null) this.SetItem(entity);
-        }
-
-        public SystemEntity Item
-        {
-            get { return this._item; }
-            private set { }
-        }
-
-        public IList<SystemEntity> List
-        {
-            get { return this._list; }
-            private set { }
-        }
-
-        public bool IsValid { get; set; }
-
-        public IList<string> Messages
-        {
-            get { return this._messages; }
-            private set { }
-        }
-
-        public bool ValidModel
-        {
-            get { return this.ValidateModel(); }
-            private set { }
-        }
-
-        public void AddMessage(string message)
-        {
-            if (!string.IsNullOrWhiteSpace(message)) {
-                if (this._messages == null) this._messages = new List<string>();
-
-                this._messages.Add(message);
-            }
-        }
-
-        public void AddMessages(IList<string> messages)
-        {
-            if ((messages != null) && (messages.Count > 0)) {
-                if (this._messages == null) this._messages = new List<string>();
-
-                foreach (string m in messages) {
-                    if (!String.IsNullOrWhiteSpace(m)) this._messages.Add(m);
-                }
-            }
-        }
-
-        public void AddEntity(SystemEntity entity)
+        protected override void SetEntity(SystemEntity entity)
         {
             if (entity != null) {
-                if (this._list == null) this._list = new List<SystemEntity>();
-
-                this._list.Add(entity);
+                this.SetEntity(entity.Id, entity.Name, entity.Description, 
+                        entity.Status, entity.CreatedAt, entity.UpdatedAt);
             }
         }
 
-        public void AddEntities(IList<SystemEntity> entities)
+        protected override void SetEntity(SystemTransport transport)
         {
-            if ((entities != null) && (entities.Count > 0)) {
-                this._list = entities;
+            if (transport != null)
+            {
+                this.SetEntity(transport.Id, transport.Name, transport.Description,
+                        transport.Status, transport.CreatedAt, transport.UpdatedAt);
             }
         }
 
-        private void SetItem(SystemEntity entity)
+        private void SetEntity(long id, string name, string description, 
+                bool status, DateTime createdAt, DateTime updatedAt)
         {
-            if (entity != null) {
-                this.SetItem(entity.Id, entity.Name, entity.Description, entity.Status);
-            }
-        }
-
-        private void SetItem(long id, string name, string description, bool status)
-        {
-            this._item = new SystemEntity() {
+            this._entity = new SystemEntity() {
                 Id = id,
                 Name = name,
                 Description = description,
-                Status = status
+                Status = status,
+                CreatedAt = createdAt,
+                UpdatedAt = updatedAt
             };
         }
 
-        private bool ValidateModel()
+        protected override SystemTransport GetTransport()
+        {
+            if (this._entity == null) {
+                return null;
+            } else {
+                return new SystemTransport() {
+                    Id = this._entity.Id,
+                    Description = this._entity.Description,
+                    Name = this._entity.Name,
+                    Status = this._entity.Status,
+                    CreatedAt = this._entity.CreatedAt,
+                    UpdatedAt = this._entity.UpdatedAt
+                };
+            }
+        }
+
+        protected override IList<SystemTransport> GetListTransport()
+        {
+            if ((this._entities == null) || (this._entities.Count <= 0)) {
+                return null;
+            } else {
+                return this._entities.Select(et => new SystemTransport() {
+                    Id = et.Id,
+                    Description = et.Description,
+                    Name = et.Name,
+                    Status = et.Status,
+                    CreatedAt = et.CreatedAt,
+                    UpdatedAt = et.UpdatedAt
+                }).ToList();
+            }
+        }
+
+        protected override bool ValidateModel()
         {
             bool validity = true;
 
-            if (this._item.Id < 0) {
+            if (this._entity.Id < 0) {
                 validity = false;
                 this.AddMessage("Campo [id] deve ser maior ou igual a zero");
             }
 
-            if (this._item.Name == null) {
+            if (this._entity.Name == null) {
                 validity = false;
                 this.AddMessage("Campo [name] não pode ser nulo");
             } else {
-                if (string.IsNullOrWhiteSpace(this._item.Name)) {
+                if (string.IsNullOrWhiteSpace(this._entity.Name)) {
                     validity = false;
                     this.AddMessage("Campo [name] deve estar preenchido");
                 }
 
-                if (this._item.Name.Length < 3) {
+                if (this._entity.Name.Length < 3) {
                     validity = false;
                     this.AddMessage("Campo [name] deve possuir no mínimo 3 caracteres");
                 }
             }
 
-            if (this._item.Description != null) {
-                if (string.IsNullOrWhiteSpace(this._item.Description)) {
+            if (this._entity.Description != null) {
+                if (string.IsNullOrWhiteSpace(this._entity.Description)) {
                     validity = false;
                     this.AddMessage("Campo [description] deve estar preenchido");
-                } else if (this._item.Description.Length < 3) {
+                } else if (this._entity.Description.Length < 3) {
                     validity = false;
                     this.AddMessage("Campo [description] deve possuir no mínimo 3 caracteres");
                 }

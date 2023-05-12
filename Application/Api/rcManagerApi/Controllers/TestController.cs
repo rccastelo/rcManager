@@ -12,7 +12,7 @@ namespace rcManagerApi.Controllers
             Summary = "Testar resposta da API",
             Description = "[pt-BR] Testar resposta da API. \n\n " +
                 "[en-US] Test API response. ",
-            Tags = new[] { "Tests" }
+            Tags = new[] { "Test" }
         )]
         [ProducesResponseType(200)]
         public string Test()
