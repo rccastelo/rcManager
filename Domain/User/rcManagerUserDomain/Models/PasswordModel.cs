@@ -1,8 +1,10 @@
 ﻿using rcManagerDomainBase.Base;
+using rcManagerUserDomain.Entities;
+using rcManagerUserDomain.Transports;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace rcManagerUserDomain
+namespace rcManagerUserDomain.Models
 {
     public class PasswordModel : ModelBase<PasswordEntity, PasswordTransport>
     {
@@ -22,10 +24,7 @@ namespace rcManagerUserDomain
 
         protected override void SetEntity(PasswordEntity entity)
         {
-            if (entity != null) {
-                this.SetEntity(entity.Id, entity.Login, entity.Secret,
-                        entity.Password, entity.Confirmation, entity.User_Id);
-            }
+            if (entity != null) this._entity = new PasswordEntity(entity);
         }
 
         protected override void SetEntity(PasswordTransport transport)

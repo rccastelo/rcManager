@@ -1,4 +1,4 @@
-﻿using rcManagerPermissionDomain;
+﻿using rcManagerPermissionDomain.Transports;
 using System;
 
 namespace rcManagerPermissionApplication.Transport

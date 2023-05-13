@@ -1,11 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using rcDbSqlServerEF;
-using rcManagerPermissionDomain;
+using rcManagerPermissionDomain.Entities;
 using rcManagerPermissionRepository.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace rcManagerPermissionRepository.Repository
+namespace rcManagerPermissionRepository.Datas
 {
     public class PermissionData : DataEF, IPermissionData
     {
@@ -23,17 +23,29 @@ namespace rcManagerPermissionRepository.Repository
 
         public PermissionEntity Insert(PermissionEntity entity)
         {
-            return _context.Set<PermissionEntity>().Add(entity).Entity;
+            PermissionEntity ret = _context.Set<PermissionEntity>().Add(entity).Entity;
+
+            this.Save();
+
+            return ret;
         }
 
         public PermissionEntity Update(PermissionEntity entity)
         {
-            return _context.Set<PermissionEntity>().Update(entity).Entity;
+            PermissionEntity ret = _context.Set<PermissionEntity>().Update(entity).Entity;
+
+            this.Save();
+
+            return ret;
         }
 
         public PermissionEntity Delete(PermissionEntity entity)
         {
-            return _context.Set<PermissionEntity>().Remove(entity).Entity;
+            PermissionEntity ret = _context.Set<PermissionEntity>().Remove(entity).Entity;
+
+            this.Save();
+
+            return ret;
         }
     }
 }

@@ -1,10 +1,10 @@
-﻿using rcManagerSystemDomain;
-using rcManagerUserDomain;
+﻿using rcManagerSystemDomain.Entities;
+using rcManagerUserDomain.Entities;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace rcManagerPermissionDomain
+namespace rcManagerPermissionDomain.Entities
 {
     [Serializable]
     [Table("Permissions")]

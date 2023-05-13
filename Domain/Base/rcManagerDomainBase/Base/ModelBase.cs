@@ -96,7 +96,11 @@ namespace rcManagerDomainBase.Base
         public void AddEntities(IList<TEntity> entities)
         {
             if ((entities != null) && (entities.Count > 0)) {
-                this._entities = entities;
+                if (this._entities == null) this._entities = new List<TEntity>();
+
+                foreach (TEntity entity in entities) {
+                    if (entity != null) this._entities.Add(entity);
+                }
             }
         }
 

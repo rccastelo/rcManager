@@ -2,6 +2,7 @@
 using rcManagerUserApplication.Interfaces;
 using rcManagerUserApplication.Transport;
 using Swashbuckle.AspNetCore.Annotations;
+using System;
 
 namespace rcManagerApi.Controllers
 {
@@ -9,45 +10,11 @@ namespace rcManagerApi.Controllers
     [Route("[controller]")]
     public class UserPasswordController : ControllerBase
     {
-        private readonly IUserService _userService;
+        private readonly IUserPasswordService _userPwdService;
 
-        public UserPasswordController(IUserService userService)
+        public UserPasswordController(IUserPasswordService userPwdService)
         {
-            this._userService = userService;
-        }
-
-        [HttpGet]
-        [SwaggerOperation(
-            Summary = "Listar todos os logins",
-            Tags = new[] { "Password" }
-        )]
-        [ProducesResponseType(typeof(PasswordResponse), 200)]
-        [ProducesResponseType(typeof(PasswordResponse), 400)]
-        [ProducesResponseType(500)]
-        public IActionResult List()
-        {
-            PasswordResponse response;
-
-            try
-            {
-                response = _userService.ListPwd();
-            }
-            catch
-            {
-                response = new PasswordResponse();
-                response.IsValid = false;
-                response.Error = true;
-                response.AddMessage("Erro ao listar senhas");
-            }
-
-            if (response.Error || !response.IsValid)
-            {
-                return BadRequest(response);
-            }
-            else
-            {
-                return Ok(response);
-            }
+            this._userPwdService = userPwdService;
         }
 
         [HttpPost]
@@ -64,24 +31,18 @@ namespace rcManagerApi.Controllers
         {
             UserPasswordResponse response;
 
-            try
-            {
-                response = _userService.InsertUserPwd(userRequest);
-            }
-            catch
-            {
+            try {
+                response = _userPwdService.InsertUserPwd(userRequest);
+            } catch (Exception e) {
                 response = new UserPasswordResponse();
                 response.IsValid = false;
-                response.Error = true;
+                response.IsError = true;
                 response.AddMessage("Erro ao incluir Usuario e Senha");
             }
 
-            if (response.Error || !response.IsValid)
-            {
+            if (response.IsError || !response.IsValid) {
                 return BadRequest(response);
-            }
-            else
-            {
+            } else {
                 return Ok(response);
             }
         }

@@ -1,4 +1,4 @@
-﻿namespace rcManagerUserDomain
+﻿namespace rcManagerUserDomain.Transports
 {
     public class UserPasswordTransport
     {

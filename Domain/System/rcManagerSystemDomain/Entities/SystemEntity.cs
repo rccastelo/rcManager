@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace rcManagerSystemDomain
+namespace rcManagerSystemDomain.Entities
 {
     [Serializable]
     [Table("Systems")]

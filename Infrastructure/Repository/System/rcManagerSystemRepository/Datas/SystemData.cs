@@ -1,11 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using rcDbSqlServerEF;
-using rcManagerSystemDomain;
+using rcManagerSystemDomain.Entities;
 using rcManagerSystemRepository.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace rcManagerSystemRepository.Repository
+namespace rcManagerSystemRepository.Datas
 {
     public class SystemData : DataEF, ISystemData
     {
@@ -23,17 +23,29 @@ namespace rcManagerSystemRepository.Repository
 
         public SystemEntity Insert(SystemEntity entity)
         {
-            return _context.Set<SystemEntity>().Add(entity).Entity;
+            SystemEntity ret = _context.Set<SystemEntity>().Add(entity).Entity;
+
+            this.Save();
+
+            return ret;
         }
 
         public SystemEntity Update(SystemEntity entity)
         {
-            return _context.Set<SystemEntity>().Update(entity).Entity;
+            SystemEntity ret = _context.Set<SystemEntity>().Update(entity).Entity;
+
+            this.Save();
+
+            return ret;
         }
 
         public SystemEntity Delete(SystemEntity entity)
         {
-            return _context.Set<SystemEntity>().Remove(entity).Entity;
+            SystemEntity ret = _context.Set<SystemEntity>().Remove(entity).Entity;
+
+            this.Save();
+
+            return ret;
         }
     }
 }

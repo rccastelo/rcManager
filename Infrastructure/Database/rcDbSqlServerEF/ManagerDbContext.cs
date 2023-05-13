@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using rcManagerPermissionDomain;
-using rcManagerSystemDomain;
-using rcManagerUserDomain;
+using rcManagerPermissionDomain.Entities;
+using rcManagerSystemDomain.Entities;
+using rcManagerUserDomain.Entities;
 
 namespace rcDbSqlServerEF
 {

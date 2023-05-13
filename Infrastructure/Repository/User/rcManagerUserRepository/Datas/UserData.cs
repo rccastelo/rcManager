@@ -1,11 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using rcDbSqlServerEF;
-using rcManagerUserDomain;
+using rcManagerUserDomain.Entities;
 using rcManagerUserRepository.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace rcManagerUserRepository.Repository
+namespace rcManagerUserRepository.Datas
 {
     public class UserData : DataEF, IUserData
     {
@@ -23,17 +23,29 @@ namespace rcManagerUserRepository.Repository
 
         public UserEntity Insert(UserEntity entity)
         {
-            return _context.Set<UserEntity>().Add(entity).Entity;
+            UserEntity ret = _context.Set<UserEntity>().Add(entity).Entity;
+
+            this.Save();
+
+            return ret;
         }
 
         public UserEntity Update(UserEntity entity)
         {
-            return _context.Set<UserEntity>().Update(entity).Entity;
+            UserEntity ret = _context.Set<UserEntity>().Update(entity).Entity;
+
+            this.Save();
+
+            return ret;
         }
 
         public UserEntity Delete(UserEntity entity)
         {
-            return _context.Set<UserEntity>().Remove(entity).Entity;
+            UserEntity ret = _context.Set<UserEntity>().Remove(entity).Entity;
+
+            this.Save();
+
+            return ret;
         }
     }
 }

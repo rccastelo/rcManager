@@ -11,6 +11,7 @@ namespace rcManagerUserApplication.DI
         {
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IPasswordService, PasswordService>();
+            services.AddScoped<IUserPasswordService, UserPasswordService>();
             diUserRepository.ConfigureServices(services);
         }
     }

@@ -1,8 +1,9 @@
-﻿using rcManagerPermissionDomain;
+﻿using rcManagerPermissionDomain.Entities;
+using rcManagerPermissionDomain.Models;
 using rcManagerPermissionRepository.Interfaces;
 using System.Collections.Generic;
 
-namespace rcManagerPermissionRepository.Repository
+namespace rcManagerPermissionRepository.Repositories
 {
     public class PermissionRepository : IPermissionRepository
     {
@@ -54,8 +55,6 @@ namespace rcManagerPermissionRepository.Repository
             model.Entity.Id = 0;
             PermissionEntity entity = _permissionData.Insert(model.Entity);
 
-            _permissionData.Save();
-
             if ((entity != null) && (entity.Id > 0)) {
                 modelRet = new PermissionModel(entity);
                 modelRet.IsValidResponse = true;
@@ -77,8 +76,6 @@ namespace rcManagerPermissionRepository.Repository
 
             if (exist != null) {
                 PermissionEntity entity = _permissionData.Update(model.Entity);
-
-                _permissionData.Save();
 
                 if (entity != null) {
                     modelRet = new PermissionModel(entity);
@@ -106,8 +103,6 @@ namespace rcManagerPermissionRepository.Repository
 
             if ((exist != null) && (exist.IsValidResponse)) {
                 PermissionEntity entity = _permissionData.Delete(exist.Entity);
-
-                _permissionData.Save();
 
                 if (entity != null) {
                     modelRet = new PermissionModel(entity);

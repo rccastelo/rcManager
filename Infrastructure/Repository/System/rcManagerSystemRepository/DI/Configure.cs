@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using rcManagerSystemRepository.Datas;
 using rcManagerSystemRepository.Interfaces;
-using rcManagerSystemRepository.Repository;
+using rcManagerSystemRepository.Repositories;
 using diDbSqlServerEF = rcDbSqlServerEF.Configure;
 
 namespace rcManagerSystemRepository.DI

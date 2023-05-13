@@ -1,4 +1,4 @@
-﻿using rcManagerUserDomain;
+﻿using rcManagerUserDomain.Models;
 
 namespace rcManagerUserRepository.Interfaces
 {
@@ -9,6 +9,5 @@ namespace rcManagerUserRepository.Interfaces
         UserModel Insert(UserModel model);
         UserModel Update(UserModel model);
         UserModel Delete(long id);
-        UserModel InsertUserPwd(UserModel userModel, PasswordModel pwdModel);
     }
 }

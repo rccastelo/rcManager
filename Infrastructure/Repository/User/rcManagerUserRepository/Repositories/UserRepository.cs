@@ -1,18 +1,17 @@
-﻿using rcManagerUserDomain;
+﻿using rcManagerUserDomain.Entities;
+using rcManagerUserDomain.Models;
 using rcManagerUserRepository.Interfaces;
 using System.Collections.Generic;
 
-namespace rcManagerUserRepository.Repository
+namespace rcManagerUserRepository.Repositories
 {
     public class UserRepository : IUserRepository
     {
         private readonly IUserData _userData;
-        private readonly IPasswordData _pwdData;
 
-        public UserRepository(IUserData userData, IPasswordData pwdData)
+        public UserRepository(IUserData userData)
         {
             this._userData = userData;
-            this._pwdData = pwdData;
         }
 
         public UserModel Get(long id)
@@ -56,8 +55,6 @@ namespace rcManagerUserRepository.Repository
             model.Entity.Id = 0;
             UserEntity entity = _userData.Insert(model.Entity);
 
-            _userData.Save();
-
             if ((entity != null) && (entity.Id > 0)) {
                 modelRet = new UserModel(entity);
                 modelRet.IsValidResponse = true;
@@ -79,8 +76,6 @@ namespace rcManagerUserRepository.Repository
 
             if (exist != null) {
                 UserEntity entity = _userData.Update(model.Entity);
-
-                _userData.Save();
 
                 if (entity != null) {
                     modelRet = new UserModel(entity);
@@ -109,8 +104,6 @@ namespace rcManagerUserRepository.Repository
             if ((exist != null) && (exist.IsValidResponse)) {
                 UserEntity entity = _userData.Delete(exist.Entity);
 
-                _userData.Save();
-
                 if (entity != null) {
                     modelRet = new UserModel(entity);
                     modelRet.IsValidResponse = true;
@@ -124,31 +117,6 @@ namespace rcManagerUserRepository.Repository
                 modelRet = new UserModel();
                 modelRet.IsValidResponse = false;
                 modelRet.AddMessage("Usuário não encontrado para exclusão.");
-            }
-
-            return modelRet;
-        }
-
-        public UserModel InsertUserPwd(UserModel userModel, PasswordModel pwdModel)
-        {
-            UserModel modelRet = null;
-
-            userModel.Entity.Id = 0;
-            UserEntity user = _userData.Insert(userModel.Entity);
-
-            pwdModel.Entity.User_Id = user.Id;
-            PasswordEntity pwd = _pwdData.Insert(pwdModel.Entity);
-
-            _userData.Save();
-
-            if (((user != null) && (user.Id > 0)) && ((pwd != null) && (pwd.Id > 0))) {
-                modelRet = new UserModel(user);
-                modelRet.IsValidResponse = true;
-                modelRet.AddMessage("Usuário e Senha incluídos com sucesso.");
-            } else {
-                modelRet = new UserModel(userModel);
-                modelRet.IsValidResponse = false;
-                modelRet.AddMessage("Não foi possível incluir o Usuário.");
             }
 
             return modelRet;

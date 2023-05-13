@@ -1,9 +1,11 @@
 ﻿using rcManagerDomainBase.Base;
+using rcManagerUserDomain.Entities;
+using rcManagerUserDomain.Transports;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace rcManagerUserDomain
+namespace rcManagerUserDomain.Models
 {
     public sealed class UserModel : ModelBase<UserEntity, UserTransport>
     {
@@ -23,10 +25,7 @@ namespace rcManagerUserDomain
 
         protected override void SetEntity(UserEntity entity)
         {
-            if (entity != null) {
-                this.SetEntity(entity.Id, entity.Name, entity.Description,
-                        entity.Status, entity.CreatedAt, entity.UpdatedAt);
-            }
+            if (entity != null) this._entity = new UserEntity(entity);
         }
 
         protected override void SetEntity(UserTransport transport)

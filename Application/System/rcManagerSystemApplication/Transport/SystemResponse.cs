@@ -1,5 +1,5 @@
 ﻿using rcManagerApplicationBase.Base;
-using rcManagerSystemDomain;
+using rcManagerSystemDomain.Transports;
 using System;
 
 namespace rcManagerSystemApplication.Transport

@@ -1,8 +1,9 @@
-﻿using rcManagerSystemDomain;
+﻿using rcManagerSystemDomain.Entities;
+using rcManagerSystemDomain.Models;
 using rcManagerSystemRepository.Interfaces;
 using System.Collections.Generic;
 
-namespace rcManagerSystemRepository.Repository
+namespace rcManagerSystemRepository.Repositories
 {
     public class SystemRepository : ISystemRepository
     {
@@ -54,8 +55,6 @@ namespace rcManagerSystemRepository.Repository
             model.Entity.Id = 0;
             SystemEntity entity = _systemData.Insert(model.Entity);
 
-            _systemData.Save();
-
             if ((entity != null) && (entity.Id > 0)) {
                 modelRet = new SystemModel(entity);
                 modelRet.IsValidResponse = true;
@@ -77,8 +76,6 @@ namespace rcManagerSystemRepository.Repository
 
             if (exist != null) {
                 SystemEntity entity = _systemData.Update(model.Entity);
-
-                _systemData.Save();
 
                 if (entity != null) {
                     modelRet = new SystemModel(entity);
@@ -106,8 +103,6 @@ namespace rcManagerSystemRepository.Repository
 
             if ((exist != null) && (exist.IsValidResponse)) {
                 SystemEntity entity = _systemData.Delete(exist.Entity);
-
-                _systemData.Save();
 
                 if (entity != null) {
                     modelRet = new SystemModel(entity);

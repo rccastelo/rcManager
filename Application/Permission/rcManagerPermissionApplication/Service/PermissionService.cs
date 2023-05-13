@@ -1,6 +1,6 @@
 ﻿using rcManagerPermissionApplication.Interfaces;
 using rcManagerPermissionApplication.Transport;
-using rcManagerPermissionDomain;
+using rcManagerPermissionDomain.Models;
 using rcManagerPermissionRepository.Interfaces;
 
 namespace rcManagerPermissionApplication.Service
@@ -22,7 +22,7 @@ namespace rcManagerPermissionApplication.Service
 
             if (modelResp != null) {
                 response.IsValid = modelResp.IsValidResponse;
-                response.List = modelResp.TransportList;
+                response.AddList(modelResp.TransportList);
                 response.AddMessages(modelResp.Messages);
             }
 
@@ -37,7 +37,7 @@ namespace rcManagerPermissionApplication.Service
 
             if (modelResp != null) {
                 response.IsValid = modelResp.IsValidResponse;
-                response.Item = modelResp.Transport;
+                response.SetItem(modelResp.Transport);
                 response.AddMessages(modelResp.Messages);
             }
 
@@ -55,12 +55,12 @@ namespace rcManagerPermissionApplication.Service
 
                 if (modelResp != null) {
                     response.IsValid = modelResp.IsValidResponse;
-                    response.Item = modelResp.Transport;
+                    response.SetItem(modelResp.Transport);
                     response.AddMessages(modelResp.Messages);
                 }
             } else {
                 response.IsValid = false;
-                response.Item = modelReq.Transport;
+                response.SetItem(modelReq.Transport);
                 response.AddMessages(modelReq.Messages);
             }
 
@@ -78,12 +78,12 @@ namespace rcManagerPermissionApplication.Service
 
                 if (modelResp != null) {
                     response.IsValid = modelResp.IsValidResponse;
-                    response.Item = modelResp.Transport;
+                    response.SetItem(modelResp.Transport);
                     response.AddMessages(modelResp.Messages);
                 }
             } else {
                 response.IsValid = false;
-                response.Item = modelReq.Transport;
+                response.SetItem(modelReq.Transport);
                 response.AddMessages(modelReq.Messages);
             }
 
@@ -98,7 +98,7 @@ namespace rcManagerPermissionApplication.Service
 
             if (modelResp != null) {
                 response.IsValid = modelResp.IsValidResponse;
-                response.Item = modelResp.Transport;
+                response.SetItem(modelResp.Transport);
                 response.AddMessages(modelResp.Messages);
             }
 

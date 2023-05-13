@@ -1,5 +1,4 @@
-﻿using rcManagerPermissionDomain;
-using System.Collections.Generic;
+﻿using rcManagerPermissionDomain.Models;
 
 namespace rcManagerPermissionRepository.Interfaces
 {

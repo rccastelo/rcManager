@@ -1,8 +1,9 @@
-﻿using rcManagerUserDomain;
+﻿using rcManagerUserDomain.Entities;
+using rcManagerUserDomain.Models;
 using rcManagerUserRepository.Interfaces;
 using System.Collections.Generic;
 
-namespace rcManagerUserRepository.Repository
+namespace rcManagerUserRepository.Repositories
 {
     class PasswordRepository : IPasswordRepository
     {
@@ -54,8 +55,6 @@ namespace rcManagerUserRepository.Repository
             model.Entity.Id = 0;
             PasswordEntity entity = _passwordData.Insert(model.Entity);
 
-            _passwordData.Save();
-
             if ((entity != null) && (entity.Id > 0)) {
                 modelRet = new PasswordModel(entity);
                 modelRet.IsValidResponse = true;
@@ -77,8 +76,6 @@ namespace rcManagerUserRepository.Repository
 
             if (exist != null) {
                 PasswordEntity entity = _passwordData.Update(model.Entity);
-
-                _passwordData.Save();
 
                 if (entity != null) {
                     modelRet = new PasswordModel(entity);
@@ -106,8 +103,6 @@ namespace rcManagerUserRepository.Repository
 
             if ((exist != null) && (exist.IsValidResponse)) {
                 PasswordEntity entity = _passwordData.Delete(exist.Entity);
-
-                _passwordData.Save();
 
                 if (entity != null) {
                     modelRet = new PasswordModel(entity);

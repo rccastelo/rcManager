@@ -35,11 +35,11 @@ namespace rcManagerApi.Controllers
             } catch {
                 response = new UserResponse();
                 response.IsValid = false;
-                response.Error = true;
+                response.IsError = true;
                 response.AddMessage("Erro ao listar Usuarios");
             }
 
-            if (response.Error || !response.IsValid) {
+            if (response.IsError || !response.IsValid) {
                 return BadRequest(response);
             } else {
                 return Ok(response);
@@ -65,11 +65,11 @@ namespace rcManagerApi.Controllers
             } catch {
                 response = new UserResponse();
                 response.IsValid = false;
-                response.Error = true;
+                response.IsError = true;
                 response.AddMessage("Erro ao consultar Usuario");
             }
 
-            if (response.Error || !response.IsValid) {
+            if (response.IsError || !response.IsValid) {
                 return BadRequest(response);
             } else {
                 return Ok(response);
@@ -95,11 +95,11 @@ namespace rcManagerApi.Controllers
             } catch {
                 response = new UserResponse();
                 response.IsValid = false;
-                response.Error = true;
+                response.IsError = true;
                 response.AddMessage("Erro ao incluir Usuario");
             }
 
-            if (response.Error || !response.IsValid) {
+            if (response.IsError || !response.IsValid) {
                 return BadRequest(response);
             } else {
                 return Ok(response);
@@ -125,11 +125,11 @@ namespace rcManagerApi.Controllers
             } catch {
                 response = new UserResponse();
                 response.IsValid = false;
-                response.Error = true;
+                response.IsError = true;
                 response.AddMessage("Erro ao alterar Usuario");
             }
 
-            if (response.Error || !response.IsValid) {
+            if (response.IsError || !response.IsValid) {
                 return BadRequest(response);
             } else {
                 return Ok(response);
@@ -155,11 +155,11 @@ namespace rcManagerApi.Controllers
             } catch {
                 response = new UserResponse();
                 response.IsValid = false;
-                response.Error = true;
+                response.IsError = true;
                 response.AddMessage("Erro ao excluir Usuario");
             }
 
-            if (response.Error || !response.IsValid) {
+            if (response.IsError || !response.IsValid) {
                 return BadRequest(response);
             } else {
                 return Ok(response);

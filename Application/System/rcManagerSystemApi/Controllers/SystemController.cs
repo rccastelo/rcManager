@@ -35,11 +35,11 @@ namespace rcManagerUserApi.Controllers
             } catch {
                 response = new SystemResponse();
                 response.IsValid = false;
-                response.Error = true;
+                response.IsError = true;
                 response.AddMessage("Erro ao listar Sistemas");
             }
 
-            if (response.Error || !response.IsValid) {
+            if (response.IsError || !response.IsValid) {
                 return BadRequest(response);
             } else {
                 return Ok(response);
@@ -65,11 +65,11 @@ namespace rcManagerUserApi.Controllers
             } catch {
                 response = new SystemResponse();
                 response.IsValid = false;
-                response.Error = true;
+                response.IsError = true;
                 response.AddMessage("Erro ao consultar Sistema");
             }
 
-            if (response.Error || !response.IsValid) {
+            if (response.IsError || !response.IsValid) {
                 return BadRequest(response);
             } else {
                 return Ok(response);
@@ -95,11 +95,11 @@ namespace rcManagerUserApi.Controllers
             } catch {
                 response = new SystemResponse();
                 response.IsValid = false;
-                response.Error = true;
+                response.IsError = true;
                 response.AddMessage("Erro ao incluir Sistema");
             }
 
-            if (response.Error || !response.IsValid) {
+            if (response.IsError || !response.IsValid) {
                 return BadRequest(response);
             } else {
                 return Ok(response);
@@ -125,11 +125,11 @@ namespace rcManagerUserApi.Controllers
             } catch {
                 response = new SystemResponse();
                 response.IsValid = false;
-                response.Error = true;
+                response.IsError = true;
                 response.AddMessage("Erro ao alterar Sistema");
             }
 
-            if (response.Error || !response.IsValid) {
+            if (response.IsError || !response.IsValid) {
                 return BadRequest(response);
             } else {
                 return Ok(response);
@@ -155,11 +155,11 @@ namespace rcManagerUserApi.Controllers
             } catch {
                 response = new SystemResponse();
                 response.IsValid = false;
-                response.Error = true;
+                response.IsError = true;
                 response.AddMessage("Erro ao excluir Sistema");
             }
 
-            if (response.Error || !response.IsValid) {
+            if (response.IsError || !response.IsValid) {
                 return BadRequest(response);
             } else {
                 return Ok(response);

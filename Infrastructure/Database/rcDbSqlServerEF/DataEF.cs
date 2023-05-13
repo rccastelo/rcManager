@@ -20,5 +20,12 @@ namespace rcDbSqlServerEF
                 entry.State = EntityState.Detached;
             }
         }
+
+        public void Cancel()
+        {
+            foreach (EntityEntry entry in this._context.ChangeTracker.Entries()) {
+                entry.State = EntityState.Detached;
+            }
+        }
     }
 }

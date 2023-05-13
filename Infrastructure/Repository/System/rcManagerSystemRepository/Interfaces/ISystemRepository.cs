@@ -1,5 +1,4 @@
-﻿using rcManagerSystemDomain;
-using System.Collections.Generic;
+﻿using rcManagerSystemDomain.Models;
 
 namespace rcManagerSystemRepository.Interfaces
 {

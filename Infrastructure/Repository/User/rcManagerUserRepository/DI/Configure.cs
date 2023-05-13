@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using rcManagerUserRepository.Datas;
 using rcManagerUserRepository.Interfaces;
-using rcManagerUserRepository.Repository;
+using rcManagerUserRepository.Repositories;
 using diDbSqlServerEF = rcDbSqlServerEF.Configure;
 
 namespace rcManagerUserRepository.DI
@@ -14,6 +15,7 @@ namespace rcManagerUserRepository.DI
             services.AddScoped<IUserData, UserData>();
             services.AddScoped<IPasswordRepository, PasswordRepository>();
             services.AddScoped<IPasswordData, PasswordData>();
+            services.AddScoped<IUserPasswordRepository, UserPasswordRepository>();
         }
     }
 }

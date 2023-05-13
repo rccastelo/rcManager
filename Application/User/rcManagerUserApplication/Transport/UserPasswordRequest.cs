@@ -1,4 +1,4 @@
-﻿using rcManagerUserDomain;
+﻿using rcManagerUserDomain.Transports;
 
 namespace rcManagerUserApplication.Transport
 {

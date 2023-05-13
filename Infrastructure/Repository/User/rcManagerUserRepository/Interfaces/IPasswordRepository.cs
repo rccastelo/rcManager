@@ -1,4 +1,4 @@
-﻿using rcManagerUserDomain;
+﻿using rcManagerUserDomain.Models;
 
 namespace rcManagerUserRepository.Interfaces
 {

@@ -16,6 +16,36 @@ namespace rcManagerApi.Controllers
             this._passwordService = passwordService;
         }
 
+        [HttpGet]
+        [SwaggerOperation(
+            Summary = "Listar todos os logins",
+            Description = "[pt-BR] Listar todos os logins. \n\n " +
+                "[en-US] List all logins. ",
+            Tags = new[] { "Password" }
+        )]
+        [ProducesResponseType(typeof(PasswordResponse), 200)]
+        [ProducesResponseType(typeof(PasswordResponse), 400)]
+        [ProducesResponseType(500)]
+        public IActionResult List()
+        {
+            PasswordResponse response;
+
+            try {
+                response = _passwordService.List();
+            } catch {
+                response = new PasswordResponse();
+                response.IsValid = false;
+                response.IsError = true;
+                response.AddMessage("Erro ao listar logins");
+            }
+
+            if (response.IsError || !response.IsValid) {
+                return BadRequest(response);
+            } else {
+                return Ok(response);
+            }
+        }
+
         [HttpPut]
         [SwaggerOperation(
             Summary = "Atualizar a senha de um usuário",
@@ -35,11 +65,11 @@ namespace rcManagerApi.Controllers
             } catch {
                 response = new PasswordResponse();
                 response.IsValid = false;
-                response.Error = true;
+                response.IsError = true;
                 response.AddMessage("Erro ao alterar Senha");
             }
 
-            if (response.Error || !response.IsValid) {
+            if (response.IsError || !response.IsValid) {
                 return BadRequest(response);
             } else {
                 return Ok(response);

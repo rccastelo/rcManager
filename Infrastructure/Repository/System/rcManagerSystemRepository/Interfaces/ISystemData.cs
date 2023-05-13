@@ -1,4 +1,4 @@
-﻿using rcManagerSystemDomain;
+﻿using rcManagerSystemDomain.Entities;
 using System.Collections.Generic;
 
 namespace rcManagerSystemRepository.Interfaces

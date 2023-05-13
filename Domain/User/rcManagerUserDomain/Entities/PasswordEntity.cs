@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace rcManagerUserDomain
+namespace rcManagerUserDomain.Entities
 {
     [Serializable]
     [Table("Login")]
@@ -36,5 +36,19 @@ namespace rcManagerUserDomain
         [NotMapped]
         [StringLength(200)]
         public string Confirmation { get; set; }
+
+        public PasswordEntity() { }
+
+        public PasswordEntity(PasswordEntity entity)
+        {
+            if (entity != null) {
+                this.Id = entity.Id;
+                this.Login = entity.Login;
+                this.Secret = entity.Secret;
+                this.User_Id = entity.User_Id;
+                this.Password = entity.Password;
+                this.Confirmation = entity.Confirmation;
+            }
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using rcManagerUserDomain;
+﻿using rcManagerUserDomain.Entities;
+using rcManagerUserDomain.Models;
 using System;
 using Xunit;
 

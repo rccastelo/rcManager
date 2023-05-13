@@ -1,9 +1,11 @@
 ﻿using rcManagerDomainBase.Base;
+using rcManagerPermissionDomain.Entities;
+using rcManagerPermissionDomain.Transports;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace rcManagerPermissionDomain
+namespace rcManagerPermissionDomain.Models
 {
     public sealed class PermissionModel : ModelBase<PermissionEntity, PermissionTransport>
     {
@@ -23,10 +25,7 @@ namespace rcManagerPermissionDomain
 
         protected override void SetEntity(PermissionEntity entity)
         {
-            if (entity != null) {
-                this.SetEntity(entity.Id, entity.User_Id, entity.System_Id, entity.DateFrom, entity.DateTo, 
-                        entity.Status, entity.Weekday, entity.Weekend, entity.StartTime, entity.EndTime);
-            }
+            if (entity != null) this._entity = new PermissionEntity(entity);
         }
 
         protected override void SetEntity(PermissionTransport transport)

@@ -1,11 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using rcDbSqlServerEF;
-using rcManagerUserDomain;
+using rcManagerUserDomain.Entities;
 using rcManagerUserRepository.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace rcManagerUserRepository.Repository
+namespace rcManagerUserRepository.Datas
 {
     public class PasswordData : DataEF, IPasswordData
     {
@@ -23,17 +23,29 @@ namespace rcManagerUserRepository.Repository
 
         public PasswordEntity Insert(PasswordEntity entity)
         {
-            return _context.Set<PasswordEntity>().Add(entity).Entity;
+            PasswordEntity ret = _context.Set<PasswordEntity>().Add(entity).Entity;
+
+            this.Save();
+
+            return ret;
         }
 
         public PasswordEntity Update(PasswordEntity entity)
         {
-            return _context.Set<PasswordEntity>().Update(entity).Entity;
+            PasswordEntity ret = _context.Set<PasswordEntity>().Update(entity).Entity;
+
+            this.Save();
+
+            return ret;
         }
 
         public PasswordEntity Delete(PasswordEntity entity)
         {
-            return _context.Set<PasswordEntity>().Remove(entity).Entity;
+            PasswordEntity ret = _context.Set<PasswordEntity>().Remove(entity).Entity;
+
+            this.Save();
+
+            return ret;
         }
     }
 }

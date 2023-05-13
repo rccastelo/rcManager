@@ -1,9 +1,11 @@
 ﻿using rcManagerDomainBase.Base;
+using rcManagerSystemDomain.Entities;
+using rcManagerSystemDomain.Transports;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace rcManagerSystemDomain
+namespace rcManagerSystemDomain.Models
 {
     public sealed class SystemModel : ModelBase<SystemEntity, SystemTransport>
     {
@@ -23,10 +25,7 @@ namespace rcManagerSystemDomain
 
         protected override void SetEntity(SystemEntity entity)
         {
-            if (entity != null) {
-                this.SetEntity(entity.Id, entity.Name, entity.Description, 
-                        entity.Status, entity.CreatedAt, entity.UpdatedAt);
-            }
+            if (entity != null) this._entity = new SystemEntity(entity);
         }
 
         protected override void SetEntity(SystemTransport transport)
