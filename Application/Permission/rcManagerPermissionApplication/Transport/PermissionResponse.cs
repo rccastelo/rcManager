@@ -5,7 +5,7 @@ using System;
 namespace rcManagerPermissionApplication.Transport
 {
     [Serializable]
-    public class PermissionResponse : ResponseBase<PermissionTransport>
+    public class PermissionResponse : ResponseBase<PermissionResponseItem>
     {
         public PermissionResponse() : base() { }
 

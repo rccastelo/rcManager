@@ -21,18 +21,18 @@ namespace rcManagerUserApplication.Service
             UserModel userReq = new UserModel(userPwdRequest.User);
             PasswordModel pwdReq = new PasswordModel(userPwdRequest.Password);
 
-            if ((userReq.IsValidModel) && (pwdReq.IsValidModel)) {
+            if (userReq.IsValidModel && pwdReq.IsValidModel) {
                 UserModel userResp = _userPwdRepository.InsertUserPwd(userReq, pwdReq);
 
                 if (userResp != null) {
                     response.IsValid = userResp.IsValidResponse;
-                    response.SetItem(userResp.Transport);
+                    response.SetItem(userResp.ResponseItem);
                     response.AddMessages(userResp.Messages);
                 }
             } else {
                 response.IsValid = false;
-                response.SetItem(userReq.Transport);
-                response.SetItem(pwdReq.Transport);
+                response.SetItem(userReq.ResponseItem);
+                response.SetItem(pwdReq.ResponseItem);
                 response.AddMessages(userReq.Messages);
                 response.AddMessages(pwdReq.Messages);
             }

@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace rcManagerSystemDomain.Models
 {
-    public sealed class SystemModel : ModelBase<SystemEntity, SystemTransport>
+    public sealed class SystemModel : ModelBase<SystemEntity, SystemRequestItem, SystemResponseItem>
     {
         public SystemModel() : base() { }
 
@@ -15,30 +15,31 @@ namespace rcManagerSystemDomain.Models
 
         public SystemModel(SystemEntity entity) : base(entity) { }
 
-        public SystemModel(SystemTransport transport) : base(transport) { }
+        public SystemModel(SystemRequestItem request) : base(request) { }
 
-        public SystemModel(long id, string name, string description, 
-                bool status, DateTime createdAt, DateTime updatedAt)
+        public SystemModel(long id, string name, string description, bool status)
         {
-            this.SetEntity(id, name, description, status, createdAt, updatedAt);
+            this.SetEntity(id, name, description, status, DateTime.MinValue, DateTime.MinValue);
         }
 
         protected override void SetEntity(SystemEntity entity)
         {
-            if (entity != null) this._entity = new SystemEntity(entity);
-        }
-
-        protected override void SetEntity(SystemTransport transport)
-        {
-            if (transport != null)
-            {
-                this.SetEntity(transport.Id, transport.Name, transport.Description,
-                        transport.Status, transport.CreatedAt, transport.UpdatedAt);
+            if (entity != null) {
+                this.SetEntity(entity.Id, entity.Name, entity.Description, entity.Status, 
+                        entity.CreatedAt, entity.UpdatedAt);
             }
         }
 
-        private void SetEntity(long id, string name, string description, 
-                bool status, DateTime createdAt, DateTime updatedAt)
+        protected override void SetEntity(SystemRequestItem request)
+        {
+            if (request != null) {
+                this.SetEntity(request.Id, request.Name, request.Description, request.Status,
+                        DateTime.MinValue, DateTime.MinValue);
+            }
+        }
+
+        private void SetEntity(long id, string name, string description, bool status, 
+                DateTime createdAt, DateTime updatedAt)
         {
             this._entity = new SystemEntity() {
                 Id = id,
@@ -48,14 +49,15 @@ namespace rcManagerSystemDomain.Models
                 CreatedAt = createdAt,
                 UpdatedAt = updatedAt
             };
+            this.ValidateModel();
         }
 
-        protected override SystemTransport GetTransport()
+        protected override SystemResponseItem GetResponseItem()
         {
             if (this._entity == null) {
                 return null;
             } else {
-                return new SystemTransport() {
+                return new SystemResponseItem() {
                     Id = this._entity.Id,
                     Description = this._entity.Description,
                     Name = this._entity.Name,
@@ -66,12 +68,12 @@ namespace rcManagerSystemDomain.Models
             }
         }
 
-        protected override IList<SystemTransport> GetListTransport()
+        protected override IList<SystemResponseItem> GetResponseList()
         {
             if ((this._entities == null) || (this._entities.Count <= 0)) {
                 return null;
             } else {
-                return this._entities.Select(et => new SystemTransport() {
+                return this._entities.Select(et => new SystemResponseItem() {
                     Id = et.Id,
                     Description = et.Description,
                     Name = et.Name,
@@ -82,9 +84,10 @@ namespace rcManagerSystemDomain.Models
             }
         }
 
-        protected override bool ValidateModel()
+        protected override void ValidateModel()
         {
             bool validity = true;
+            this._messages = null;
 
             if (this._entity.Id < 0) {
                 validity = false;
@@ -116,7 +119,7 @@ namespace rcManagerSystemDomain.Models
                 }
             }
 
-            return validity;
+            this._validModel = validity;
         }
     }
 }

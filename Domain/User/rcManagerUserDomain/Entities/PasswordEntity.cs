@@ -44,7 +44,6 @@ namespace rcManagerUserDomain.Entities
             if (entity != null) {
                 this.Id = entity.Id;
                 this.Login = entity.Login;
-                this.Secret = entity.Secret;
                 this.User_Id = entity.User_Id;
                 this.Password = entity.Password;
                 this.Confirmation = entity.Confirmation;

@@ -1,4 +1,5 @@
-﻿using rcManagerDomainBase.Base;
+﻿using rcCryptography;
+using rcManagerDomainBase.Base;
 using rcManagerUserDomain.Entities;
 using rcManagerUserDomain.Transports;
 using System.Collections.Generic;
@@ -6,7 +7,7 @@ using System.Linq;
 
 namespace rcManagerUserDomain.Models
 {
-    public class PasswordModel : ModelBase<PasswordEntity, PasswordTransport>
+    public class PasswordModel : ModelBase<PasswordEntity, PasswordRequestItem, PasswordResponseItem>
     {
         public PasswordModel() : base() { }
 
@@ -14,73 +15,80 @@ namespace rcManagerUserDomain.Models
 
         public PasswordModel(PasswordEntity entity) : base(entity) { }
 
-        public PasswordModel(PasswordTransport transport) : base(transport) { }
+        public PasswordModel(PasswordRequestItem request) : base(request) { }
 
-        public PasswordModel(long id, string login, string secret,
-                string password, string confirmation, long userId)
+        public PasswordModel(long id, string login, string password, string confirmation, long userId)
         {
-            this.SetEntity(id, login, secret, password, confirmation, userId);
+            this.SetEntity(id, login, password, confirmation, userId);
         }
 
         protected override void SetEntity(PasswordEntity entity)
         {
-            if (entity != null) this._entity = new PasswordEntity(entity);
-        }
-
-        protected override void SetEntity(PasswordTransport transport)
-        {
-            if (transport != null) {
-                this.SetEntity(transport.Id, transport.Login, string.Empty,
-                        transport.Password, transport.Confirmation, transport.User_Id);
+            if (entity != null) {
+                this.SetEntity(entity.Id, entity.Login, entity.Password, entity.Confirmation, entity.User_Id);
             }
         }
 
-        private void SetEntity(long id, string login, string secret,
+        protected override void SetEntity(PasswordRequestItem request)
+        {
+            if (request != null) {
+                this.SetEntity(request.Id, request.Login, request.Password, request.Confirmation, request.User_Id);
+            }
+        }
+
+        private void SetEntity(long id, string login,
                 string password, string confirmation, long userId)
         {
             this._entity = new PasswordEntity() {
                 Id = id,
                 Login = login,
-                Secret = secret,
                 Password = password,
                 Confirmation = confirmation,
                 User_Id = userId
             };
+            this.ValidateModel();
+            this.GenerateSecret();
         }
 
-        protected override PasswordTransport GetTransport()
+        protected override PasswordResponseItem GetResponseItem()
         {
             if (this._entity == null) {
                 return null;
             } else {
-                return new PasswordTransport() {
+                return new PasswordResponseItem() {
                     Id = this._entity.Id,
                     Login = this._entity.Login,
-                    Password = this._entity.Password,
-                    Confirmation = this._entity.Confirmation,
                     User_Id = this._entity.User_Id
                 };
             }
         }
 
-        protected override IList<PasswordTransport> GetListTransport()
+        protected override IList<PasswordResponseItem> GetResponseList()
         {
             if ((this._entities == null) || (this._entities.Count <= 0)) {
                 return null;
             } else {
-                return this._entities.Select(et => new PasswordTransport() {
+                return this._entities.Select(et => new PasswordResponseItem() {
                     Id = et.Id,
                     Login = et.Login,
-                    Password = et.Password,
-                    Confirmation = et.Confirmation,
                     User_Id = et.User_Id
                 }).ToList();
             }
         }
 
-        protected override bool ValidateModel()
+        private void GenerateSecret() 
+        {
+            if ((this._entity != null) &&
+                ((!string.IsNullOrWhiteSpace(this._entity.Login)) && 
+                (!string.IsNullOrWhiteSpace(this._entity.Password)))) {
+                this._entity.Secret = Crypto.GetSecretSHA512(this._entity.Login + this._entity.Password);
+            }
+        }
+
+        protected override void ValidateModel()
         {
             bool validity = true;
+            this._messages = null;
 
             if (this._entity.Id < 0) {
                 validity = false;
@@ -138,8 +146,8 @@ namespace rcManagerUserDomain.Models
                 validity = false;
                 this.AddMessage("Campo [Password] e [Confirmation] não são iguais");
             }
-            
-            return validity;
+
+            this._validModel = validity;
         }
     }
 }

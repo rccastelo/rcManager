@@ -33,7 +33,7 @@ namespace rcManagerApi.Controllers
 
             try {
                 response = _userPwdService.InsertUserPwd(userRequest);
-            } catch (Exception e) {
+            } catch {
                 response = new UserPasswordResponse();
                 response.IsValid = false;
                 response.IsError = true;

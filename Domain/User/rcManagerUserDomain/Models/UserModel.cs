@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace rcManagerUserDomain.Models
 {
-    public sealed class UserModel : ModelBase<UserEntity, UserTransport>
+    public sealed class UserModel : ModelBase<UserEntity, UserRequestItem, UserResponseItem>
     {
         public UserModel() : base() { }
 
@@ -15,29 +15,31 @@ namespace rcManagerUserDomain.Models
 
         public UserModel(UserEntity entity) : base(entity) { }
 
-        public UserModel(UserTransport transport) : base(transport) { }
+        public UserModel(UserRequestItem request) : base(request) { }
 
-        public UserModel(long id, string name, string description, 
-                bool status, DateTime createdAt, DateTime updatedAt)
+        public UserModel(long id, string name, string description, bool status)
         {
-            this.SetEntity(id, name, description, status, createdAt, updatedAt);
+            this.SetEntity(id, name, description, status, DateTime.MinValue, DateTime.MinValue);
         }
 
         protected override void SetEntity(UserEntity entity)
         {
-            if (entity != null) this._entity = new UserEntity(entity);
-        }
-
-        protected override void SetEntity(UserTransport transport)
-        {
-            if (transport != null) {
-                this.SetEntity(transport.Id, transport.Name, transport.Description,
-                        transport.Status, transport.CreatedAt, transport.UpdatedAt);
+            if (entity != null) {
+                this.SetEntity(entity.Id, entity.Name, entity.Description, entity.Status, 
+                        entity.CreatedAt, entity.UpdatedAt);
             }
         }
 
-        private void SetEntity(long id, string name, string description,
-                bool status, DateTime createdAt, DateTime updatedAt)
+        protected override void SetEntity(UserRequestItem request)
+        {
+            if (request != null) {
+                this.SetEntity(request.Id, request.Name, request.Description, request.Status,
+                        DateTime.MinValue, DateTime.MinValue);
+            }
+        }
+
+        private void SetEntity(long id, string name, string description, bool status, 
+                DateTime createdAt, DateTime updatedAt)
         {
             this._entity = new UserEntity() {
                 Id = id,
@@ -47,14 +49,15 @@ namespace rcManagerUserDomain.Models
                 CreatedAt = createdAt,
                 UpdatedAt = updatedAt
             };
+            this.ValidateModel();
         }
 
-        protected override UserTransport GetTransport()
+        protected override UserResponseItem GetResponseItem()
         {
             if (this._entity == null) {
                 return null;
             } else {
-                return new UserTransport() {
+                return new UserResponseItem() {
                     Id = this._entity.Id,
                     Description = this._entity.Description,
                     Name = this._entity.Name,
@@ -65,12 +68,12 @@ namespace rcManagerUserDomain.Models
             }
         }
 
-        protected override IList<UserTransport> GetListTransport()
+        protected override IList<UserResponseItem> GetResponseList()
         {
             if ((this._entities == null) || (this._entities.Count <= 0)) {
                 return null;
             } else {
-                return this._entities.Select(et => new UserTransport() {
+                return this._entities.Select(et => new UserResponseItem() {
                     Id = et.Id,
                     Description = et.Description,
                     Name = et.Name,
@@ -81,9 +84,10 @@ namespace rcManagerUserDomain.Models
             }
         }
 
-        protected override bool ValidateModel()
+        protected override void ValidateModel()
         {
             bool validity = true;
+            this._messages = null;
 
             if (this._entity.Id < 0) {
                 validity = false;
@@ -115,7 +119,7 @@ namespace rcManagerUserDomain.Models
                 }
             }
 
-            return validity;
+            this._validModel = validity;
         }
     }
 }

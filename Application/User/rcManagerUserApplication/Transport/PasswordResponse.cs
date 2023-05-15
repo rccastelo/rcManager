@@ -5,7 +5,7 @@ using System;
 namespace rcManagerUserApplication.Transport
 {
     [Serializable]
-    public class PasswordResponse : ResponseBase<PasswordTransport>
+    public class PasswordResponse : ResponseBase<PasswordResponseItem>
     {
         public PasswordResponse() : base() { }
 

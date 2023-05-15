@@ -4,11 +4,11 @@ using System.Collections.Generic;
 namespace rcManagerApplicationBase.Base
 {
     [Serializable]
-    public abstract class ResponseBase<TTransport>
+    public abstract class ResponseBase<TResponse>
     {
         private IList<string> _messages;
-        protected TTransport _item;
-        private IList<TTransport> _list;
+        protected TResponse _item;
+        private IList<TResponse> _list;
 
         public ResponseBase()
         {
@@ -16,23 +16,14 @@ namespace rcManagerApplicationBase.Base
             this.IsError = false;
         }
 
-        public ResponseBase(ResponseBase<TTransport> response) : this()
+        public ResponseBase(ResponseBase<TResponse> response) : this()
         {
             if (response != null) {
                 this.IsValid = response.IsValid;
                 this.IsError = response.IsError;
-
-                if ((response.Messages != null) && (response.Messages.Count > 0)) {
-                    this._messages = new List<string>(response.Messages);
-                }
-
-                if ((response.List != null) && (response.List.Count > 0)) {
-                    this._list = new List<TTransport>(response.List);
-                }
-
-                if (response.Item != null) {
-                    this._item = (TTransport)Activator.CreateInstance(typeof(TTransport), response.Item);
-                }
+                this.AddMessages(response.Messages);
+                this.AddList(response.List);
+                this.SetItem(response.Item);
             }
         }
 
@@ -44,12 +35,12 @@ namespace rcManagerApplicationBase.Base
             get { return this._messages; }
         }
 
-        public TTransport Item
+        public TResponse Item
         {
             get { return this._item; }
         }
 
-        public IList<TTransport> List
+        public IList<TResponse> List
         {
             get { return this._list; }
         }
@@ -74,26 +65,26 @@ namespace rcManagerApplicationBase.Base
             }
         }
 
-        public void AddTransport(TTransport transport)
+        public void AddItem(TResponse item)
         {
-            if (transport != null) {
-                if (this._list == null) this._list = new List<TTransport>();
-                this.List.Add(transport);
+            if (item != null) {
+                if (this._list == null) this._list = new List<TResponse>();
+                this.List.Add(item);
             }
         }
 
-        public void AddList(IList<TTransport> list)
+        public void AddList(IList<TResponse> list)
         {
             if ((list != null) && (list.Count > 0)) {
-                if (this._list == null) this._list = new List<TTransport>();
+                if (this._list == null) this._list = new List<TResponse>();
 
-                foreach(TTransport transport in list) {
-                    if (transport != null) this._list.Add(transport);
+                foreach(TResponse item in list) {
+                    if (item != null) this._list.Add(item);
                 }
             }
         }
 
-        public void SetItem(TTransport item)
+        public void SetItem(TResponse item)
         {
             if (item != null) this._item = item;
         }

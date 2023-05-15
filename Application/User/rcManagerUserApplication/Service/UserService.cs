@@ -22,7 +22,7 @@ namespace rcManagerUserApplication.Service
 
             if (modelResp != null) {
                 response.IsValid = modelResp.IsValidResponse;
-                response.AddList(modelResp.TransportList);
+                response.AddList(modelResp.ResponseList);
                 response.AddMessages(modelResp.Messages);
             }
 
@@ -37,7 +37,7 @@ namespace rcManagerUserApplication.Service
 
             if (modelResp != null) {
                 response.IsValid = modelResp.IsValidResponse;
-                response.SetItem(modelResp.Transport);
+                response.SetItem(modelResp.ResponseItem);
                 response.AddMessages(modelResp.Messages);
             }
 
@@ -55,12 +55,12 @@ namespace rcManagerUserApplication.Service
 
                 if (modelResp != null) {
                     response.IsValid = modelResp.IsValidResponse;
-                    response.SetItem(modelResp.Transport);
+                    response.SetItem(modelResp.ResponseItem);
                     response.AddMessages(modelResp.Messages);
                 }
             } else {
                 response.IsValid = false;
-                response.SetItem(modelReq.Transport);
+                response.SetItem(modelReq.ResponseItem);
                 response.AddMessages(modelReq.Messages);
             }
 
@@ -78,12 +78,12 @@ namespace rcManagerUserApplication.Service
 
                 if (modelResp != null) {
                     response.IsValid = modelResp.IsValidResponse;
-                    response.SetItem(modelResp.Transport);
+                    response.SetItem(modelResp.ResponseItem);
                     response.AddMessages(modelResp.Messages);
                 }
             } else {
                 response.IsValid = false;
-                response.SetItem(modelReq.Transport);
+                response.SetItem(modelReq.ResponseItem);
                 response.AddMessages(modelReq.Messages);
             }
 
@@ -98,7 +98,7 @@ namespace rcManagerUserApplication.Service
 
             if (modelResp != null) {
                 response.IsValid = modelResp.IsValidResponse;
-                response.SetItem(modelResp.Transport);
+                response.SetItem(modelResp.ResponseItem);
                 response.AddMessages(modelResp.Messages);
             }
 

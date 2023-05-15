@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace rcManagerPermissionDomain.Models
 {
-    public sealed class PermissionModel : ModelBase<PermissionEntity, PermissionTransport>
+    public sealed class PermissionModel : ModelBase<PermissionEntity, PermissionRequestItem, PermissionResponseItem>
     {
         public PermissionModel() : base() { }
 
@@ -15,7 +15,7 @@ namespace rcManagerPermissionDomain.Models
 
         public PermissionModel(PermissionEntity entity) : base(entity) { }
 
-        public PermissionModel(PermissionTransport transport) : base(transport) { }
+        public PermissionModel(PermissionRequestItem request) : base(request) { }
 
         public PermissionModel(long id, long user_id, long system_id, DateTime date_from, DateTime date_to, 
                 bool status, bool weekday,bool weekend, TimeSpan start_time, TimeSpan end_time)
@@ -25,14 +25,17 @@ namespace rcManagerPermissionDomain.Models
 
         protected override void SetEntity(PermissionEntity entity)
         {
-            if (entity != null) this._entity = new PermissionEntity(entity);
+            if (entity != null) {
+                this.SetEntity(entity.Id, entity.User_Id, entity.System_Id, entity.DateFrom, entity.DateTo,
+                        entity.Status, entity.Weekday, entity.Weekend, entity.StartTime, entity.EndTime);
+            }
         }
 
-        protected override void SetEntity(PermissionTransport transport)
+        protected override void SetEntity(PermissionRequestItem request)
         {
-            if (transport != null) {
-                this.SetEntity(transport.Id, transport.User_Id, transport.System_Id, transport.DateFrom, transport.DateTo,
-                        transport.Status, transport.Weekday, transport.Weekend, transport.StartTime, transport.EndTime);
+            if (request != null) {
+                this.SetEntity(request.Id, request.User_Id, request.System_Id, request.DateFrom, request.DateTo,
+                        request.Status, request.Weekday, request.Weekend, request.StartTime, request.EndTime);
             }
         }
 
@@ -51,14 +54,15 @@ namespace rcManagerPermissionDomain.Models
                 StartTime = start_time,
                 EndTime = end_time
             };
+            this.ValidateModel();
         }
 
-        protected override PermissionTransport GetTransport()
+        protected override PermissionResponseItem GetResponseItem()
         {
             if (this._entity == null) {
                 return null;
             } else {
-                return new PermissionTransport() {
+                return new PermissionResponseItem() {
                     Id = this._entity.Id,
                     User_Id = this._entity.User_Id,
                     System_Id = this._entity.System_Id,
@@ -73,12 +77,12 @@ namespace rcManagerPermissionDomain.Models
             }
         }
 
-        protected override IList<PermissionTransport> GetListTransport()
+        protected override IList<PermissionResponseItem> GetResponseList()
         {
             if ((this._entities == null) || (this._entities.Count <= 0)) {
                 return null;
             } else {
-                return this._entities.Select(et => new PermissionTransport() {
+                return this._entities.Select(et => new PermissionResponseItem() {
                     Id = et.Id,
                     User_Id = et.User_Id,
                     System_Id = et.System_Id,
@@ -93,9 +97,10 @@ namespace rcManagerPermissionDomain.Models
             }
         }
 
-        protected override bool ValidateModel()
+        protected override void ValidateModel()
         {
             bool validity = true;
+            this._messages = null;
 
             if (this._entity.Id < 0) {
                 validity = false;
@@ -112,7 +117,7 @@ namespace rcManagerPermissionDomain.Models
                 this.AddMessage("Campo [system_id] deve ser maior ou igual a zero");
             }
 
-            return validity;
+            this._validModel = validity;
         }
     }
 }

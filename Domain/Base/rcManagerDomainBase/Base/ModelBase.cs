@@ -3,24 +3,23 @@ using System.Collections.Generic;
 
 namespace rcManagerDomainBase.Base
 {
-    public abstract class ModelBase<TEntity, TTransport>
+    public abstract class ModelBase<TEntity, TRequest, TResponse>
     {
         protected TEntity _entity;
         protected IList<TEntity> _entities;
         protected IList<string> _messages;
+        protected bool _validModel;
 
         protected ModelBase() { }
 
-        protected ModelBase(ModelBase<TEntity, TTransport> model)
+        protected ModelBase(ModelBase<TEntity, TRequest, TResponse> model)
         {
             if (model != null)
             {
-                if (model._entity != null) {
-                    this._entity = (TEntity)Activator.CreateInstance(typeof(TEntity), model._entity);
-                }
-                this._entities = model._entities == null ? null : new List<TEntity>(model._entities);
+                this.SetEntity(model._entity);
+                this.AddEntities(model._entities);
                 this.IsValidResponse = model.IsValidResponse;
-                this._messages = model._messages == null ? null : new List<string>(model._messages);
+                this.AddMessages(model._messages);
             }
         }
 
@@ -29,9 +28,9 @@ namespace rcManagerDomainBase.Base
             if (entity != null) this.SetEntity(entity);
         }
 
-        protected ModelBase(TTransport trasnsport)
+        protected ModelBase(TRequest request)
         {
-            if (trasnsport != null) this.SetEntity(trasnsport);
+            if (request != null) this.SetEntity(request);
         }
 
         public TEntity Entity
@@ -44,14 +43,14 @@ namespace rcManagerDomainBase.Base
             get { return this._entities; }
         }
 
-        public TTransport Transport
+        public TResponse ResponseItem
         {
-            get { return this.GetTransport(); }
+            get { return this.GetResponseItem(); }
         }
 
-        public IList<TTransport> TransportList
+        public IList<TResponse> ResponseList
         {
-            get { return this.GetListTransport(); }
+            get { return this.GetResponseList(); }
         }
 
         public bool IsValidResponse { get; set; }
@@ -63,7 +62,7 @@ namespace rcManagerDomainBase.Base
 
         public bool IsValidModel
         {
-            get { return this.ValidateModel(); }
+            get { return this._validModel; }
         }
 
         public void AddMessage(string message)
@@ -106,12 +105,12 @@ namespace rcManagerDomainBase.Base
 
         protected abstract void SetEntity(TEntity entity);
 
-        protected abstract void SetEntity(TTransport transport);
+        protected abstract void SetEntity(TRequest request);
 
-        protected abstract TTransport GetTransport();
+        protected abstract TResponse GetResponseItem();
 
-        protected abstract IList<TTransport> GetListTransport();
+        protected abstract IList<TResponse> GetResponseList();
 
-        protected abstract bool ValidateModel();
+        protected abstract void ValidateModel();
     }
 }

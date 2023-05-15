@@ -2,7 +2,7 @@
 
 namespace rcManagerUserApplication.Transport
 {
-    public class UserPasswordRequest : UserPasswordTransport
+    public class UserPasswordRequest : UserPasswordRequestItem
     {
         
     }
