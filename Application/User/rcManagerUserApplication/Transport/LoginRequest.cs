@@ -4,7 +4,7 @@ using System;
 namespace rcManagerUserApplication.Transport
 {
     [Serializable]
-    public class PasswordRequest : PasswordRequestItem
+    public class LoginRequest : LoginRequestItem
     {
         
     }

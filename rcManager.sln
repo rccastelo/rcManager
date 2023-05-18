@@ -61,7 +61,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "rcCryptography", "Infrastru
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "rcManagerMigrations", "Infrastructure\Database\rcManagerMigrations\rcManagerMigrations.csproj", "{945660E8-7C17-4AC9-B53C-629AD0955C26}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "rcManagerUtils", "Infrastructure\Utils\rcManagerUtils\rcManagerUtils.csproj", "{F36A5C2C-D7A0-4021-A0EE-4E35AC7592AD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "rcUtils", "Infrastructure\Utils\rcManagerUtils\rcUtils.csproj", "{F36A5C2C-D7A0-4021-A0EE-4E35AC7592AD}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "rcDbSqlServerEF", "Infrastructure\Database\rcDbSqlServerEF\rcDbSqlServerEF.csproj", "{ACE5176E-112E-4905-A494-D43845C4AAC8}"
 EndProject

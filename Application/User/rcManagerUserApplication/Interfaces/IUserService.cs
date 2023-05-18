@@ -6,8 +6,8 @@ namespace rcManagerUserApplication.Interfaces
     {
         UserResponse List();
         UserResponse Get(long id);
-        UserResponse Insert(UserRequest userRequest);
-        UserResponse Update(UserRequest userRequest);
+        UserResponse Insert(UserRequest request);
+        UserResponse Update(UserRequest request);
         UserResponse Delete(long id);
     }
 }

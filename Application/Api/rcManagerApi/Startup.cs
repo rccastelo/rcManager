@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.OpenApi.Models;
 using diPermission = rcManagerPermissionApplication.DI.Configure;
 using diSystem = rcManagerSystemApplication.DI.Configure;
 using diUser = rcManagerUserApplication.DI.Configure;
@@ -21,29 +20,25 @@ namespace rcManagerApi
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(o => o.AddPolicy("MyPolicy", builder => {
+                builder.AllowAnyOrigin().
+                    AllowAnyMethod().
+                    AllowAnyHeader();
+            }));
+
             services.AddControllers();
 
             diUser.ConfigureServices(services);
             diSystem.ConfigureServices(services);
             diPermission.ConfigureServices(services);
 
-            services.AddSwaggerGen(options =>
-            {
-                options.SwaggerDoc("v1", new OpenApiInfo
-                {
-                    Title = "rcManagerApi",
-                    Description = "API para gerenciamento de Usuários, Sistemas e Permissões.",
-                    Version = "1.0"
-                });
-
-                options.EnableAnnotations();
-            });
+            Authentication.SetAuthentication(services, Configuration);
+            Swagger.SetSwagger(services, Configuration);
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
+            if (env.IsDevelopment()) {
                 app.UseDeveloperExceptionPage();
             }
 
@@ -57,10 +52,12 @@ namespace rcManagerApi
 
             app.UseRouting();
 
+            app.UseCors("MyPolicy");
+
+            app.UseAuthentication();
             app.UseAuthorization();
 
-            app.UseEndpoints(endpoints =>
-            {
+            app.UseEndpoints(endpoints => {
                 endpoints.MapControllers();
             });
         }

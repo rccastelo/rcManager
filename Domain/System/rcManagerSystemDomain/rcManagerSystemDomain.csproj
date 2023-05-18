@@ -9,6 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Infrastructure\Utils\rcManagerUtils\rcUtils.csproj" />
     <ProjectReference Include="..\..\Base\rcManagerDomainBase\rcManagerDomainBase.csproj" />
   </ItemGroup>
 

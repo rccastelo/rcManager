@@ -6,7 +6,7 @@ namespace rcManagerUserDomain.Entities
 {
     [Serializable]
     [Table("Login")]
-    public class PasswordEntity
+    public class LoginEntity
     {
         [Column("pk_id_login", Order = 1)]
         [Required]
@@ -15,11 +15,11 @@ namespace rcManagerUserDomain.Entities
 
         [Column("login", Order = 2)]
         [Required]
-        [StringLength(200)]
+        [StringLength(50)]
         public string Login { get; set; }
 
         [Column("secret", Order = 3)]
-        [StringLength(200)]
+        [StringLength(300)]
         public string Secret { get; set; }
 
         [Column("fk_user_id", Order = 4)]
@@ -30,16 +30,16 @@ namespace rcManagerUserDomain.Entities
         public UserEntity UserEntity { get; set; }
 
         [NotMapped]
-        [StringLength(200)]
+        [StringLength(50)]
         public string Password { get; set; }
 
         [NotMapped]
-        [StringLength(200)]
+        [StringLength(50)]
         public string Confirmation { get; set; }
 
-        public PasswordEntity() { }
+        public LoginEntity() { }
 
-        public PasswordEntity(PasswordEntity entity)
+        public LoginEntity(LoginEntity entity)
         {
             if (entity != null) {
                 this.Id = entity.Id;

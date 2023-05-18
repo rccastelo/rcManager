@@ -2,34 +2,35 @@
 using rcManagerDomainBase.Base;
 using rcManagerUserDomain.Entities;
 using rcManagerUserDomain.Transports;
+using rcUtils;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace rcManagerUserDomain.Models
 {
-    public class PasswordModel : ModelBase<PasswordEntity, PasswordRequestItem, PasswordResponseItem>
+    public class LoginModel : ModelBase<LoginEntity, LoginRequestItem, LoginResponseItem>
     {
-        public PasswordModel() : base() { }
+        public LoginModel() : base() { }
 
-        public PasswordModel(PasswordModel model) : base(model) { }
+        public LoginModel(LoginModel model) : base(model) { }
 
-        public PasswordModel(PasswordEntity entity) : base(entity) { }
+        public LoginModel(LoginEntity entity) : base(entity) { }
 
-        public PasswordModel(PasswordRequestItem request) : base(request) { }
+        public LoginModel(LoginRequestItem request) : base(request) { }
 
-        public PasswordModel(long id, string login, string password, string confirmation, long userId)
+        public LoginModel(long id, string login, string password, string confirmation, long userId)
         {
             this.SetEntity(id, login, password, confirmation, userId);
         }
 
-        protected override void SetEntity(PasswordEntity entity)
+        protected override void SetEntity(LoginEntity entity)
         {
             if (entity != null) {
                 this.SetEntity(entity.Id, entity.Login, entity.Password, entity.Confirmation, entity.User_Id);
             }
         }
 
-        protected override void SetEntity(PasswordRequestItem request)
+        protected override void SetEntity(LoginRequestItem request)
         {
             if (request != null) {
                 this.SetEntity(request.Id, request.Login, request.Password, request.Confirmation, request.User_Id);
@@ -39,7 +40,7 @@ namespace rcManagerUserDomain.Models
         private void SetEntity(long id, string login,
                 string password, string confirmation, long userId)
         {
-            this._entity = new PasswordEntity() {
+            this._entity = new LoginEntity() {
                 Id = id,
                 Login = login,
                 Password = password,
@@ -50,12 +51,12 @@ namespace rcManagerUserDomain.Models
             this.GenerateSecret();
         }
 
-        protected override PasswordResponseItem GetResponseItem()
+        protected override LoginResponseItem GetResponseItem()
         {
             if (this._entity == null) {
                 return null;
             } else {
-                return new PasswordResponseItem() {
+                return new LoginResponseItem() {
                     Id = this._entity.Id,
                     Login = this._entity.Login,
                     User_Id = this._entity.User_Id
@@ -63,12 +64,12 @@ namespace rcManagerUserDomain.Models
             }
         }
 
-        protected override IList<PasswordResponseItem> GetResponseList()
+        protected override IList<LoginResponseItem> GetResponseList()
         {
             if ((this._entities == null) || (this._entities.Count <= 0)) {
                 return null;
             } else {
-                return this._entities.Select(et => new PasswordResponseItem() {
+                return this._entities.Select(et => new LoginResponseItem() {
                     Id = et.Id,
                     Login = et.Login,
                     User_Id = et.User_Id
@@ -102,11 +103,18 @@ namespace rcManagerUserDomain.Models
                 if (string.IsNullOrWhiteSpace(this._entity.Login)) {
                     validity = false;
                     this.AddMessage("Campo [Login] deve estar preenchido");
-                }
+                } else {
+                    if ((this._entity.Login.Length < 3) || (this._entity.Login.Length > 30)) {
+                        validity = false;
+                        this.AddMessage("Campo [Login] deve possuir entre 3 e 30 caracteres");
+                    }
 
-                if (this._entity.Login.Length < 3) {
-                    validity = false;
-                    this.AddMessage("Campo [Login] deve possuir no mínimo 3 caracteres");
+                    if (!Validations.ValidateChars_Login(this._entity.Login)) {
+                        validity = false;
+                        this.AddMessage("Campo [Login] possui caracteres inválidos");
+                        this.AddMessage("Caracteres válidos...");
+                        this.AddMessage("Letras sem acento; Números; Traço -_");
+                    }
                 }
             }
 
@@ -117,11 +125,18 @@ namespace rcManagerUserDomain.Models
                 if (string.IsNullOrWhiteSpace(this._entity.Password)) {
                     validity = false;
                     this.AddMessage("Campo [Password] deve estar preenchido");
-                }
+                } else {
+                    if ((this._entity.Password.Length < 3) || (this._entity.Password.Length > 30)) {
+                        validity = false;
+                        this.AddMessage("Campo [Password] deve possuir entre 3 e 30 caracteres");
+                    }
 
-                if (this._entity.Password.Length < 3) {
-                    validity = false;
-                    this.AddMessage("Campo [Password] deve possuir no mínimo 3 caracteres");
+                    if (!Validations.ValidateChars_Password(this._entity.Password)) {
+                        validity = false;
+                        this.AddMessage("Campo [Password] possui caracteres inválidos");
+                        this.AddMessage("Caracteres válidos...");
+                        this.AddMessage("Letras sem acento; Números; Especiais _?!@#$%&*.=+-");
+                    }
                 }
             }
 
@@ -132,19 +147,24 @@ namespace rcManagerUserDomain.Models
                 if (string.IsNullOrWhiteSpace(this._entity.Confirmation)) {
                     validity = false;
                     this.AddMessage("Campo [Confirmation] deve estar preenchido");
-                }
+                } else {
+                    if ((this._entity.Confirmation.Length < 3) || (this._entity.Confirmation.Length > 30)) {
+                        validity = false;
+                        this.AddMessage("Campo [Confirmation] deve possuir entre 3 e 30 caracteres");
+                    }
 
-                if (this._entity.Confirmation.Length < 3) {
-                    validity = false;
-                    this.AddMessage("Campo [Confirmation] deve possuir no mínimo 3 caracteres");
+                    if (!Validations.ValidateChars_Password(this._entity.Confirmation)) {
+                        validity = false;
+                        this.AddMessage("Campo [Confirmation] possui caracteres inválidos");
+                        this.AddMessage("Caracteres válidos...");
+                        this.AddMessage("Letras sem acento; Números; Especiais _?!@#$%&*.=+-");
+                    }
                 }
             }
 
-            if (((!string.IsNullOrWhiteSpace(_entity.Password)) && (!string.IsNullOrWhiteSpace(_entity.Confirmation))) &&
-                (_entity.Password != _entity.Confirmation))
-            {
+            if ((validity) && (_entity.Password != _entity.Confirmation)) {
                 validity = false;
-                this.AddMessage("Campo [Password] e [Confirmation] não são iguais");
+                this.AddMessage("Campo [Password] e [Confirmation] devem ser iguais");
             }
 
             this._validModel = validity;

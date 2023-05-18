@@ -1,8 +1,8 @@
 ﻿namespace rcManagerUserDomain.Transports
 {
-    public class UserPasswordRequestItem
+    public class UserLoginRequestItem
     {
         public UserRequestItem User { get; set; }
-        public PasswordRequestItem Password { get; set; }
+        public LoginRequestItem Login { get; set; }
     }
 }

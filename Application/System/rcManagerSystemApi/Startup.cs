@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.OpenApi.Models;
 using diSystem = rcManagerSystemApplication.DI.Configure;
 
 namespace rcManagerSystemApi
@@ -19,21 +18,18 @@ namespace rcManagerSystemApi
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(o => o.AddPolicy("MyPolicy", builder => {
+                builder.AllowAnyOrigin().
+                    AllowAnyMethod().
+                    AllowAnyHeader();
+            }));
+
             services.AddControllers();
 
             diSystem.ConfigureServices(services);
 
-            services.AddSwaggerGen(options =>
-            {
-                options.SwaggerDoc("v1", new OpenApiInfo
-                {
-                    Title = "rcManagerSystemApi",
-                    Description = "API para gerenciamento de Sistemas.",
-                    Version = "1.0"
-                });
-
-                options.EnableAnnotations();
-            });
+            Authentication.SetAuthentication(services, Configuration);
+            Swagger.SetSwagger(services, Configuration);
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -53,6 +49,9 @@ namespace rcManagerSystemApi
 
             app.UseRouting();
 
+            app.UseCors("MyPolicy");
+
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

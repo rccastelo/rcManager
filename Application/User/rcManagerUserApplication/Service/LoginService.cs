@@ -5,20 +5,20 @@ using rcManagerUserRepository.Interfaces;
 
 namespace rcManagerUserApplication.Service
 {
-    public class PasswordService : IPasswordService
+    public class LoginService : ILoginService
     {
-        private readonly IPasswordRepository _repository;
+        private readonly ILoginRepository _repository;
 
-        public PasswordService(IPasswordRepository repository)
+        public LoginService(ILoginRepository repository)
         {
             this._repository = repository;
         }
 
-        public PasswordResponse List()
+        public LoginResponse List()
         {
-            PasswordResponse response = new PasswordResponse();
+            LoginResponse response = new LoginResponse();
 
-            PasswordModel modelResp = _repository.List();
+            LoginModel modelResp = _repository.List();
 
             if (modelResp != null) {
                 response.IsValid = modelResp.IsValidResponse;
@@ -29,11 +29,11 @@ namespace rcManagerUserApplication.Service
             return response;
         }
 
-        public PasswordResponse Get(long id)
+        public LoginResponse Get(long id)
         {
-            PasswordResponse response = new PasswordResponse();
+            LoginResponse response = new LoginResponse();
 
-            PasswordModel modelResp = _repository.Get(id);
+            LoginModel modelResp = _repository.Get(id);
 
             if (modelResp != null) {
                 response.IsValid = modelResp.IsValidResponse;
@@ -44,14 +44,14 @@ namespace rcManagerUserApplication.Service
             return response;
         }
 
-        public PasswordResponse Insert(PasswordRequest passwordRequest)
+        public LoginResponse Insert(LoginRequest request)
         {
-            PasswordResponse response = new PasswordResponse();
+            LoginResponse response = new LoginResponse();
 
-            PasswordModel modelReq = new PasswordModel(passwordRequest);
+            LoginModel modelReq = new LoginModel(request);
 
             if (modelReq.IsValidModel) {
-                PasswordModel modelResp = _repository.Insert(modelReq);
+                LoginModel modelResp = _repository.Insert(modelReq);
 
                 if (modelResp != null) {
                     response.IsValid = modelResp.IsValidResponse;
@@ -67,14 +67,14 @@ namespace rcManagerUserApplication.Service
             return response;
         }
 
-        public PasswordResponse Update(PasswordRequest passwordRequest)
+        public LoginResponse Update(LoginRequest request)
         {
-            PasswordResponse response = new PasswordResponse();
+            LoginResponse response = new LoginResponse();
 
-            PasswordModel modelReq = new PasswordModel(passwordRequest);
+            LoginModel modelReq = new LoginModel(request);
 
             if (modelReq.IsValidModel) {
-                PasswordModel modelResp = _repository.Update(modelReq);
+                LoginModel modelResp = _repository.Update(modelReq);
 
                 if (modelResp != null) {
                     response.IsValid = modelResp.IsValidResponse;
@@ -90,11 +90,11 @@ namespace rcManagerUserApplication.Service
             return response;
         }
 
-        public PasswordResponse Delete(long id)
+        public LoginResponse Delete(long id)
         {
-            PasswordResponse response = new PasswordResponse();
+            LoginResponse response = new LoginResponse();
 
-            PasswordModel modelResp = _repository.Delete(id);
+            LoginModel modelResp = _repository.Delete(id);
 
             if (modelResp != null) {
                 response.IsValid = modelResp.IsValidResponse;

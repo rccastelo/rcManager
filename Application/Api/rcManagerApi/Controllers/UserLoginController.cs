@@ -1,19 +1,21 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using rcManagerUserApplication.Interfaces;
 using rcManagerUserApplication.Transport;
 using Swashbuckle.AspNetCore.Annotations;
 
-namespace rcManagerUserApi.Controllers
+namespace rcManagerApi.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("[controller]")]
-    public class UserPasswordController : ControllerBase
+    public class UserLoginController : ControllerBase
     {
-        private readonly IUserPasswordService _userPwdService;
+        private readonly IUserLoginService _userLoginService;
 
-        public UserPasswordController(IUserPasswordService userPwdService)
+        public UserLoginController(IUserLoginService userLoginService)
         {
-            this._userPwdService = userPwdService;
+            this._userLoginService = userLoginService;
         }
 
         [HttpPost]
@@ -21,22 +23,22 @@ namespace rcManagerUserApi.Controllers
             Summary = "Incluir um Usuário, Login e Senha",
             Description = "[pt-BR] Incluir um Usuário, Login e Senha. \n\n " +
                 "[en-US] Add a User, Login and Password. ",
-            Tags = new[] { "UserPassword" }
+            Tags = new[] { "UserLogin" }
         )]
-        [ProducesResponseType(typeof(UserPasswordResponse), 200)]
-        [ProducesResponseType(typeof(UserPasswordResponse), 400)]
+        [ProducesResponseType(typeof(UserLoginResponse), 200)]
+        [ProducesResponseType(typeof(UserLoginResponse), 400)]
         [ProducesResponseType(500)]
-        public IActionResult Insert(UserPasswordRequest userRequest)
+        public IActionResult Insert(UserLoginRequest request)
         {
-            UserPasswordResponse response;
+            UserLoginResponse response;
 
             try {
-                response = _userPwdService.InsertUserPwd(userRequest);
+                response = _userLoginService.InsertUserLogin(request);
             } catch {
-                response = new UserPasswordResponse();
+                response = new UserLoginResponse();
                 response.IsValid = false;
                 response.IsError = true;
-                response.AddMessage("Erro ao incluir Usuario e Senha");
+                response.AddMessage("Erro ao incluir Usuário e Login");
             }
 
             if (response.IsError || !response.IsValid) {

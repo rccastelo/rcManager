@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using rcManagerPermissionApplication.Interfaces;
 using rcManagerPermissionApplication.Transport;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace rcManagerPermissionApi.Controllers
 {
+    [Authorize]
     [Route("[controller]")]
     [ApiController]
     public class PermissionController : ControllerBase

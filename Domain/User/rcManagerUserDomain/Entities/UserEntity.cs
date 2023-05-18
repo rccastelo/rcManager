@@ -14,7 +14,7 @@ namespace rcManagerUserDomain.Entities
         public long Id { get; set; }
 
         [Column("name", Order = 2)]
-        [StringLength(200)]
+        [StringLength(50)]
         public string Name { get; set; }
 
         [Column("description", Order = 3)]

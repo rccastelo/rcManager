@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\Infrastructure\Cryptography\rcManagerCrypto\rcCryptography.csproj" />
+    <ProjectReference Include="..\..\..\Infrastructure\Utils\rcManagerUtils\rcUtils.csproj" />
     <ProjectReference Include="..\..\Base\rcManagerDomainBase\rcManagerDomainBase.csproj" />
   </ItemGroup>
 

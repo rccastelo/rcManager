@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using rcManagerUserApplication.Interfaces;
 using rcManagerUserApplication.Transport;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace rcManagerApi.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("[controller]")]
     public class UserController : ControllerBase

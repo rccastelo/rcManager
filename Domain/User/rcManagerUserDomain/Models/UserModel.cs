@@ -1,6 +1,7 @@
 ﻿using rcManagerDomainBase.Base;
 using rcManagerUserDomain.Entities;
 using rcManagerUserDomain.Transports;
+using rcUtils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -91,31 +92,38 @@ namespace rcManagerUserDomain.Models
 
             if (this._entity.Id < 0) {
                 validity = false;
-                this.AddMessage("Campo [id] deve ser maior ou igual a zero");
+                this.AddMessage("Campo [Id] deve ser maior ou igual a zero");
             }
 
             if (this._entity.Name == null) {
                 validity = false;
-                this.AddMessage("Campo [name] não pode ser nulo");
+                this.AddMessage("Campo [Name] não pode ser nulo");
             } else {
                 if (string.IsNullOrWhiteSpace(this._entity.Name)) {
                     validity = false;
-                    this.AddMessage("Campo [name] deve estar preenchido");
-                }
+                    this.AddMessage("Campo [Name] deve estar preenchido");
+                } else {
+                    if ((this._entity.Name.Length < 3) || (this._entity.Name.Length > 30)) {
+                        validity = false;
+                        this.AddMessage("Campo [Name] deve possuir entre 3 e 30 caracteres");
+                    }
 
-                if (this._entity.Name.Length < 3) {
-                    validity = false;
-                    this.AddMessage("Campo [name] deve possuir no mínimo 3 caracteres");
+                    if (!Validations.ValidateChars_Name(this._entity.Name)) {
+                        validity = false;
+                        this.AddMessage("Campo [Name] possui caracteres inválidos");
+                        this.AddMessage("Caracteres válidos...");
+                        this.AddMessage("Letras; Números; Traço; Espaço");
+                    }
                 }
             }
 
             if (this._entity.Description != null) {
                 if (string.IsNullOrWhiteSpace(this._entity.Description)) {
                     validity = false;
-                    this.AddMessage("Campo [description] deve estar preenchido");
-                } else if (this._entity.Description.Length < 3) {
+                    this.AddMessage("Campo [Description] deve estar preenchido");
+                } else if ((this._entity.Description.Length < 3) || (this._entity.Description.Length > 200)) {
                     validity = false;
-                    this.AddMessage("Campo [description] deve possuir no mínimo 3 caracteres");
+                    this.AddMessage("Campo [Description] deve possuir entre 3 e 200 caracteres");
                 }
             }
 

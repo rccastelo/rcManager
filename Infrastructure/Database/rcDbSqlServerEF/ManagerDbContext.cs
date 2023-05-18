@@ -22,9 +22,16 @@ namespace rcDbSqlServerEF
             optionsBuilder.UseSqlServer(this._connectionString);
         }
 
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            builder.Entity<LoginEntity>()
+                .HasIndex(et => et.Login)
+                .IsUnique();
+        }
+
         public DbSet<SystemEntity> Systems { get; set; }
         public DbSet<UserEntity> Users { get; set; }
         public DbSet<PermissionEntity> Permissions { get; set; }
-        public DbSet<PasswordEntity> Login { get; set; }
+        public DbSet<LoginEntity> Logins { get; set; }
     }
 }

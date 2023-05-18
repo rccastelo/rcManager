@@ -10,8 +10,8 @@ namespace rcManagerUserApplication.DI
         public static void ConfigureServices(IServiceCollection services)
         {
             services.AddScoped<IUserService, UserService>();
-            services.AddScoped<IPasswordService, PasswordService>();
-            services.AddScoped<IUserPasswordService, UserPasswordService>();
+            services.AddScoped<ILoginService, LoginService>();
+            services.AddScoped<IUserLoginService, UserLoginService>();
             diUserRepository.ConfigureServices(services);
         }
     }
