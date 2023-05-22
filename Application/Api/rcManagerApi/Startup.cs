@@ -6,6 +6,7 @@ using Microsoft.Extensions.Hosting;
 using diPermission = rcManagerPermissionApplication.DI.Configure;
 using diSystem = rcManagerSystemApplication.DI.Configure;
 using diUser = rcManagerUserApplication.DI.Configure;
+using diLog = rcLog_Log4Net.Configure;
 
 namespace rcManagerApi
 {
@@ -31,6 +32,7 @@ namespace rcManagerApi
             diUser.ConfigureServices(services);
             diSystem.ConfigureServices(services);
             diPermission.ConfigureServices(services);
+            diLog.ConfigureServices(services);
 
             Authentication.SetAuthentication(services, Configuration);
             Swagger.SetSwagger(services, Configuration);

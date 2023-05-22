@@ -18,16 +18,16 @@ namespace rcManagerSystemDomain.Models
 
         public SystemModel(SystemRequestItem request) : base(request) { }
 
-        public SystemModel(long id, string name, string description, bool status)
+        public SystemModel(long id, string name, string description, bool status, string key)
         {
-            this.SetEntity(id, name, description, status, DateTime.MinValue, DateTime.MinValue);
+            this.SetEntity(id, name, description, status, DateTime.MinValue, DateTime.MinValue, key);
         }
 
         protected override void SetEntity(SystemEntity entity)
         {
             if (entity != null) {
                 this.SetEntity(entity.Id, entity.Name, entity.Description, entity.Status, 
-                        entity.CreatedAt, entity.UpdatedAt);
+                        entity.CreatedAt, entity.UpdatedAt, entity.Key);
             }
         }
 
@@ -35,12 +35,12 @@ namespace rcManagerSystemDomain.Models
         {
             if (request != null) {
                 this.SetEntity(request.Id, request.Name, request.Description, request.Status,
-                        DateTime.MinValue, DateTime.MinValue);
+                        DateTime.MinValue, DateTime.MinValue, request.Key);
             }
         }
 
         private void SetEntity(long id, string name, string description, bool status, 
-                DateTime createdAt, DateTime updatedAt)
+                DateTime createdAt, DateTime updatedAt, string key)
         {
             this._entity = new SystemEntity() {
                 Id = id,
@@ -48,7 +48,8 @@ namespace rcManagerSystemDomain.Models
                 Description = description,
                 Status = status,
                 CreatedAt = createdAt,
-                UpdatedAt = updatedAt
+                UpdatedAt = updatedAt,
+                Key = key
             };
             this.ValidateModel();
         }
@@ -64,7 +65,8 @@ namespace rcManagerSystemDomain.Models
                     Name = this._entity.Name,
                     Status = this._entity.Status,
                     CreatedAt = this._entity.CreatedAt,
-                    UpdatedAt = this._entity.UpdatedAt
+                    UpdatedAt = this._entity.UpdatedAt,
+                    Key = this._entity.Key
                 };
             }
         }
@@ -80,7 +82,8 @@ namespace rcManagerSystemDomain.Models
                     Name = et.Name,
                     Status = et.Status,
                     CreatedAt = et.CreatedAt,
-                    UpdatedAt = et.UpdatedAt
+                    UpdatedAt = et.UpdatedAt,
+                    Key = et.Key
                 }).ToList();
             }
         }
@@ -112,7 +115,7 @@ namespace rcManagerSystemDomain.Models
                         validity = false;
                         this.AddMessage("Campo [Name] possui caracteres inválidos");
                         this.AddMessage("Caracteres válidos...");
-                        this.AddMessage("Letras; Números; Traço; Espaço");
+                        this.AddMessage(Validations.ValidChars_Name);
                     }
                 }
             }
@@ -124,6 +127,28 @@ namespace rcManagerSystemDomain.Models
                 } else if ((this._entity.Description.Length < 3) || (this._entity.Description.Length > 200)) {
                     validity = false;
                     this.AddMessage("Campo [Description] deve possuir entre 3 e 200 caracteres");
+                }
+            }
+
+            if (this._entity.Key == null) {
+                validity = false;
+                this.AddMessage("Campo [Key] não pode ser nulo");
+            } else {
+                if (string.IsNullOrWhiteSpace(this._entity.Key)) {
+                    validity = false;
+                    this.AddMessage("Campo [Key] deve estar preenchido");
+                } else {
+                    if ((this._entity.Key.Length < 3) || (this._entity.Key.Length > 20)) {
+                        validity = false;
+                        this.AddMessage("Campo [Key] deve possuir entre 3 e 20 caracteres");
+                    }
+
+                    if (!Validations.ValidateChars_KeyLogin(this._entity.Key)) {
+                        validity = false;
+                        this.AddMessage("Campo [Key] possui caracteres inválidos");
+                        this.AddMessage("Caracteres válidos...");
+                        this.AddMessage(Validations.ValidChars_KeyLogin);
+                    }
                 }
             }
 

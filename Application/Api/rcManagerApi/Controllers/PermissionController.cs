@@ -6,9 +6,9 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace rcManagerApi.Controllers
 {
-    [Authorize]
-    [Route("[controller]")]
+    [Authorize(Policy = "Manager")]
     [ApiController]
+    [Route("[controller]")]
     public class PermissionController : ControllerBase
     {
         private readonly IPermissionService _permissionService;

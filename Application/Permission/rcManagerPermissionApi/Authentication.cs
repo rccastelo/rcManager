@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using rcCryptography;
 using System;
+using System.Security.Claims;
 using System.Text;
 
 namespace rcManagerPermissionApi
@@ -29,6 +30,10 @@ namespace rcManagerPermissionApi
                     ValidIssuer = configuration.GetValue<string>("AuthIssuer"),
                     ValidAudience = configuration.GetValue<string>("AuthAudience")
                 };
+            });
+
+            services.AddAuthorization(options => {
+                options.AddPolicy("ManagerPermission", policy => policy.RequireClaim(ClaimTypes.System, "ManagerPermission"));
             });
         }
     }

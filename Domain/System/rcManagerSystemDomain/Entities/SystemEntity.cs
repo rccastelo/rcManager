@@ -33,6 +33,10 @@ namespace rcManagerSystemDomain.Entities
         [Column("updatedAt", Order = 6)]
         public DateTime UpdatedAt { get; set; }
 
+        [Column("key", Order = 7)]
+        [Required]
+        [StringLength(20)]
+        public string Key { get; set; }
         public SystemEntity() { }
 
         public SystemEntity(SystemEntity entity) 
@@ -44,6 +48,7 @@ namespace rcManagerSystemDomain.Entities
                 this.Status = entity.Status;
                 this.CreatedAt = entity.CreatedAt;
                 this.UpdatedAt = entity.UpdatedAt;
+                this.Key = entity.Key;
             }
         }
     }

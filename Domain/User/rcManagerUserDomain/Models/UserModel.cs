@@ -112,7 +112,7 @@ namespace rcManagerUserDomain.Models
                         validity = false;
                         this.AddMessage("Campo [Name] possui caracteres inválidos");
                         this.AddMessage("Caracteres válidos...");
-                        this.AddMessage("Letras; Números; Traço; Espaço");
+                        this.AddMessage(Validations.ValidChars_Name);
                     }
                 }
             }

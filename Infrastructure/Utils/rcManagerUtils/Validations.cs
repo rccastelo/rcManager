@@ -5,6 +5,12 @@ namespace rcUtils
 {
     public static class Validations
     {
+        public static string ValidChars_Generic { get { return "Letras sem acentuação; Números; Especiais _?!@#$%&*.=+-"; } }
+        public static string ValidChars_KeyLogin { get { return "Letras sem acentuação; Números; Especiais _-"; } }
+        public static string ValidChars_Name { get { return "Letras; Números; Espaço; Especiais _-"; } }
+        public static string ValidChars_Password { get { return "Letras sem acentuação; Números; Especiais _?!@#$%&*.=+-"; } }
+        public static string ValidChars_Email { get { return "Letras sem acentuação; Números; Especiais _-@."; } }
+
         public static bool ValidateChars_Generic(string text)
         {
             try {
@@ -17,7 +23,7 @@ namespace rcUtils
             }
         }
 
-        public static bool ValidateChars_Login(string text)
+        public static bool ValidateChars_KeyLogin(string text)
         {
             try {
                 Regex regex = new Regex(@"^[A-Z0-9_-]+$",

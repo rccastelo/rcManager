@@ -6,7 +6,7 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace rcManagerApi.Controllers
 {
-    [Authorize]
+    [Authorize(Policy = "Manager")]
     [ApiController]
     [Route("[controller]")]
     public class UserController : ControllerBase

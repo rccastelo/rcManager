@@ -1,21 +1,25 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using rcLog_Base;
 using rcManagerUserApplication.Interfaces;
 using rcManagerUserApplication.Transport;
 using Swashbuckle.AspNetCore.Annotations;
+using System;
 
 namespace rcManagerApi.Controllers
 {
-    [Authorize]
+    [Authorize(Policy = "Manager")]
     [ApiController]
     [Route("[controller]")]
     public class LoginController : Controller
     {
         private readonly ILoginService _loginService;
+        private readonly ILogBase _log;
 
-        public LoginController(ILoginService loginService)
+        public LoginController(ILoginService loginService, ILogBase logBase)
         {
             this._loginService = loginService;
+            this._log = logBase;
         }
 
         [HttpGet]
@@ -34,11 +38,13 @@ namespace rcManagerApi.Controllers
 
             try {
                 response = _loginService.List();
-            } catch {
+            } catch (Exception ex) {
                 response = new LoginResponse();
                 response.IsValid = false;
                 response.IsError = true;
                 response.AddMessage("Erro ao listar os Logins");
+
+                _log.LogError(ex);
             }
 
             if (response.IsError || !response.IsValid) {
@@ -64,11 +70,13 @@ namespace rcManagerApi.Controllers
 
             try {
                 response = _loginService.Get(id);
-            } catch {
+            } catch (Exception ex) {
                 response = new LoginResponse();
                 response.IsValid = false;
                 response.IsError = true;
                 response.AddMessage("Erro ao consultar o Login");
+
+                _log.LogError(ex);
             }
 
             if (response.IsError || !response.IsValid) {
@@ -94,11 +102,13 @@ namespace rcManagerApi.Controllers
 
             try {
                 response = _loginService.Insert(request);
-            } catch {
+            } catch (Exception ex) {
                 response = new LoginResponse();
                 response.IsValid = false;
                 response.IsError = true;
                 response.AddMessage("Erro ao incluir o Login");
+
+                _log.LogError(ex);
             }
 
             if (response.IsError || !response.IsValid) {
@@ -124,11 +134,13 @@ namespace rcManagerApi.Controllers
 
             try {
                 response = _loginService.Update(request);
-            } catch {
+            } catch (Exception ex) {
                 response = new LoginResponse();
                 response.IsValid = false;
                 response.IsError = true;
                 response.AddMessage("Erro ao alterar o Login");
+
+                _log.LogError(ex);
             }
 
             if (response.IsError || !response.IsValid) {
@@ -154,11 +166,13 @@ namespace rcManagerApi.Controllers
 
             try {
                 response = _loginService.Delete(id);
-            } catch {
+            } catch (Exception ex) {
                 response = new LoginResponse();
                 response.IsValid = false;
                 response.IsError = true;
                 response.AddMessage("Erro ao excluir o Login");
+
+                _log.LogError(ex);
             }
 
             if (response.IsError || !response.IsValid) {

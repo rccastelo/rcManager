@@ -109,11 +109,11 @@ namespace rcManagerUserDomain.Models
                         this.AddMessage("Campo [Login] deve possuir entre 3 e 30 caracteres");
                     }
 
-                    if (!Validations.ValidateChars_Login(this._entity.Login)) {
+                    if (!Validations.ValidateChars_KeyLogin(this._entity.Login)) {
                         validity = false;
                         this.AddMessage("Campo [Login] possui caracteres inválidos");
                         this.AddMessage("Caracteres válidos...");
-                        this.AddMessage("Letras sem acento; Números; Traço -_");
+                        this.AddMessage(Validations.ValidChars_KeyLogin);
                     }
                 }
             }
@@ -135,7 +135,7 @@ namespace rcManagerUserDomain.Models
                         validity = false;
                         this.AddMessage("Campo [Password] possui caracteres inválidos");
                         this.AddMessage("Caracteres válidos...");
-                        this.AddMessage("Letras sem acento; Números; Especiais _?!@#$%&*.=+-");
+                        this.AddMessage(Validations.ValidChars_Password);
                     }
                 }
             }
@@ -157,7 +157,7 @@ namespace rcManagerUserDomain.Models
                         validity = false;
                         this.AddMessage("Campo [Confirmation] possui caracteres inválidos");
                         this.AddMessage("Caracteres válidos...");
-                        this.AddMessage("Letras sem acento; Números; Especiais _?!@#$%&*.=+-");
+                        this.AddMessage(Validations.ValidChars_Password);
                     }
                 }
             }
