@@ -18,7 +18,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Infrastructure\Log\rcLog_Log4Net\rcLog_Log4Net.csproj" />
+    <ProjectReference Include="..\..\..\..\rcLogs\rcLog_Base\rcLog_Base.csproj" />
+    <ProjectReference Include="..\..\..\..\rcLogs\rcLog_Log4Net\rcLog_Log4Net.csproj" />
     <ProjectReference Include="..\..\Permission\rcManagerPermissionApplication\rcManagerPermissionApplication.csproj" />
     <ProjectReference Include="..\..\System\rcManagerSystemApplication\rcManagerSystemApplication.csproj" />
     <ProjectReference Include="..\..\User\rcManagerUserApplication\rcManagerUserApplication.csproj" />

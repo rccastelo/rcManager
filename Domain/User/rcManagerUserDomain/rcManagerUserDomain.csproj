@@ -9,8 +9,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Infrastructure\Cryptography\rcManagerCrypto\rcCryptography.csproj" />
-    <ProjectReference Include="..\..\..\Infrastructure\Utils\rcManagerUtils\rcUtils.csproj" />
+    <ProjectReference Include="..\..\..\..\rcCryptography\rcCryptography\rcCryptography.csproj" />
+    <ProjectReference Include="..\..\..\..\rcUtils\rcUtils\rcUtils.csproj" />
     <ProjectReference Include="..\..\Base\rcManagerDomainBase\rcManagerDomainBase.csproj" />
   </ItemGroup>
 
