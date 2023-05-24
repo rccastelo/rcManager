@@ -6,7 +6,8 @@ using Microsoft.Extensions.Hosting;
 using diPermission = rcManagerPermissionApplication.DI.Configure;
 using diSystem = rcManagerSystemApplication.DI.Configure;
 using diUser = rcManagerUserApplication.DI.Configure;
-using diLog = rcLog_Log4Net.Configure;
+using diLog4Net = rcLogs_Log4Net.Configure;
+using diSerilog = rcLogs_Serilog.Configure;
 
 namespace rcManagerApi
 {
@@ -32,7 +33,16 @@ namespace rcManagerApi
             diUser.ConfigureServices(services);
             diSystem.ConfigureServices(services);
             diPermission.ConfigureServices(services);
-            diLog.ConfigureServices(services);
+
+            switch (Configuration.GetValue<string>("LogType")) {
+                case "serilog":
+                    diSerilog.ConfigureServices(services);
+                    break;
+                case "log4net":
+                default:
+                    diLog4Net.ConfigureServices(services);
+                    break;
+            }
 
             Authentication.SetAuthentication(services, Configuration);
             Swagger.SetSwagger(services, Configuration);

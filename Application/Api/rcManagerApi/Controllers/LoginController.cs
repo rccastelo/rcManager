@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using rcLog_Base;
+using rcLogsBase;
 using rcManagerUserApplication.Interfaces;
 using rcManagerUserApplication.Transport;
 using Swashbuckle.AspNetCore.Annotations;
@@ -14,9 +14,9 @@ namespace rcManagerApi.Controllers
     public class LoginController : Controller
     {
         private readonly ILoginService _loginService;
-        private readonly ILogBase _log;
+        private readonly ILogsBase _log;
 
-        public LoginController(ILoginService loginService, ILogBase logBase)
+        public LoginController(ILoginService loginService, ILogsBase logBase)
         {
             this._loginService = loginService;
             this._log = logBase;

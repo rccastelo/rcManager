@@ -2,10 +2,14 @@
 
   <ItemGroup>
     <Content Remove="Log4Net.config" />
+    <Content Remove="serilog.config.json" />
   </ItemGroup>
 
   <ItemGroup>
     <None Include="log4net.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="serilog.config.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
@@ -18,8 +22,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\rcLogs\rcLog_Base\rcLog_Base.csproj" />
-    <ProjectReference Include="..\..\..\..\rcLogs\rcLog_Log4Net\rcLog_Log4Net.csproj" />
+    <ProjectReference Include="..\..\..\..\rcLogs\rcLogsBase\rcLogsBase.csproj" />
+    <ProjectReference Include="..\..\..\..\rcLogs\rcLogs_Log4Net\rcLogs_Log4Net.csproj" />
+    <ProjectReference Include="..\..\..\..\rcLogs\rcLogs_Serilog\rcLogs_Serilog.csproj" />
     <ProjectReference Include="..\..\Permission\rcManagerPermissionApplication\rcManagerPermissionApplication.csproj" />
     <ProjectReference Include="..\..\System\rcManagerSystemApplication\rcManagerSystemApplication.csproj" />
     <ProjectReference Include="..\..\User\rcManagerUserApplication\rcManagerUserApplication.csproj" />
